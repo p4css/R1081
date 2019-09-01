@@ -1,0 +1,107 @@
+---
+title: "loading_data"
+author: "Jilung Hsieh"
+date: "2018/7/2"
+output: 
+  html_document: 
+    number_sections: true
+    highlight: textmate
+    theme: spacelab
+    toc: yes
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+* 執行下列程式以開啟課程投影片
+```{r}
+browseURL("https://docs.google.com/presentation/d/e/2PACX-1vRjb_W1Vo9-zD9F4FmWOiB6K4ezkF6W64OKcX7bZD6ordKvOT-6LFoGi0le-HzT2ABKudDNhr_qKt2x/pub?start=false&loop=false&delayms=3000&slide=id.g2074c710b4_0_293")
+```
+
+
+# 安裝並匯入相關套件(package)
+* 套件的使用分為**安裝**和**載入**兩個動作。通常安裝好R的時候就已經安裝好基本`base`套件。當執行R時便會將base套件**預載**入程式的執行環境中。
+* 第三方套件安裝：但非常多的R使用者會編寫第三方套件，並且將這些套件開放給群眾使用。通常這些套件已經被上載到**R cran**提供下載。而**R cran**上的套件我們可以使用`install.packages("package_name")`來自動安裝到我們的電腦中。
+* 加載第三方套件：這些第三方套件被安裝好後，還需要被**加載**到程式的執行環境中才可以使用。因此要用`library(package_name)`將其載入。
+
+
+## 註解
+* 下列程式碼中開頭有`#`符號者為註解，程式在執行時會自動忽略前面有`#`符號的程式碼。
+* 當使用RMarkdown格式撰寫時，因為RMarkdown是在事後才生成文件，所以當遇到要安裝該套件的指令時，便會跳出錯誤訊息。
+```{r}
+# install.packages("tidyverse")
+```
+
+
+
+
+
+## 加載jsonlite、httr套件
+* `jsonlite`
+* `httr`
+
+```{r}
+# install.packages("jsonlite")
+# install.packages("httr")
+library(jsonlite)
+library(httr)
+```
+
+
+
+## Loading dcard data
+* 先不要去管`fromJSON(content(GET(url), "text"))`是什麼意思，先著重在語言的形式。通常一個函式會寫為`func_name()`，所以上述其實是三個函式由內而外一層套一層，從最內層開始往外做。
+* 這其實很make-sense，因為如果你有一個數學式`(1 + (3-3)/2)/8`，也是會從最裡面那層做出來。
+```{r}
+url <- "https://www.dcard.tw/_api/forums/relationship/posts?popular=true"
+res <- fromJSON(content(GET(url), "text"))
+# View(res)
+```
+
+
+
+
+## 爬取並載入591租屋網資料並觀察之
+
+```{r}
+url1 <- "https://rent.591.com.tw/home/search/rsList?is_new_list=1&type=1&kind=2&searchtype=1&region=1"
+res1 <- fromJSON(content(GET(url1), "text"))
+all.df <- res1$data$data
+# View(all.df)
+```
+
+
+
+## 取得台北市住宅竊盜案資料。
+```{r}
+url <- "http://data.taipei/opendata/datalist/datasetMeta/download?id=68785231-d6c5-47a1-b001-77eec70bec02&rid=34a4a431-f04d-474a-8e72-8d3f586db3df"
+df <- read.csv(url, fileEncoding = "big5")
+# View(df)
+
+# if mac cannot read data
+GET(url, write_disk("data/tptheft.csv", overwrite = TRUE))
+df <- read.csv("data/tptheft.csv", fileEncoding = "big5")
+
+```
+
+
+<!-- ## 載入Facebook資料(deprecated after 8/1) -->
+
+<!-- 1. 上網搜尋[Graph API Explorer](https://developers.facebook.com/tools/explorer/)，或者直接點選該連結。這是一套facebook所開發的社群資料瀏覽器，目的是便於第三方程式開發者可以透過點選的方式，觀察其所要抓取的資料。 -->
+<!-- 2. 點選**取得權杖**一路確認。 -->
+<!-- 3. 複製**存取權杖**後面的所有代碼（Token）至下方token後的雙括號內 -->
+
+```
+token <- "EAACEdEose0cBAGi3VwzDmS6crcGo3MK1TGXcJpWIihc9hN5E4xoXQA8zfpDokJ17D44hFLZCHwOgqpLSgH24Rv3ZBDq8ydLAf0MJYNsW18YfptjhqMNkVS3BRBjURbGQW40bOpXmnLqM7JDjiCLYypaSEB2xHKIfwNjDIjCHSNhXswTawoPVb3WKIlc65hTObuMVJVegZDZD"
+fburl <-
+	sprintf("https://graph.facebook.com/v3.0/DoctorKoWJ?fields=posts&access_token=%s", token)
+
+res <- fromJSON(content(GET(fburl), "text"))
+# View(res$posts$data)
+# head(res$posts$data)
+```
+
