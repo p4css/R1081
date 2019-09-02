@@ -1,0 +1,227 @@
+---
+title: "R01_3 R Basic data.frame"
+author: "Jilung Hsieh"
+date: "2019/9/2"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+# Data1: Taipei city population data
+## Copying data and creating vectors
+
+```{r}
+population <- c(158228, 126687, 228075, 204903, 308383, 187920)
+town <- c("中正", "大同", "中山", "松山", "大安", "萬華")
+area <- c(7.6071, 5.6815, 13.6821, 9.2878, 11.3614, 8.8522)
+```
+
+## Building a data.frame
+```{r}
+df <- data.frame(town, population, area)
+df
+# View(df)
+```
+
+
+# Data2: Import/Export data of Taiwan
+
+* [台灣出口進口貿易資料查詢](https://cus93.trade.gov.tw/FSC3040F/FSC3040F)
+
+## Combining 3 vectors to a data.frame
+
+```{r}
+country <- c("CN", "US", "JP", "HK", "KR", "SG", "DE", "MY", "VN", "PH", "TH", "AU", "NL", "SA", "ID", "GB", "IN", "FR", "IT", "AE")
+
+import <- c(26.142, 12.008, 7.032, 13.646, 4.589, 5.768, 2.131, 2.802, 3.428, 3.019, 1.976, 1.118, 1.624, 0.449, 0.983, 1.302, 1.027, 0.553, 0.670, 0.455)
+
+export <- c(22.987, 12.204, 11.837, 7.739, 5.381, 4.610, 2.866, 2.784, 2.414, 2.092, 1.839, 1.788, 1.665, 1.409, 1.391, 1.075, 0.974, 0.899, 0.800, 0.728)
+```
+
+
+* 合併vector為data.frame
+
+* 這時候我們若以`str(df)`觀察該`df`的結構會發現，文字型態的資料被轉為`Factors`，這是我們所不樂見的。過去統計通常會把文字型態當成類別變數，於是用`Factors`作為資料型態，但資料科學中經常要處理大量的文字資料，此時，我們可以把`read.csv`的一個參數`stringsAsFactors`設為`FALSE`，意味著預設不要將文字的資料轉為Factor而是直接以文字變項來處理。* `stringsAsFactors = FALSE`也是`read.csv()`的參數（parameter、argument）。因為一般讀檔會預設把文字讀為類別變項也就是Factor，但資料分析經常要處理文字資料而不是類別變項，所以會希望預設不要把文字讀取為類別變項，因此要設定`stringsAsFactors = FALSE`。
+
+* 為了避免每次都要打這串參數，可以把它設定為全域參數，可以在程式一開始時便加上`options(stringsAsFactors = FASLE)`，意味著底下所有的函式如果有`stringsAsFactors`這個參數，一律自動設為`FALSE`。
+
+
+```{r}
+df <- data.frame(country, import, export)
+str(df)
+df <- data.frame(country, import, export, stringsAsFactors = FALSE)
+str(df)
+```
+
+
+* 甚至也可以建立一個新的、空的`data.frame`。
+* `df.test`就R的用法就是一個變數，並不是`df`和`test`各自是一個變數。
+
+```{r}
+df.test <- data.frame()
+```
+
+
+
+# Observing data.frame
+
+* `View(df)` 用RStudio所提供的GUI直接觀看變數
+* `head(df)` 取前面六筆資料（也就是六列的資料來概觀該資料）
+* `class(df)`
+* `str(df)`
+* `summary(df)`
+
+```{r}
+# View(df)
+head(df)	# get first part of the data.frame
+class(df)
+str(df)
+summary(df)
+# look up help
+help(summary)
+?summary
+```
+
+
+
+
+## Data dimension inspecting
+
+```{r}
+dim(df)
+ncol(df)
+nrow(df)
+length(df)
+```
+
+
+# Getting one variable from a data.frame
+
+* `names(df)`  列出變數名稱
+* `df$發生.現.地點` 顯示該變數內容
+* `df$發生時段` 顯示該變數內容
+* `length(df$發生時段)` 顯示該變數的長度（相當於有幾個）
+
+```{r}
+names(df)
+head(df$發生.現.地點)
+head(df$發生時段)
+length(df$發生時段)
+summary(df)
+```
+
+
+
+
+# **mutate** 透過運算產生新變數
+* 這裡容易犯錯的是，要記得跟程式講說你要加總或四則運算的是哪個df的variable。
+* 從下面的這個操作中，該data.frame會產生一個新的變數`sub`，這就相當於Excel中的某一行減去某一行，然後把資料放在新的一行。
+
+```{r}
+df$sub <- df$import - df$export
+```
+
+
+
+
+# **filter, select**篩選資料、選取變數
+
+* 注意，要告訴程式`import`和`export`是哪個`data.frame`的。
+
+* `df[,]`為存取`df`中某個區段的數值或某個數值的方法。因此`df[1, 1]`會取出第一行第一列，也就是第一筆資料的第一個vector。`df[2, 3]`則會取出第二筆資料的第三個variable。
+
+* 下面的例子`nrow(df)`為1894，有1894筆資料，所以自然df$import與df$export的長度都是1894。因此，比較這兩個變數的大小會得到一個長度為1894的boolean (logical) variable。因此把這個長度為1894、充滿TRUE和FALSE的logical vector丟進df的row之處，因為取自df，大小判斷式結果的長度自然和原本的df的列數相同。因此當這個TRUE/FALSE被丟在df的列之處，便會篩選出`import`大於`p.xport`的數值。
+
+* 原本的df有五個variable，而上述的操作是篩選資料，所以被篩選的是列，因此行的數量、名稱都不會變。因此，我篩選完後，直接存取這個被篩選過的data.frame的country variable，自然是可以的。
+
+
+```{r}
+df
+names(df)
+nrow(df)
+
+# filter row data by column value
+df[df$import > df$export,]
+df[df$import > df$export,]$country
+df[df$import > df$export,1]
+
+# 1 row == a data.frame with only one data entry
+class(df[df$import > df$export,1])
+class(df[,1]) # character vector
+class(df[1,]) # data.frame
+class(unlist(df[1, -1])) # filter the 1st row and select all columns except 1
+
+```
+
+
+
+# **sort**排序：按照某個變數排序
+
+* `df.sorted <- df[order(df$import),]`會使得整個df照`import`的大小排序重新做排列。因為`order(df$import)`會把資料照指定順序排列後的位置傳回來，所以把他丟給`df`的列的位置，便會使得`df`的資料照指定的順序排列。
+預設是由小到大，加上`decreasing = T`這個參數後變成由大而小。
+
+```{r}
+# sort rows by df$import column
+df.sorted <- df[order(df$import),]
+# View(df.sorted)
+
+# sort rows in decreasing order
+df.sorted <- df[order(df$import, decreasing = T),]
+
+# add - to column in order() can sort in decreasing order
+df.sorted <- df[order(-df$import),]
+
+head(df.sorted)
+```
+
+
+# Plotting
+
+* `graphics::plot()`為會預載入R的繪圖套件，如果希望繪圖的同時加上回歸線和資料點標籤的話，必須要三行一起執行。
+```{r}
+# plot(df) # raise error, 1st column is a character vector
+plot(df[, 2:3])
+
+
+plot(df[1:10, 2:3])
+text(import, export, labels=country, cex= 0.5, pos=3)
+lines(1:25, 1:25, col='red')
+
+?plot
+```
+
+
+
+
+# Practice_01_2_1
+
+* 底下有個data.frame有兩個variable，`order(df2$a, df2$b)`是先照`a`還是`b`排序呢？那如果加上負號又是什麼意思呢？
+
+* 那在進出口貿易的例子中，要如何先就出口再入口的比例，由大而小排列？
+
+```{r}
+a <- c(5, 5, 5, 5, 4, 4, 4, 3, 3, 1, 1, 1, 2, 2, 2)
+b <- c(3, 3, 3, 4, 4, 4, 2, 2, 2, 4, 4, 1, 4, 1, 1)
+df2 <- data.frame(a, b)
+
+# sort df2 in orders of decreasing b then increasing a
+df2 <- df2[order(df2$a, -df2$b),]
+```
+
+
+# More: using dplyr
+```{r}
+library(dplyr)
+df <- data.frame(country, import, export, stringsAsFactors = F)
+df <- mutate(df, sub = import - export)
+filter(df, import > export)
+select(df, c(1, 3))
+
+```
+
