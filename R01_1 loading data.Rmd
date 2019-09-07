@@ -17,11 +17,18 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
-* 執行下列程式以開啟課程投影片
+# Excuting code in R markdown
+* Using `Cmd+Enter` (`Ctrl+Enter` in Window) to excute the line where your cursor is located.
+* Using `Cmd(Ctrl)+Shift+Enter` to run all code in a cell
+* Using `Cmd(Ctrl)+Option(Alt)+i` to insert a new cell
+* Using mouse to select multiple lines, then `Cmd(Ctrl)+Shift+c` to comment/uncomment multiple lines.
 ```{r}
-browseURL("https://docs.google.com/presentation/d/e/2PACX-1vRjb_W1Vo9-zD9F4FmWOiB6K4ezkF6W64OKcX7bZD6ordKvOT-6LFoGi0le-HzT2ABKudDNhr_qKt2x/pub?start=false&loop=false&delayms=3000&slide=id.g2074c710b4_0_293")
+a <- c(1, 2, 3, 4, 5)
+b <- 4
+a*b
 ```
+
+
 
 
 # 安裝並匯入相關套件(package)
@@ -33,21 +40,31 @@ browseURL("https://docs.google.com/presentation/d/e/2PACX-1vRjb_W1Vo9-zD9F4FmWOi
 ## 註解
 * 下列程式碼中開頭有`#`符號者為註解，程式在執行時會自動忽略前面有`#`符號的程式碼。
 * 當使用RMarkdown格式撰寫時，因為RMarkdown是在事後才生成文件，所以當遇到要安裝該套件的指令時，便會跳出錯誤訊息。
+
+##  Install following packages **at home**
 ```{r}
 # install.packages("tidyverse")
+# install.packages("caret")
+# install.packages("jiebaR")
+# install.packages("topicmodels")
+# install.packages("stm")
 ```
 
 
 
-
-
-## 加載jsonlite、httr套件
-* `jsonlite`
-* `httr`
+## Install jsonlite and httr packages
+* Remove comment `#` symbol to install new package
 
 ```{r}
 # install.packages("jsonlite")
 # install.packages("httr")
+```
+
+
+
+## 加載jsonlite、httr套件
+
+```{r}
 library(jsonlite)
 library(httr)
 ```
@@ -60,8 +77,9 @@ library(httr)
 ```{r}
 url <- "https://www.dcard.tw/_api/forums/relationship/posts?popular=true"
 res <- fromJSON(content(GET(url), "text"))
-# View(res)
+dplyr::glimpse(res)
 head(res)
+# View(res)
 
 ```
 
@@ -75,6 +93,7 @@ head(res)
 url <- "http://data.taipei/opendata/datalist/datasetMeta/download?id=68785231-d6c5-47a1-b001-77eec70bec02&rid=34a4a431-f04d-474a-8e72-8d3f586db3df"
 df <- read.csv(url, fileEncoding = "big5")
 head(df)
+dplyr::glimpse(df)
 ```
 
 ## Loading a csv file in data directory

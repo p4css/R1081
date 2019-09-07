@@ -247,137 +247,207 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#package"><span class="toc-section-number">1</span> 安裝並匯入相關套件(package)</a><ul>
-<li><a><span class="toc-section-number">1.1</span> 註解</a></li>
-<li><a href="#jsonlitehttr"><span class="toc-section-number">1.2</span> 加載jsonlite、httr套件</a></li>
+<li><a href="#excuting-code-in-r-markdown"><span class="toc-section-number">1</span> Excuting code in R markdown</a></li>
+<li><a href="#package"><span class="toc-section-number">2</span> 安裝並匯入相關套件(package)</a><ul>
+<li><a><span class="toc-section-number">2.1</span> 註解</a></li>
+<li><a href="#install-following-packages-at-home"><span class="toc-section-number">2.2</span> Install following packages <strong>at home</strong></a></li>
+<li><a href="#install-jsonlite-and-httr-packages"><span class="toc-section-number">2.3</span> Install jsonlite and httr packages</a></li>
+<li><a href="#jsonlitehttr"><span class="toc-section-number">2.4</span> 加載jsonlite、httr套件</a></li>
 </ul></li>
-<li><a href="#loading-dcard-data"><span class="toc-section-number">2</span> Loading dcard data</a></li>
-<li><a href="#getting-taipei-theft-report-data"><span class="toc-section-number">3</span> Getting Taipei theft report data</a><ul>
-<li><a href="#getting-from-the-web-directly"><span class="toc-section-number">3.1</span> Getting from the web directly</a></li>
-<li><a href="#loading-a-csv-file-in-data-directory"><span class="toc-section-number">3.2</span> Loading a csv file in data directory</a></li>
+<li><a href="#loading-dcard-data"><span class="toc-section-number">3</span> Loading dcard data</a></li>
+<li><a href="#getting-taipei-theft-report-data"><span class="toc-section-number">4</span> Getting Taipei theft report data</a><ul>
+<li><a href="#getting-from-the-web-directly"><span class="toc-section-number">4.1</span> Getting from the web directly</a></li>
+<li><a href="#loading-a-csv-file-in-data-directory"><span class="toc-section-number">4.2</span> Loading a csv file in data directory</a></li>
 </ul></li>
-<li><a href="#loading-moi-data-through-api"><span class="toc-section-number">4</span> Loading MOI data through API</a></li>
-<li><a href="#getting-104-query-data"><span class="toc-section-number">5</span> Getting 104 query data</a></li>
-<li><a href="#getting-ubike"><span class="toc-section-number">6</span> Getting ubike</a></li>
+<li><a href="#loading-moi-data-through-api"><span class="toc-section-number">5</span> Loading MOI data through API</a></li>
+<li><a href="#getting-104-query-data"><span class="toc-section-number">6</span> Getting 104 query data</a></li>
+<li><a href="#getting-ubike"><span class="toc-section-number">7</span> Getting ubike</a></li>
 </ul>
 </div>
 
+<div id="excuting-code-in-r-markdown" class="section level1">
+<h1><span class="header-section-number">1</span> Excuting code in R markdown</h1>
 <ul>
-<li>執行下列程式以開啟課程投影片</li>
+<li>Using <code>Cmd+Enter</code> (<code>Ctrl+Enter</code> in Window) to excute the line where your cursor is located.</li>
+<li>Using <code>Cmd(Ctrl)+Shift+Enter</code> to run all code in a cell</li>
+<li>Using <code>Cmd(Ctrl)+Option(Alt)+i</code> to insert a new cell</li>
+<li>Using mouse to select multiple lines, then <code>Cmd(Ctrl)+Shift+c</code> to comment/uncomment multiple lines.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">browseURL</span>(<span class="st">&quot;https://docs.google.com/presentation/d/e/2PACX-1vRjb_W1Vo9-zD9F4FmWOiB6K4ezkF6W64OKcX7bZD6ordKvOT-6LFoGi0le-HzT2ABKudDNhr_qKt2x/pub?start=false&amp;loop=false&amp;delayms=3000&amp;slide=id.g2074c710b4_0_293&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)
+b &lt;-<span class="st"> </span><span class="dv">4</span>
+a<span class="op">*</span>b</code></pre></div>
+<pre><code>## [1]  4  8 12 16 20</code></pre>
+</div>
 <div id="package" class="section level1">
-<h1><span class="header-section-number">1</span> 安裝並匯入相關套件(package)</h1>
+<h1><span class="header-section-number">2</span> 安裝並匯入相關套件(package)</h1>
 <ul>
 <li>套件的使用分為<strong>安裝</strong>和<strong>載入</strong>兩個動作。通常安裝好R的時候就已經安裝好基本<code>base</code>套件。當執行R時便會將base套件<strong>預載</strong>入程式的執行環境中。</li>
 <li>第三方套件安裝：但非常多的R使用者會編寫第三方套件，並且將這些套件開放給群眾使用。通常這些套件已經被上載到<strong>R cran</strong>提供下載。而<strong>R cran</strong>上的套件我們可以使用<code>install.packages(&quot;package_name&quot;)</code>來自動安裝到我們的電腦中。</li>
 <li>加載第三方套件：這些第三方套件被安裝好後，還需要被<strong>加載</strong>到程式的執行環境中才可以使用。因此要用<code>library(package_name)</code>將其載入。</li>
 </ul>
 <div class="section level2">
-<h2><span class="header-section-number">1.1</span> 註解</h2>
+<h2><span class="header-section-number">2.1</span> 註解</h2>
 <ul>
 <li>下列程式碼中開頭有<code>#</code>符號者為註解，程式在執行時會自動忽略前面有<code>#</code>符號的程式碼。</li>
 <li>當使用RMarkdown格式撰寫時，因為RMarkdown是在事後才生成文件，所以當遇到要安裝該套件的指令時，便會跳出錯誤訊息。</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;tidyverse&quot;)</span></code></pre></div>
 </div>
-<div id="jsonlitehttr" class="section level2">
-<h2><span class="header-section-number">1.2</span> 加載jsonlite、httr套件</h2>
+<div id="install-following-packages-at-home" class="section level2">
+<h2><span class="header-section-number">2.2</span> Install following packages <strong>at home</strong></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;tidyverse&quot;)</span>
+<span class="co"># install.packages(&quot;caret&quot;)</span>
+<span class="co"># install.packages(&quot;jiebaR&quot;)</span>
+<span class="co"># install.packages(&quot;topicmodels&quot;)</span>
+<span class="co"># install.packages(&quot;stm&quot;)</span></code></pre></div>
+</div>
+<div id="install-jsonlite-and-httr-packages" class="section level2">
+<h2><span class="header-section-number">2.3</span> Install jsonlite and httr packages</h2>
 <ul>
-<li><code>jsonlite</code></li>
-<li><code>httr</code></li>
+<li>Remove comment <code>#</code> symbol to install new package</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;jsonlite&quot;)</span>
-<span class="co"># install.packages(&quot;httr&quot;)</span>
-<span class="kw">library</span>(jsonlite)
+<span class="co"># install.packages(&quot;httr&quot;)</span></code></pre></div>
+</div>
+<div id="jsonlitehttr" class="section level2">
+<h2><span class="header-section-number">2.4</span> 加載jsonlite、httr套件</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(jsonlite)
 <span class="kw">library</span>(httr)</code></pre></div>
 </div>
 </div>
 <div id="loading-dcard-data" class="section level1">
-<h1><span class="header-section-number">2</span> Loading dcard data</h1>
+<h1><span class="header-section-number">3</span> Loading dcard data</h1>
 <ul>
 <li>先不要去管<code>fromJSON(content(GET(url), &quot;text&quot;))</code>是什麼意思，先著重在語言的形式。通常一個函式會寫為<code>func_name()</code>，所以上述其實是三個函式由內而外一層套一層，從最內層開始往外做。</li>
 <li>這其實很make-sense，因為如果你有一個數學式<code>(1 + (3-3)/2)/8</code>，也是會從最裡面那層做出來。</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;https://www.dcard.tw/_api/forums/relationship/posts?popular=true&quot;</span>
 res &lt;-<span class="st"> </span><span class="kw">fromJSON</span>(<span class="kw">content</span>(<span class="kw">GET</span>(url), <span class="st">&quot;text&quot;</span>))
-<span class="co"># View(res)</span>
-<span class="kw">head</span>(res)</code></pre></div>
+dplyr<span class="op">::</span><span class="kw">glimpse</span>(res)</code></pre></div>
+<pre><code>## Observations: 30
+## Variables: 32
+## $ id                  &lt;int&gt; 232017507, 232018210, 232022602, 232017014...
+## $ title               &lt;chr&gt; &quot;#微西斯 激烈愛愛後受傷勸世文&quot;, &quot;爸爸男友\U0001f92d&quot;, &quot;我不想還...
+## $ excerpt             &lt;chr&gt; &quot;開學跟男友太久沒見，大戰了整晚（合租在外），各種姿勢換來換去 把能換得都換了，結果...
+## $ anonymousSchool     &lt;lgl&gt; TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE...
+## $ anonymousDepartment &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...
+## $ pinned              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, ...
+## $ forumId             &lt;chr&gt; &quot;42851318-b9e2-4a75-8a05-9fe180becefe&quot;, &quot;4...
+## $ replyId             &lt;int&gt; NA, NA, NA, NA, 232010449, NA, NA, NA, NA,...
+## $ createdAt           &lt;chr&gt; &quot;2019-09-06T05:34:15.349Z&quot;, &quot;2019-09-06T07...
+## $ updatedAt           &lt;chr&gt; &quot;2019-09-07T08:12:35.077Z&quot;, &quot;2019-09-07T03...
+## $ commentCount        &lt;int&gt; 126, 52, 35, 209, 37, 82, 86, 86, 111, 29,...
+## $ likeCount           &lt;int&gt; 11167, 3788, 2482, 2468, 2100, 1305, 1190,...
+## $ withNickname        &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, F...
+## $ tags                &lt;list&gt; [&lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, &quot;HIDE_TH...
+## $ topics              &lt;list&gt; [&lt;&quot;感情&quot;, &quot;微西斯&quot;, &quot;男友&quot;, &quot;推拿&quot;, &quot;西斯&quot;&gt;, &lt;&quot;感情&quot;, ...
+## $ meta                &lt;data.frame&gt; c(&quot;classic&quot;, &quot;classic&quot;, &quot;classic&quot;, ...
+## $ forumName           &lt;chr&gt; &quot;感情&quot;, &quot;感情&quot;, &quot;感情&quot;, &quot;感情&quot;, &quot;感情&quot;, &quot;感情&quot;, &quot;感情&quot;, ...
+## $ forumAlias          &lt;chr&gt; &quot;relationship&quot;, &quot;relationship&quot;, &quot;relations...
+## $ gender              &lt;chr&gt; &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;M&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;M&quot;, &quot;F...
+## $ replyTitle          &lt;chr&gt; NA, NA, NA, NA, &quot;套路男朋友\U0001f31a\U0001f31a...
+## $ mediaMeta           &lt;list&gt; [&lt;&gt;, &lt;&gt;, &lt;c(&quot;3e92cb71-48a7-4726-a565-2646...
+## $ reactions           &lt;list&gt; [&lt;c(&quot;286f599c-f86a-4932-82f0-f5a06f1eca03...
+## $ hidden              &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, ...
+## $ customStyle         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ layout              &lt;chr&gt; &quot;classic&quot;, &quot;classic&quot;, &quot;classic&quot;, &quot;classic&quot;...
+## $ withImages          &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, TRU...
+## $ withVideos          &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, ...
+## $ media               &lt;list&gt; [&lt;&gt;, &lt;&gt;, https://i.imgur.com/n284S9S.jpg,...
+## $ reportReasonText    &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;...
+## $ postAvatar          &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;...
+## $ school              &lt;chr&gt; NA, NA, &quot;悠悠&quot;, NA, &quot;弘光科技大學&quot;, NA, NA, &quot;國立臺中科...
+## $ department          &lt;chr&gt; NA, NA, &quot;asd1004040&quot;, NA, NA, NA, NA, NA, ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(res)</code></pre></div>
 <pre><code>##          id                                  title
-## 1 231980895                     男朋友被我抓姦在床
-## 2 231986091 如果結婚是我自己的事情，不如就分開吧～
-## 3 231986182                       我不想喝紅豆湯啊
-## 4 231986617                       相愛五年，足夠了
-## 5 231983361                更/男友爸希望男友追別人
-## 6 231981895                            感情這種事…
+## 1 232017507           #微西斯 激烈愛愛後受傷勸世文
+## 2 232018210                     爸爸男友\U0001f92d
+## 3 232022602                         我不想還妳外套
+## 4 232017014                   會不會覺得樂擎很討厭
+## 5 232018521                               可愛男友
+## 6 232018791 再過5個小時   就要相距9800公里遠距離了
 ##                                                                                                                                                                                                    excerpt
-## 1 我跟我男朋友在一起一年多，有想過我們會分手，但是從來沒想過會像電視演的一樣，門打開看到他跟別的女生在床上抱，我昨天記錯班提早一個小時出門，騎到一半的時候想起來又騎回去，結果看到外面一台摩托車，開門進去
-## 2     今年的我29，女友26，從出社會開始我努力的工作，一直保有一定的積蓄，當然女友也有工作，只是常常因為物欲或是出國而變成月光族，撇除這些起碼在外面，她表現的很貼心也讓我覺得在朋友圈很有面子，交往快兩年以
-## 3    （回應多我明天再好好回覆 今天上班已陣亡），我想因為紅豆湯分手的我應該是史上第一人。男友 不對 是前男友了，他都在我經期來的時候每天一碗紅豆湯，我在公司就送公司我在家就送到家，交往一陣子之後他知道我的
-## 4            借我閨蜜的帳號發文，想留一段話給我男友，-，Hey 親愛的，我想大概就是這幾天了，我閨蜜曾說「紙會泛黃 信會遺失，但網路卻會一直存在」想著你總是在看Dcard，不如就在這裡跟你告別吧，我想我永遠不會忘
-## 5          認識的希望別認出我，也不要上FB各種社群軟體，談完了回應B44 B45，更新，比起生氣覺得不被尊重，其實更多的感受是真的很難過和錯愕，因為我非常喜歡男友的家庭，真的把他們當作親生的長輩對待，平常的相處
-## 6                                                                                                     是你的就是你的，不是你的就不是你的，會離開的終究會離開，緣盡了就別強求，好好充實自己、愛自己比較重要
+## 1          開學跟男友太久沒見，大戰了整晚（合租在外），各種姿勢換來換去 把能換得都換了，結果側邊位時 男友一個跌落床邊，『喀！』：「沒事吧 剛剛那是什麼聲音....」： 「沒事沒事 寶貝我們繼續」結果男友要進行
+## 2 我就是人家俗稱地表最強小三，因為爸媽只有我一個孩子，通常人家都說爸爸最疼女兒，媽媽該讓位了，但我家爸爸正好相反，他愛過我媽勝過對於我，我認為我爸已經是絕無僅有的好男人了，我爸媽是在同一家公司上班，他們
+## 3   兩年前的冬天，大二的我在板橋秀泰橋上被前男友甩了，然後我就在電梯旁的小空地大哭，完全不顧別人的眼神，心想反正也沒有人在意，大概就是看一看 把我當神經病就走了吧，這時候！！！！！！！！！，就有穿著*僑的
+## 4 什麼人追蹤他？他的文章重複性很高，而且感覺總是幼稚的男生配成熟的女生，把女生傷的滿身都是這樣，我一直不明白為什麼大家都強調男生很幼稚，之類的，成熟跟性別無關，跟生命經驗有關，反而是男生比較常接觸經濟壓
+## 5          看完這一篇文章之後，內心的小惡魔就悄悄地長大了，怎麼可以放過男友！！！！！，於是.........，是我表達有問題？還是男友認知有問題？好啦！傻瓜，我還是很愛你的，超級無敵可愛的男友，被男友的可愛萌暈
+## 6         第一次用這個發文  請多包含哈哈，再過幾個小時女友就要出國讀書，我們準備開始一年  甚至更久的遠距離，剛好最近在一起剛滿三年，雖然我跟她說我不要去送機  怕我哭的太慘，但我決定來打個故事給她驚喜  哈
 ##   anonymousSchool anonymousDepartment pinned
-## 1           FALSE                TRUE  FALSE
+## 1            TRUE                TRUE  FALSE
 ## 2            TRUE                TRUE  FALSE
-## 3            TRUE                TRUE  FALSE
-## 4           FALSE                TRUE  FALSE
-## 5            TRUE                TRUE  FALSE
+## 3           FALSE                TRUE  FALSE
+## 4            TRUE                TRUE  FALSE
+## 5           FALSE                TRUE  FALSE
 ## 6            TRUE                TRUE  FALSE
-##                                forumId replyId                createdAt
-## 1 42851318-b9e2-4a75-8a05-9fe180becefe      NA 2019-09-01T05:39:00.842Z
-## 2 42851318-b9e2-4a75-8a05-9fe180becefe      NA 2019-09-01T18:11:18.800Z
-## 3 42851318-b9e2-4a75-8a05-9fe180becefe      NA 2019-09-01T18:26:23.833Z
-## 4 42851318-b9e2-4a75-8a05-9fe180becefe      NA 2019-09-01T20:41:04.915Z
-## 5 42851318-b9e2-4a75-8a05-9fe180becefe      NA 2019-09-01T12:23:22.990Z
-## 6 42851318-b9e2-4a75-8a05-9fe180becefe      NA 2019-09-01T08:46:32.721Z
-##                  updatedAt commentCount likeCount withNickname
-## 1 2019-09-01T05:39:00.842Z          122      5259        FALSE
-## 2 2019-09-02T05:21:42.277Z          337      3870        FALSE
-## 3 2019-09-02T10:40:15.450Z           69      1440        FALSE
-## 4 2019-09-01T20:41:04.915Z           27       993         TRUE
-## 5 2019-09-02T12:50:11.421Z           45       837        FALSE
-## 6 2019-09-01T08:46:32.721Z           35       749        FALSE
-##             tags                           topics  layout forumName
-## 1 HIDE_THUMBNAIL                       分手, 劈腿 classic      感情
-## 2                結婚, 價值觀, 安全感, 買房, 分手 classic      感情
-## 3 HIDE_THUMBNAIL                             分手 classic      感情
-## 4 HIDE_THUMBNAIL                                  classic      感情
-## 5 HIDE_THUMBNAIL                         男友家人 classic      感情
-## 6                                                 classic      感情
-##     forumAlias gender       school replyTitle mediaMeta
-## 1 relationship      F 崑山科技大學       &lt;NA&gt;      NULL
-## 2 relationship      M         &lt;NA&gt;       &lt;NA&gt;      NULL
-## 3 relationship      F         &lt;NA&gt;       &lt;NA&gt;      NULL
-## 4 relationship      F       4不4傻       &lt;NA&gt;      NULL
-## 5 relationship      F         &lt;NA&gt;       &lt;NA&gt;      NULL
-## 6 relationship      F         &lt;NA&gt;       &lt;NA&gt;      NULL
-##                                                                                                                                                                                                                                                      reactions
-## 1 286f599c-f86a-4932-82f0-f5a06f1eca03, aa0d425f-d530-4478-9a77-fe3aedc79eea, 514c2569-fd53-4d9d-a415-bf0f88e7329f, 4b018f48-e184-445f-adf1-fc8e04ba09b9, e8e6bc5d-41b0-4129-b134-97507523d7ff, 011ead16-9b83-4729-9fde-c588920c6c2d, 4860, 315, 60, 13, 10, 1
-## 2   286f599c-f86a-4932-82f0-f5a06f1eca03, e8e6bc5d-41b0-4129-b134-97507523d7ff, 514c2569-fd53-4d9d-a415-bf0f88e7329f, aa0d425f-d530-4478-9a77-fe3aedc79eea, 4b018f48-e184-445f-adf1-fc8e04ba09b9, 011ead16-9b83-4729-9fde-c588920c6c2d, 3784, 51, 15, 11, 6, 3
-## 3                                                                                      286f599c-f86a-4932-82f0-f5a06f1eca03, e8e6bc5d-41b0-4129-b134-97507523d7ff, 4b018f48-e184-445f-adf1-fc8e04ba09b9, aa0d425f-d530-4478-9a77-fe3aedc79eea, 1319, 112, 8, 1
-## 4                                                                                                                                286f599c-f86a-4932-82f0-f5a06f1eca03, 514c2569-fd53-4d9d-a415-bf0f88e7329f, aa0d425f-d530-4478-9a77-fe3aedc79eea, 877, 115, 1
-## 5                                              286f599c-f86a-4932-82f0-f5a06f1eca03, 514c2569-fd53-4d9d-a415-bf0f88e7329f, aa0d425f-d530-4478-9a77-fe3aedc79eea, 4b018f48-e184-445f-adf1-fc8e04ba09b9, e8e6bc5d-41b0-4129-b134-97507523d7ff, 788, 24, 15, 8, 2
-## 6                                                                                                                                                                                                                    286f599c-f86a-4932-82f0-f5a06f1eca03, 749
-##   hidden customStyle  layout withImages withVideos media reportReasonText
-## 1  FALSE          NA classic      FALSE      FALSE  NULL                 
-## 2  FALSE          NA classic      FALSE      FALSE  NULL                 
-## 3  FALSE          NA classic      FALSE      FALSE  NULL                 
-## 4  FALSE          NA classic      FALSE      FALSE  NULL                 
-## 5  FALSE          NA classic      FALSE      FALSE  NULL                 
-## 6  FALSE          NA classic      FALSE      FALSE  NULL                 
-##   postAvatar    department
-## 1                     &lt;NA&gt;
-## 2                     &lt;NA&gt;
-## 3                     &lt;NA&gt;
-## 4            angelstar1716
-## 5                     &lt;NA&gt;
-## 6                     &lt;NA&gt;</code></pre>
+##                                forumId   replyId                createdAt
+## 1 42851318-b9e2-4a75-8a05-9fe180becefe        NA 2019-09-06T05:34:15.349Z
+## 2 42851318-b9e2-4a75-8a05-9fe180becefe        NA 2019-09-06T07:35:02.594Z
+## 3 42851318-b9e2-4a75-8a05-9fe180becefe        NA 2019-09-06T17:09:20.629Z
+## 4 42851318-b9e2-4a75-8a05-9fe180becefe        NA 2019-09-06T04:06:30.296Z
+## 5 42851318-b9e2-4a75-8a05-9fe180becefe 232010449 2019-09-06T08:20:19.225Z
+## 6 42851318-b9e2-4a75-8a05-9fe180becefe        NA 2019-09-06T09:07:07.328Z
+##                  updatedAt commentCount likeCount withNickname tags
+## 1 2019-09-07T08:12:35.077Z          126     11167        FALSE     
+## 2 2019-09-07T03:46:31.286Z           52      3788        FALSE     
+## 3 2019-09-06T17:17:33.104Z           35      2482         TRUE     
+## 4 2019-09-07T04:09:25.917Z          209      2468        FALSE     
+## 5 2019-09-06T08:20:19.225Z           37      2100        FALSE     
+## 6 2019-09-06T09:14:51.766Z           82      1305        FALSE     
+##                           topics  layout forumName   forumAlias gender
+## 1 感情, 微西斯, 男友, 推拿, 西斯 classic      感情 relationship      F
+## 2                     感情, 愛情 classic      感情 relationship      F
+## 3               失戀, 感情, 巧遇 classic      感情 relationship      F
+## 4                                classic      感情 relationship      M
+## 5             情侶, 套路, 男朋友 classic      感情 relationship      F
+## 6     遠距離, 感情, 在一起, 愛情 classic      感情 relationship      F
+##                       replyTitle
+## 1                           &lt;NA&gt;
+## 2                           &lt;NA&gt;
+## 3                           &lt;NA&gt;
+## 4                           &lt;NA&gt;
+## 5 套路男朋友\U0001f31a\U0001f31a
+## 6                           &lt;NA&gt;
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    mediaMeta
+## 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NULL
+## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NULL
+## 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 3e92cb71-48a7-4726-a565-2646876ee719, 3e92cb71-48a7-4726-a565-2646876ee719, https://i.imgur.com/n284S9Sl.jpg, https://i.imgur.com/n284S9S.jpg, https://i.imgur.com/n284S9Sl.jpg, https://imgur.com/n284S9S, https://i.imgur.com/n284S9Sl.jpg, https://i.imgur.com/n284S9Sl.jpg, image/thumbnail, image/imgur, ANNOTATED, ANNOTATED, 2019-09-06T17:09:20.629Z, 2019-09-06T17:09:20.629Z, 2019-09-06T17:17:33.104Z, 2019-09-06T17:17:33.104Z
+## 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NULL
+## 5                                                                                                                                                                                                                    4d942897-b943-45a7-9aca-51a0d070b7ae, 4d942897-b943-45a7-9aca-51a0d070b7ae, 89274f17-a7ec-4777-abad-c796e6219ef7, 337e7dfe-9896-4369-9af0-fe57d9071b5b, https://i.imgur.com/1KtD1D2l.jpg, http://i.imgur.com/1KtD1D2.jpg, http://i.imgur.com/KKqzCgz.jpg, http://i.imgur.com/5KMgXeL.jpg, https://i.imgur.com/1KtD1D2l.jpg, https://imgur.com/1KtD1D2, https://imgur.com/KKqzCgz, https://imgur.com/5KMgXeL, https://i.imgur.com/1KtD1D2l.jpg, https://i.imgur.com/1KtD1D2l.jpg, https://i.imgur.com/KKqzCgzl.jpg, https://i.imgur.com/5KMgXeLl.jpg, image/thumbnail, image/imgur, image/imgur, image/imgur, ANNOTATED, ANNOTATED, ANNOTATED, ANNOTATED, 2019-09-06T08:20:19.225Z, 2019-09-06T08:20:19.225Z, 2019-09-06T08:20:19.225Z, 2019-09-06T08:20:19.225Z, 2019-09-06T08:20:19.225Z, 2019-09-06T08:20:19.225Z, 2019-09-06T08:20:19.225Z, 2019-09-06T08:20:19.225Z
+## 6 161d83eb-f83b-4aed-9703-a5e3fa6355e5, 161d83eb-f83b-4aed-9703-a5e3fa6355e5, a013456d-3c1d-4d1f-a37e-c66035e2d12d, 04b2f945-15b3-4f50-a2d9-2b7eaae00f0c, 496d00c7-5639-4700-9a3e-799c1cdccd56, https://i.imgur.com/6yrhiisl.jpg, https://i.imgur.com/6yrhiis.jpg, https://i.imgur.com/A0aG9sE.jpg, https://i.imgur.com/37c34Gy.jpg, https://i.imgur.com/wwkJdMw.jpg, https://i.imgur.com/6yrhiisl.jpg, https://imgur.com/6yrhiis, https://imgur.com/A0aG9sE, https://imgur.com/37c34Gy, https://imgur.com/wwkJdMw, https://i.imgur.com/6yrhiisl.jpg, https://i.imgur.com/6yrhiisl.jpg, https://i.imgur.com/A0aG9sEl.jpg, https://i.imgur.com/37c34Gyl.jpg, https://i.imgur.com/wwkJdMwl.jpg, image/thumbnail, image/imgur, image/imgur, image/imgur, image/imgur, ANNOTATED, ANNOTATED, ANNOTATED, ANNOTATED, ANNOTATED, 2019-09-06T09:07:07.328Z, 2019-09-06T09:07:07.328Z, 2019-09-06T09:07:07.328Z, 2019-09-06T09:07:07.328Z, 2019-09-06T09:07:07.328Z, 2019-09-06T09:14:51.766Z, 2019-09-06T09:14:51.766Z, 2019-09-06T09:14:51.766Z, 2019-09-06T09:14:51.766Z, 2019-09-06T09:14:51.766Z
+##                                                                                                                                                                                                           reactions
+## 1 286f599c-f86a-4932-82f0-f5a06f1eca03, e8e6bc5d-41b0-4129-b134-97507523d7ff, 4b018f48-e184-445f-adf1-fc8e04ba09b9, aa0d425f-d530-4478-9a77-fe3aedc79eea, 011ead16-9b83-4729-9fde-c588920c6c2d, 10389, 767, 8, 2, 1
+## 2                                                                                    286f599c-f86a-4932-82f0-f5a06f1eca03, e8e6bc5d-41b0-4129-b134-97507523d7ff, 4b018f48-e184-445f-adf1-fc8e04ba09b9, 3729, 32, 27
+## 3                                            286f599c-f86a-4932-82f0-f5a06f1eca03, e8e6bc5d-41b0-4129-b134-97507523d7ff, 4b018f48-e184-445f-adf1-fc8e04ba09b9, 514c2569-fd53-4d9d-a415-bf0f88e7329f, 2443, 30, 5, 4
+## 4   286f599c-f86a-4932-82f0-f5a06f1eca03, e8e6bc5d-41b0-4129-b134-97507523d7ff, 4b018f48-e184-445f-adf1-fc8e04ba09b9, aa0d425f-d530-4478-9a77-fe3aedc79eea, 514c2569-fd53-4d9d-a415-bf0f88e7329f, 2410, 46, 7, 4, 1
+## 5                                                                                    286f599c-f86a-4932-82f0-f5a06f1eca03, e8e6bc5d-41b0-4129-b134-97507523d7ff, 4b018f48-e184-445f-adf1-fc8e04ba09b9, 1943, 156, 1
+## 6                                             286f599c-f86a-4932-82f0-f5a06f1eca03, 514c2569-fd53-4d9d-a415-bf0f88e7329f, aa0d425f-d530-4478-9a77-fe3aedc79eea, e8e6bc5d-41b0-4129-b134-97507523d7ff, 1298, 5, 1, 1
+##   hidden customStyle  layout withImages withVideos
+## 1  FALSE          NA classic      FALSE      FALSE
+## 2  FALSE          NA classic      FALSE      FALSE
+## 3  FALSE          NA classic       TRUE      FALSE
+## 4  FALSE          NA classic      FALSE      FALSE
+## 5  FALSE          NA classic       TRUE      FALSE
+## 6  FALSE          NA classic       TRUE      FALSE
+##                                                                                                                                media
+## 1                                                                                                                               NULL
+## 2                                                                                                                               NULL
+## 3                                                                                                    https://i.imgur.com/n284S9S.jpg
+## 4                                                                                                                               NULL
+## 5                                     http://i.imgur.com/1KtD1D2.jpg, http://i.imgur.com/KKqzCgz.jpg, http://i.imgur.com/5KMgXeL.jpg
+## 6 https://i.imgur.com/6yrhiis.jpg, https://i.imgur.com/A0aG9sE.jpg, https://i.imgur.com/37c34Gy.jpg, https://i.imgur.com/wwkJdMw.jpg
+##   reportReasonText postAvatar       school department
+## 1                                     &lt;NA&gt;       &lt;NA&gt;
+## 2                                     &lt;NA&gt;       &lt;NA&gt;
+## 3                                     悠悠 asd1004040
+## 4                                     &lt;NA&gt;       &lt;NA&gt;
+## 5                             弘光科技大學       &lt;NA&gt;
+## 6                                     &lt;NA&gt;       &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># View(res)</span></code></pre></div>
 </div>
 <div id="getting-taipei-theft-report-data" class="section level1">
-<h1><span class="header-section-number">3</span> Getting Taipei theft report data</h1>
+<h1><span class="header-section-number">4</span> Getting Taipei theft report data</h1>
 <div id="getting-from-the-web-directly" class="section level2">
-<h2><span class="header-section-number">3.1</span> Getting from the web directly</h2>
+<h2><span class="header-section-number">4.1</span> Getting from the web directly</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;http://data.taipei/opendata/datalist/datasetMeta/download?id=68785231-d6c5-47a1-b001-77eec70bec02&amp;rid=34a4a431-f04d-474a-8e72-8d3f586db3df&quot;</span>
 df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">fileEncoding =</span> <span class="st">&quot;big5&quot;</span>)
 <span class="kw">head</span>(df)</code></pre></div>
@@ -395,13 +465,21 @@ df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span cla
 ## 4           台北市萬華區雙園街61 ~ 90號
 ## 5      台北市內湖區成功路4段331 ~ 360號
 ## 6  台北市南港區東新里興南街52巷1 ~ 30號</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span><span class="kw">glimpse</span>(df)</code></pre></div>
+<pre><code>## Observations: 2,436
+## Variables: 5
+## $ 編號         &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ...
+## $ 案類         &lt;fct&gt; 住宅竊盜, 住宅竊盜, 住宅竊盜, 住宅竊盜, 住宅竊盜, 住宅竊盜, 住宅竊盜, 住宅竊盜, 住宅竊...
+## $ 發生.現.日期 &lt;int&gt; 780210, 951016, 970609, 990407, 991013, 991024, 991116...
+## $ 發生時段     &lt;fct&gt; 10~12, 19~21, 01~03, 04~06, 22~24, 13~15, 22~24, 10~1...
+## $ 發生.現.地點 &lt;fct&gt; 台北市中山區新生北路3段31 ~ 60號, 台北市信義區三張里莊敬路341巷1 ~ 30號, 台北市信義區松...</code></pre>
 </div>
 <div id="loading-a-csv-file-in-data-directory" class="section level2">
-<h2><span class="header-section-number">3.2</span> Loading a csv file in data directory</h2>
+<h2><span class="header-section-number">4.2</span> Loading a csv file in data directory</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># if mac cannot read data</span>
 <span class="kw">GET</span>(url, <span class="kw">write_disk</span>(<span class="st">&quot;data/tptheft.csv&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>))</code></pre></div>
 <pre><code>## Response [https://data.taipei/opendata/datalist/datasetMeta/download?id=68785231-d6c5-47a1-b001-77eec70bec02&amp;rid=34a4a431-f04d-474a-8e72-8d3f586db3df]
-##   Date: 2019-09-02 13:06
+##   Date: 2019-09-07 13:02
 ##   Status: 200
 ##   Content-Type: text/html; charset=UTF-8
 ##   Size: 158 kB
@@ -425,7 +503,7 @@ df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span cla
 </div>
 </div>
 <div id="loading-moi-data-through-api" class="section level1">
-<h1><span class="header-section-number">4</span> Loading MOI data through API</h1>
+<h1><span class="header-section-number">5</span> Loading MOI data through API</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP024/107?page=1&quot;</span>
 first_page &lt;-<span class="st"> </span><span class="kw">fromJSON</span>(<span class="kw">content</span>(<span class="kw">GET</span>(url), <span class="st">&quot;text&quot;</span>))
 <span class="kw">head</span>(first_page<span class="op">$</span>responseData)</code></pre></div>
@@ -445,113 +523,120 @@ first_page &lt;-<span class="st"> </span><span class="kw">fromJSON</span>(<span 
 ## 6                  40</code></pre>
 </div>
 <div id="getting-104-query-data" class="section level1">
-<h1><span class="header-section-number">5</span> Getting 104 query data</h1>
+<h1><span class="header-section-number">6</span> Getting 104 query data</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;https://www.104.com.tw/jobs/search/list?ro=0&amp;kwop=7&amp;keyword=%E7%88%AC%E8%9F%B2&amp;order=1&amp;asc=0&amp;page=3&amp;mode=s&amp;jobsource=2018indexpoc&quot;</span>
 
 res &lt;-<span class="st"> </span><span class="kw">fromJSON</span>(<span class="kw">content</span>(<span class="kw">GET</span>(url), <span class="st">&quot;text&quot;</span>))
 df &lt;-<span class="st"> </span>res<span class="op">$</span>data<span class="op">$</span>list
 <span class="kw">head</span>(df)</code></pre></div>
-<pre><code>##   jobType    jobNo                      jobName
-## 1       0 10252340     C#工程師(自動化程序)_DV2
-## 2       2  9528028    Web Crawler數據解析工程師
-## 3       0 10079980           Python  Developers
-## 4       0  1210666 【接案】RPA/數據分析工程開發
-## 5       2 10793920  數據研究發展中心_數據科學家
-## 6       2 11237781    資料專員(Data Specialist)
-##                 jobNameSnippet jobRole jobRo jobAddrNoDesc
-## 1     C#工程師(自動化程序)_DV2       1     1  台中市西屯區
-## 2    Web Crawler數據解析工程師       1     1  台北市中山區
-## 3           Python  Developers       1     1  台北市中山區
-## 4 【接案】RPA/數據分析工程開發       1     5    台北市全部
-## 5  數據研究發展中心_數據科學家       1     1  台北市南港區
-## 6    資料專員(Data Specialist)       1     1  台北市信義區
-##                    jobAddress
-## 1                 市政路500號
-## 2                民生東路二段
-## 3 復興南路一段36之10號12樓之1
-## 4                            
-## 5               經貿二路168號
-## 6               松仁路89號2樓
-##                                                                                                                                                                                                                          description
-## 1                              1.串接自動化設備，優化執行緒\r\n2.參與大部分專案開發，收集資料/進度報告/技術支援\r\n3.重視程式執行效率及效能\r\n4.串接各式API，Socket及自動化硬體設備\r\n5.處理檔案及影像檔案\r\n6.[[[爬蟲]]]資料處理
-## 2 本職務熟悉資料擷取和解析技術，從結構化和非結構化的資料中提取資訊：\r\n1.熟悉linux與docker環境，具有python開發經驗，熟悉一套網路[[[爬蟲]]]框架(如scrapy)；\r\n2.設計[[[爬蟲]]]策略、程式和規則，提升網頁抓取的效率和品質； \r\n3.網
-## 3                                      本職位不是資料分析的職缺，為web developer跟爬資料為主\r\n職務要求： \r\n- Python 2年以上實務開發經驗。 \r\n- 熟悉 JSON 、RESTful Web Services。 \r\n- 有實作過[[[爬蟲]]]經驗\r\n- 具有 Git 版
-## 4                1.工作說明:\r\n(1)資料處理/統計分析:大數據資料ETL\r\n(2)自動化流程:網頁[[[爬蟲]]]/桌面程式[[[爬蟲]]], 網頁自動化/桌面應用程式自動化\r\n(3)機器學習:數據或影像分析應用ML/AI\r\n\r\n2.核心技能要求:\r\nPython (3.x)、
-## 5                                                                                                                             1. 負責客戶行為數據處理與分析，開發、維護並持續優化客戶行為模型\n2. 跨單位協調與溝通模型應用與導入議題
-## 6                                                                                      1.蒐集、統計、整理金融財經數據資料、基金資料等金融商品資料建置。\r\n2.行情數據資訊維運。\r\n3. 協助主管與數據資訊廠商洽談及其他主管交辦事項。
-##   optionEdu period periodDesc applyCnt    applyDesc          custNo
-## 1      大學     03    2年以上    00001    0~5人應徵 130000000114296
-## 2      大學     02    1年以上    00008   6~10人應徵 130000000072800
-## 3      專科     03    2年以上    00012  11~30人應徵 130000000101524
-## 4               01   經歷不拘        0    0~5人應徵               0
-## 5      大學     03    2年以上    00010   6~10人應徵      3077208000
-## 6      大學     02    1年以上    00038 30人以上應徵     70790528000
-##                          custName coIndustry       coIndustryDesc
-## 1                順豐科技有限公司 1001001003       網際網路相關業
-## 2              大數據股份有限公司 1001001006 其它軟體及網路相關業
-## 3              同發安科研有限公司 1001001002       電腦軟體服務業
-## 4                       104外包網                                
-## 5    中國信託商業銀行股份有限公司 1004001001               銀行業
-## 6 鉅亨網_鉅亨金融科技股份有限公司 1001001003       網際網路相關業
-##   salaryLow salaryHigh           salaryDesc s10 appearDate appearDateDesc
-## 1   0040000    0060000 月薪 40,000~60,000元  50   20190902           9/02
-## 2   0000000    0000000             待遇面議  10   20190827           8/27
-## 3   0000000    0000000             待遇面議  10   20190826           8/26
-## 4   0000000    0000000             待遇面議  10   20190723           7/23
-## 5   0000000    0000000             待遇面議  10   20190815           8/15
-## 6   0000000    0000000             待遇面議  10   20190902           9/02
-##   optionZone isApply applyDate isSave
-## 1          0       0                0
-## 2     266240       0                0
-## 3          0       0                0
-## 4                  0                0
-## 5    2101376       0                0
-## 6       4096       0                0
-##                                                                                                                                                                                                                                                                                  descSnippet
-## 1                                                          1.串接自動化設備，優化執行緒\r\n2.參與大部分專案開發，收集資料/進度報告/技術支援\r\n3.重視程式執行效率及效能\r\n4.串接各式API，Socket及自動化硬體設備\r\n5.處理檔案及影像檔案\r\n6.&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;資料處理
-## 2 本職務熟悉資料擷取和解析技術，從結構化和非結構化的資料中提取資訊：\r\n1.熟悉linux與docker環境，具有python開發經驗，熟悉一套網路&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;框架(如scrapy)；\r\n2.設計&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;策略、程式和規則，提升網頁抓取的效率和品質； \r\n3.網
-## 3                                                                  本職位不是資料分析的職缺，為web developer跟爬資料為主\r\n職務要求： \r\n- Python 2年以上實務開發經驗。 \r\n- 熟悉 JSON 、RESTful Web Services。 \r\n- 有實作過&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;經驗\r\n- 具有 Git 版
-## 4                1.工作說明:\r\n(1)資料處理/統計分析:大數據資料ETL\r\n(2)自動化流程:網頁&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;/桌面程式&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;, 網頁自動化/桌面應用程式自動化\r\n(3)機器學習:數據或影像分析應用ML/AI\r\n\r\n2.核心技能要求:\r\nPython (3.x)、
-## 5                                                                                                                                                                                     1. 負責客戶行為數據處理與分析，開發、維護並持續優化客戶行為模型\n2. 跨單位協調與溝通模型應用與導入議題
-## 6                                                                                                                                              1.蒐集、統計、整理金融財經數據資料、基金資料等金融商品資料建置。\r\n2.行情數據資訊維運。\r\n3. 協助主管與數據資訊廠商洽談及其他主管交辦事項。
-##          tags
-## 1    員工30人
-## 2    員工45人
-## 3            
-## 4            
-## 5 員工25000人
-## 6   員工130人
+<pre><code>##   jobType    jobNo                            jobName
+## 1       0  7468390                       IT系統工程師
+## 2       0  9267466                   資料分析工程主管
+## 3       0 10404309                      PHP軟體工程師
+## 4       0 10489442         資料工程師 (Data Engineer)
+## 5       0 10330022 文字探勘、語義分析統計人才實習計畫
+## 6       0  9956739     資深PHP工程師_內湖(網路事業部)
+##                       jobNameSnippet jobRole jobRo jobAddrNoDesc
+## 1                       IT系統工程師       1     1  台南市仁德區
+## 2                   資料分析工程主管       1     1  台北市內湖區
+## 3                      PHP軟體工程師       1     1  台北市內湖區
+## 4         資料工程師 (Data Engineer)       1     1  新北市新莊區
+## 5 文字探勘、語義分析統計人才實習計畫       1     1  台北市松山區
+## 6     資深PHP工程師_內湖(網路事業部)       1     1  台北市內湖區
+##                      jobAddress
+## 1                   新田二街1號
+## 2            瑞光路513巷30號3樓
+## 3            內湖路一段246號8樓
+## 4    復興路一段 3 號之 2 (5 樓)
+## 5          復興北路369號14樓之2
+## 6 台北市內湖區瑞光路302號5樓之2
+##                                                                                                                                                                                                                                description
+## 1                                                                     開發新一代ERP系統\r\n1.後台商業邏輯Web API設計與實作(ASP.NET Core)\r\n2.前台網頁製作 (Angular)\r\n上述兩點依照個人能力可以只負責單一項目，可同時負責前後台者尤佳\r\n
+## 2           我們是來自網路圈與IC設計公司的新創公司\r\n透過 Ruby on Rails 開發新一代 E-commerce 系統與物聯智慧服務\r\n\r\n主要的工作內容為：\r\n1. 管理及規劃工作排程\r\n2. 整合目前的功能及發想新的服務\r\n3. 查詢/統計/分析，所獲取的資料
+## 3                                                                                      引用過套件。\r\n3. 有資料[[[爬蟲]]]開發經驗。\r\n4. 調校整體軟體與資料庫間效能的經驗。\r\n5. 有版本控制觀念，使用過 git 尤佳。\r\n6. 熟悉golang尤佳
+## 4                                                                    蒐集[[[爬蟲]]]架構開發\r\n* 協助開發資料分析介面 Data Visualization\r\n\r\nRequired Skills &amp;amp; Experience \r\n* Python &amp;amp; C#\r\n* Master in using SQL to process
+## 5                術應用 \r\n3.影像資料統計與分析 \r\n4.開放源碼或應用分析工具實務使用經驗 \r\n5. 熟悉R或Python \r\n6.具備[[[爬蟲]]]能力 \r\n7.須具備團隊精神，共同完成開發工作 \r\n8.有 NoSQL DB使⽤開發經驗 或 ⾃⾏開發進⾏資料分析⼯具者
+## 6 工作內容：\r\n1. 將依據專案需要，進行系統分析、資料庫設計及程式開發設計。\r\n2. 製作網頁[[[爬蟲]]]或串接第三方API並提供前端網頁或APP所需的API資料。\r\n3. 具備團隊合作能力，能夠主動與PM、設計師等討論並給予專業建議，共同追求合適的解決
+##   optionEdu period periodDesc applyCnt   applyDesc          custNo
+## 1      大學     00   經歷不拘    00001   0~5人應徵     22798584000
+## 2      大學     04    3年以上    00000   0~5人應徵 130000000046441
+## 3      大學     00   經歷不拘    00003   0~5人應徵 130000000016922
+## 4      大學     03    2年以上    00002   0~5人應徵 130000000013442
+## 5      碩士     00   經歷不拘    00014 11~30人應徵 130000000115492
+## 6      大學     04    3年以上    00003   0~5人應徵     70613972000
+##                 custName coIndustry       coIndustryDesc salaryLow
+## 1   恒耀工業股份有限公司 1002011010   其他金屬相關製造業   0000000
+## 2   順立智慧股份有限公司 1001001006 其它軟體及網路相關業   0000000
+## 3   網鈺數位科技有限公司 1001001003       網際網路相關業   0000000
+## 4   天鏡科技股份有限公司 1001001001   電腦系統整合服務業   0040000
+## 5 類神經網路股份有限公司 1001001002       電腦軟體服務業   0000000
+## 6   泰偉電子股份有限公司 1001001001   電腦系統整合服務業   0000000
+##   salaryHigh           salaryDesc s10 appearDate appearDateDesc optionZone
+## 1    0000000             待遇面議  10   20190902           9/02     262148
+## 2    0000000             待遇面議  10   20190902           9/02          0
+## 3    0000000             待遇面議  10   20190902           9/02          0
+## 4    0090000 月薪 40,000~90,000元  50   20190830           8/30          0
+## 5    0000000             待遇面議  10   20190906           9/06          0
+## 6    0000000             待遇面議  10   20190906           9/06    1048576
+##   isApply applyDate isSave
+## 1       0                0
+## 2       0                0
+## 3       0                0
+## 4       0                0
+## 5       0                0
+## 6       0                0
+##                                                                                                                                                                                                                                                            descSnippet
+## 1                                                                                                 開發新一代ERP系統\r\n1.後台商業邏輯Web API設計與實作(ASP.NET Core)\r\n2.前台網頁製作 (Angular)\r\n上述兩點依照個人能力可以只負責單一項目，可同時負責前後台者尤佳\r\n
+## 2                                       我們是來自網路圈與IC設計公司的新創公司\r\n透過 Ruby on Rails 開發新一代 E-commerce 系統與物聯智慧服務\r\n\r\n主要的工作內容為：\r\n1. 管理及規劃工作排程\r\n2. 整合目前的功能及發想新的服務\r\n3. 查詢/統計/分析，所獲取的資料
+## 3                                                                                      引用過套件。\r\n3. 有資料&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;開發經驗。\r\n4. 調校整體軟體與資料庫間效能的經驗。\r\n5. 有版本控制觀念，使用過 git 尤佳。\r\n6. 熟悉golang尤佳
+## 4                                                                    蒐集&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;架構開發\r\n* 協助開發資料分析介面 Data Visualization\r\n\r\nRequired Skills &amp;amp; Experience \r\n* Python &amp;amp; C#\r\n* Master in using SQL to process
+## 5                術應用 \r\n3.影像資料統計與分析 \r\n4.開放源碼或應用分析工具實務使用經驗 \r\n5. 熟悉R或Python \r\n6.具備&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;能力 \r\n7.須具備團隊精神，共同完成開發工作 \r\n8.有 NoSQL DB使⽤開發經驗 或 ⾃⾏開發進⾏資料分析⼯具者
+## 6 工作內容：\r\n1. 將依據專案需要，進行系統分析、資料庫設計及程式開發設計。\r\n2. 製作網頁&lt;em class='b-txt--highlight'&gt;爬蟲&lt;/em&gt;或串接第三方API並提供前端網頁或APP所需的API資料。\r\n3. 具備團隊合作能力，能夠主動與PM、設計師等討論並給予專業建議，共同追求合適的解決
+##                  tags
+## 1          員工1000人
+## 2            員工60人
+## 3            員工80人
+## 4            員工25人
+## 5                    
+## 6 上市上櫃, 員工260人
 ##                                                                                                                                               link.applyAnalyze
-## 1 //www.104.com.tw/jobs/apply/analysis?j=4c60426b386c49225a583a1c303e365f2383a426b34363e673c423a1d1d1d1d6194470466b88j99&amp;channel=104rpt&amp;jobsource=apply_analyze
-## 2 //www.104.com.tw/jobs/apply/analysis?j=60624427606e4b6932343e675030386193a3c446d363840693e443c1f1f1f1f61946625e3361j48&amp;channel=104rpt&amp;jobsource=apply_analyze
-## 3 //www.104.com.tw/jobs/apply/analysis?j=5a3a426b386c492038423b642c3e365f2383a426b34363e673c423a1d1d1d1d1d0464a5c6b88j97&amp;channel=104rpt&amp;jobsource=apply_analyze
-## 4                                                                                                                                                              
-## 5         //www.104.com.tw/jobs/apply/analysis?j=6270422956363e6827343a632c2e385f240704327346c3e2121212165382b2625381j50&amp;channel=104rpt&amp;jobsource=apply_analyze
-## 6         //www.104.com.tw/jobs/apply/analysis?j=596f416c37453d553031396251533518637494326336b3e202020201e392d2d24290j57&amp;channel=104rpt&amp;jobsource=apply_analyze
-##                                            link.job
-## 1 //www.104.com.tw/job/63qr8?jobsource=2018indexpoc
-## 2 //www.104.com.tw/job/5o7vg?jobsource=2018indexpoc
-## 3 //www.104.com.tw/job/601rg?jobsource=2018indexpoc
-## 4                               javascript:void(0);
-## 5 //www.104.com.tw/job/6fcn4?jobsource=2018indexpoc
-## 6 //www.104.com.tw/job/6ov4l?jobsource=2018indexpoc
-##                                                    link.cust    jobsource
-## 1 //www.104.com.tw/company/1a2x6bkfi0?jobsource=2018indexpoc 2018indexpoc
-## 2 //www.104.com.tw/company/1a2x6bjjhc?jobsource=2018indexpoc 2018indexpoc
-## 3 //www.104.com.tw/company/1a2x6bk5n8?jobsource=2018indexpoc 2018indexpoc
-## 4                                          //case.104.com.tw 2018indexpoc
-## 5    //www.104.com.tw/company/1ew38w0?jobsource=2018indexpoc 2018indexpoc
-## 6    //www.104.com.tw/company/wiquozk?jobsource=2018indexpoc 2018indexpoc
-##                     jobNameRaw                     custNameRaw
-## 1     C#工程師(自動化程序)_DV2                順豐科技有限公司
-## 2    Web Crawler數據解析工程師              大數據股份有限公司
-## 3           Python  Developers              同發安科研有限公司
-## 4 【接案】RPA/數據分析工程開發                       104外包網
-## 5  數據研究發展中心_數據科學家    中國信託商業銀行股份有限公司
-## 6    資料專員(Data Specialist) 鉅亨網_鉅亨金融科技股份有限公司</code></pre>
+## 1         //www.104.com.tw/jobs/apply/analysis?j=443a4426446c3f5631323a633c2e381975e4a44273c5c3e2121212121382b2625381j52&amp;channel=104rpt&amp;jobsource=apply_analyze
+## 2 //www.104.com.tw/jobs/apply/analysis?j=5e64477162704d6c44363f2240323a6313c3e466f383a426b40463e212121211c94964523543j01&amp;channel=104rpt&amp;jobsource=apply_analyze
+## 3 //www.104.com.tw/jobs/apply/analysis?j=393b446c396d4a6a39433d1f312f37608393b436c35373f683d433b1e1e1e1e1974571372a77j57&amp;channel=104rpt&amp;jobsource=apply_analyze
+## 4 //www.104.com.tw/jobs/apply/analysis?j=66424b7340745171483a436e38363e67540424a733c3e466f444a42252525252534d424e7503j54&amp;channel=104rpt&amp;jobsource=apply_analyze
+## 5 //www.104.com.tw/jobs/apply/analysis?j=4c784a7340745171623a432538463e67540424a733c3e466f444a42252525256754c42467503j99&amp;channel=104rpt&amp;jobsource=apply_analyze
+## 6         //www.104.com.tw/jobs/apply/analysis?j=5b6144265f47415732333b643565381e1454b4327356d4022222222673b3c2726472j98&amp;channel=104rpt&amp;jobsource=apply_analyze
+##                                                  link.job
+## 1 //www.104.com.tw/job/4g2na?jobsource=jolist_b_relevance
+## 2 //www.104.com.tw/job/5imtm?jobsource=jolist_b_relevance
+## 3 //www.104.com.tw/job/6700l?jobsource=jolist_b_relevance
+## 4 //www.104.com.tw/job/68tpe?jobsource=jolist_b_relevance
+## 5 //www.104.com.tw/job/65ep2?jobsource=jolist_b_relevance
+## 6 //www.104.com.tw/job/5xeo3?jobsource=jolist_b_relevance
+##                                                          link.cust
+## 1    //www.104.com.tw/company/ah1os00?jobsource=jolist_b_relevance
+## 2 //www.104.com.tw/company/1a2x6biz55?jobsource=jolist_b_relevance
+## 3 //www.104.com.tw/company/1a2x6bicd6?jobsource=jolist_b_relevance
+## 4 //www.104.com.tw/company/1a2x6bi9oi?jobsource=jolist_b_relevance
+## 5 //www.104.com.tw/company/1a2x6bkgf8?jobsource=jolist_b_relevance
+## 6    //www.104.com.tw/company/wftqhi8?jobsource=jolist_b_relevance
+##            jobsource                         jobNameRaw
+## 1 jolist_b_relevance                       IT系統工程師
+## 2 jolist_b_relevance                   資料分析工程主管
+## 3 jolist_b_relevance                      PHP軟體工程師
+## 4 jolist_b_relevance         資料工程師 (Data Engineer)
+## 5 jolist_b_relevance 文字探勘、語義分析統計人才實習計畫
+## 6 jolist_b_relevance     資深PHP工程師_內湖(網路事業部)
+##              custNameRaw
+## 1   恒耀工業股份有限公司
+## 2   順立智慧股份有限公司
+## 3   網鈺數位科技有限公司
+## 4   天鏡科技股份有限公司
+## 5 類神經網路股份有限公司
+## 6   泰偉電子股份有限公司</code></pre>
 </div>
 <div id="getting-ubike" class="section level1">
-<h1><span class="header-section-number">6</span> Getting ubike</h1>
+<h1><span class="header-section-number">7</span> Getting ubike</h1>
 <ul>
 <li><a href="https://taipeicity.github.io/traffic_realtime/" class="uri">https://taipeicity.github.io/traffic_realtime/</a></li>
 </ul>
@@ -563,12 +648,12 @@ ubike.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(ubi
 <span class="kw">names</span>(ubike.df) &lt;-<span class="st"> </span><span class="kw">names</span>(ubike.list<span class="op">$</span>retVal<span class="op">$</span><span class="st">`</span><span class="dt">0001</span><span class="st">`</span>)
 <span class="kw">head</span>(ubike.df)</code></pre></div>
 <pre><code>##    sno                       sna tot sbi  sarea           mday
-## 1 0001     捷運市政府站(3號出口) 180  86 信義區 20190902210444
-## 2 0002 捷運國父紀念館站(2號出口)  48  15 大安區 20190902210439
-## 3 0003                台北市政府  40  21 信義區 20190902210417
-## 4 0004                  市民廣場  60   0 信義區 20190902210417
-## 5 0005                  興雅國中  60  12 信義區 20190902210419
-## 6 0006              臺北南山廣場  80  15 信義區 20190902210444
+## 1 0001     捷運市政府站(3號出口) 180 120 信義區 20190907210025
+## 2 0002 捷運國父紀念館站(2號出口)  48  17 大安區 20190907210033
+## 3 0003                台北市政府  40  15 信義區 20190907210042
+## 4 0004                  市民廣場  60  42 信義區 20190907210015
+## 5 0005                  興雅國中  60  15 信義區 20190907210040
+## 6 0006              臺北南山廣場  80  38 信義區 20190907210041
 ##             lat           lng
 ## 1 25.0408578889 121.567904444
 ## 2     25.041254     121.55742
@@ -591,12 +676,12 @@ ubike.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(ubi
 ## 5 Xinyi Dist.                    Xingya Jr. High School
 ## 6 Xinyi Dist.                            NAN SHAN PLAZA
 ##                                                          aren bemp act
-## 1 The S.W. side of Road Zhongxiao East Road &amp; Road Chung Yan.   94   1
-## 2                         Sec,4. Zhongxiao E.Rd/GuangFu S. Rd   33   1
-## 3             Taipei City Government Eastgate (Song Zhi Road)   19   1
-## 4               The N.W. side of Road Shifu &amp; Road Song Shou.   60   1
-## 5        The S.E. side of Road Songren &amp; Ln. 95, Songren Rd..   48   1
-## 6            The N.E. side of Road Song Zhi &amp; Road Song Lian.   65   1</code></pre>
+## 1 The S.W. side of Road Zhongxiao East Road &amp; Road Chung Yan.   59   1
+## 2                         Sec,4. Zhongxiao E.Rd/GuangFu S. Rd   31   1
+## 3             Taipei City Government Eastgate (Song Zhi Road)   25   1
+## 4               The N.W. side of Road Shifu &amp; Road Song Shou.   18   1
+## 5        The S.E. side of Road Songren &amp; Ln. 95, Songren Rd..   45   1
+## 6            The N.E. side of Road Song Zhi &amp; Road Song Lian.   41   1</code></pre>
 </div>
 
 
