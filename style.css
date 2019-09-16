@@ -1,0 +1,14 @@
+strong{
+    color:Crimson;
+}
+
+li code{
+    color: dodgerblue;
+
+}
+.sourceCode{
+    margin-bottom: 0px;
+}
+pre{
+    border-radius: 0;
+}
