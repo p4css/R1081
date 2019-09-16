@@ -197,24 +197,6 @@ lines(1:25, 1:25, col='red')
 ```
 
 
-
-
-# Practice_01_2_1
-
-* 底下有個data.frame有兩個variable，`order(df2$a, df2$b)`是先照`a`還是`b`排序呢？那如果加上負號又是什麼意思呢？
-
-* 那在進出口貿易的例子中，要如何先就出口再入口的比例，由大而小排列？
-
-```{r}
-a <- c(5, 5, 5, 5, 4, 4, 4, 3, 3, 1, 1, 1, 2, 2, 2)
-b <- c(3, 3, 3, 4, 4, 4, 2, 2, 2, 4, 4, 1, 4, 1, 1)
-df2 <- data.frame(a, b)
-
-# sort df2 in orders of decreasing b then increasing a
-df2 <- df2[order(df2$a, -df2$b),]
-```
-
-
 # More: using dplyr
 ```{r}
 library(dplyr)
