@@ -12,4 +12,4 @@
 
 ## 20190923
 * Slide [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000)
-* Assignment#1 Basic Practice
+* [Assignment#1 R Basic](AS01_R_Basic.html)
