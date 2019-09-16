@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Excuting code in R markdown
 * Using `Cmd+Enter` (`Ctrl+Enter` in Window) to excute the line where your cursor is located.
 * Using `Cmd(Ctrl)+Shift+Enter` to run all code in a cell
-* Using `Cmd(Ctrl)+Option(Alt)+i` to insert a new cell
+
 * Using mouse to select multiple lines, then `Cmd(Ctrl)+Shift+c` to comment/uncomment multiple lines.
 ```{r}
 a <- c(1, 2, 3, 4, 5)
@@ -28,21 +28,24 @@ b <- 4
 a*b
 ```
 
+## Inserting a new code cell
+* Using `Cmd(Ctrl)+Option(Alt)+i` to insert a new cell
 
 
 
-# 安裝並匯入相關套件(package)
-* 套件的使用分為**安裝**和**載入**兩個動作。通常安裝好R的時候就已經安裝好基本`base`套件。當執行R時便會將base套件**預載**入程式的執行環境中。
-* 第三方套件安裝：但非常多的R使用者會編寫第三方套件，並且將這些套件開放給群眾使用。通常這些套件已經被上載到**R cran**提供下載。而**R cran**上的套件我們可以使用`install.packages("package_name")`來自動安裝到我們的電腦中。
-* 加載第三方套件：這些第三方套件被安裝好後，還需要被**加載**到程式的執行環境中才可以使用。因此要用`library(package_name)`將其載入。
+# Installing and loading packages
+- 套件的使用分為**安裝**和**載入**兩個動作。通常安裝好R的時候就已經安裝好基本`base`套件。當執行R時便會將base套件**預載**入程式的執行環境中。
+- 非常多的R使用者會編寫第三方套件，並且將這些套件開放給群眾使用。通常這些套件已經被上載到**R cran**提供下載。而**R cran**上的套件我們可以使用`install.packages("package_name")`來自動安裝到我們的電腦中。
 
-
-## 註解
-* 下列程式碼中開頭有`#`符號者為註解，程式在執行時會自動忽略前面有`#`符號的程式碼。
-* 當使用RMarkdown格式撰寫時，因為RMarkdown是在事後才生成文件，所以當遇到要安裝該套件的指令時，便會跳出錯誤訊息。
 
 ##  Install following packages **at home**
-```{r}
+* Remove comment `#` symbol to install new package
+```{r install pkgs}
+# install.packages("jsonlite")
+# install.packages("httr")
+```
+
+```{r install these pkgs at home}
 # install.packages("tidyverse")
 # install.packages("caret")
 # install.packages("jiebaR")
@@ -52,22 +55,24 @@ a*b
 
 
 
-## Install jsonlite and httr packages
-* Remove comment `#` symbol to install new package
-
+## Loading third-party packages
+* 這些第三方套件被安裝好後，還需要被**加載**到程式的執行環境中才可以使用。因此要用`library(package_name)`將其載入。
 ```{r}
-# install.packages("jsonlite")
-# install.packages("httr")
-```
-
-
-
-## 加載jsonlite、httr套件
-
-```{r}
+# loading jsonlite and httr library
 library(jsonlite)
 library(httr)
 ```
+
+
+## 註解
+* 下列程式碼中開頭有`#`符號者為註解，程式在執行時會自動忽略前面有`#`符號的程式碼。
+* 當使用RMarkdown格式撰寫時，因為RMarkdown是在事後才生成文件，所以當遇到要安裝該套件的指令時，便會跳出錯誤訊息。
+```{r}
+# a <- c(1, 2, 3, 4, 5)
+# b <- 4
+# a*b
+```
+
 
 
 
