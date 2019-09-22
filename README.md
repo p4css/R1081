@@ -18,7 +18,7 @@
 * Preview Datacamp [Importing Data in R (Part 1)](https://www.datacamp.com/courses/importing-data-in-r-part-1) (before 09/23): `read.csv()`, `options(stringAsFactors = F)`, `read_csv()` with args: `skip` and `n_max`, and `library(readxl)`.
 * Preview Datacamp [Data Manipulation with dplyr in R](https://www.datacamp.com/courses/data-manipulation-with-dplyr-in-r) (before 09/23): `glimpse()`, `select()`, `filter()`, `arrange()`, `mutate()`, `count()`, `group_by()`, `summarize()`, `transmnute()`, 
 |Datacamp|Content|
----
+|---|---|
 |[Importing Data in R (Part 1)](https://www.datacamp.com/courses/importing-data-in-r-part-1)|`read.csv()`, `options(stringAsFactors = F)`, `read_csv()` with args: `skip` and `n_max`, and `library(readxl)`|
 
 Introduction to R
