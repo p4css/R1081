@@ -15,19 +15,10 @@
 * Slide [R01_2 R Basic](https://docs.google.com/presentation/d/e/2PACX-1vRjb_W1Vo9-zD9F4FmWOiB6K4ezkF6W64OKcX7bZD6ordKvOT-6LFoGi0le-HzT2ABKudDNhr_qKt2x/pub?start=false&loop=false&delayms=3000). Code: [R01_2_vector.html](R01_2_vector.html), [R01_3_dataframe_import_export.html](R01_3_dataframe_import_export.html)
 * Slide [R02_1 Using R to analyze maternal leave](https://docs.google.com/presentation/d/e/2PACX-1vRDGlYA4GPhbgreLaJUXBIWPz0xmfT4pG40s4h4LXD7Gq5k65as5sAf_6-o7-WFKyTY5jOcWI_f77Sn/pub?start=false&loop=false&delayms=3000). Code: [R02_1_readxl_paid_maternal_leave.html](R02_1_readxl_paid_maternal_leave.html)
 * [Assignment#1 R Basic](AS01_R_Basic.html)([How to upload your first assignment](https://youtu.be/HHY5krhdWC4))
-* Preview Datacamp [Importing Data in R (Part 1)](https://www.datacamp.com/courses/importing-data-in-r-part-1) (before 09/23): `read.csv()`, `options(stringAsFactors = F)`, `read_csv()` with args: `skip` and `n_max`, and `library(readxl)`.
-* Preview Datacamp [Data Manipulation with dplyr in R](https://www.datacamp.com/courses/data-manipulation-with-dplyr-in-r) (before 09/23): `glimpse()`, `select()`, `filter()`, `arrange()`, `mutate()`, `count()`, `group_by()`, `summarize()`, `transmnute()`
+* Preview Datacamp before 09/23
+  - [Importing Data in R (Part 1)](https://www.datacamp.com/courses/importing-data-in-r-part-1): `read.csv()`, `options(stringAsFactors = F)`, `read_csv()` with args: `skip` and `n_max`, and `library(readxl)`.
+  - [Data Manipulation with dplyr in R](https://www.datacamp.com/courses/data-manipulation-with-dplyr-in-r): `glimpse()`, `select()`, `filter()`, `arrange()`, `mutate()`, `count()`, `group_by()`, `summarize()`, `transmnute()`
 
-|Datacamp|Content|
-|---|---|
-|[Importing Data in R (Part 1)](https://www.datacamp.com/courses/importing-data-in-r-part-1)|`read.csv()`, `options(stringAsFactors = F)`, `read_csv()` with args: `skip` and `n_max`, and `library(readxl)`|
-|1|1|
-
-Introduction to R
-Vectors, Materics, Factors, Data frames, Lists
-Intermediate R
-Conditionals and Control Flow, Loops, Functions, 
-The apply family (Optional), Utilities (Optional)
 
 
 ## 20190923
