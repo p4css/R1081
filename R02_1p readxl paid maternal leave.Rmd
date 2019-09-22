@@ -30,8 +30,10 @@ knitr::opts_chunk$set(echo = TRUE)
 * readxl也包含在tidyverse的套件集中，所以應該已經在前次安裝過，不用特別安裝。
  
 ```{r}
-library(readxl)
-options(stringsAsFactors = FALSE)
+# Loading the pkg to read excel
+
+# Loading global option to avoid converting character vector to factor
+
 ```
 
 
@@ -78,6 +80,7 @@ options(stringsAsFactors = FALSE)
 ```{r}
 # Select the 3rd and 6th to 24th columns
 
+
 # Use class(), dim(), and str() to inspect the data
 
 
@@ -94,13 +97,18 @@ options(stringsAsFactors = FALSE)
 * `sum(is.na(matleave))`的目的是檢測還有沒有NA值。如果有的話`is.na()`就會是`TRUE`，那麼加總後，如果不是0，那就代表還有NA。
 
 ```{r}
-# is.na() to indicate each element is NA or NOT(TRUE/FALSE)
+# Use is.na() to detect NA element (TRUE/FALSE)
+
 
 # Assign 0 to those NA data
 
+
 # anyNA() to check if there are still NA cells.
 
+
 # sum(is.na()) to count the number of NA
+
+
 
 ```
 
@@ -112,9 +120,11 @@ options(stringsAsFactors = FALSE)
 # Use logical comparison to see if the last year equals to 5
 # Assign matching row to var m5 when 2013 data(matleave_13 equals to 5
 
+
 # nrow() to count matching data
 
-# Is it possible to use length() to check the data length?
+
+# Is it possible to use length() to check the data length? If not, how to do it?
 # matleave$'matleave_13'
 # matleave$'matleave_13'==5
 # length(matleave$'matleave_13'==5)
@@ -128,7 +138,9 @@ options(stringsAsFactors = FALSE)
 ```{r}
 # filter rows whose 'matleave_95' is 5, and assign to var m55
 
+
 # filter rows whose 'matleave_95' is not 5, and assign to var m05
+
 
 ```
 
@@ -144,9 +156,11 @@ options(stringsAsFactors = FALSE)
 
 ```{r}
 # barplot() the second row of m55
+# Observing the error msg carefully
 barplot(m55[2, ])       # raise error
 
 # barplot() the second row when neglecting the first column
+# Observing the error msg carefully
 barplot(m55[2, -1])     # raise error
 
 # Inspect the data type of matleave[2, ] by class() for data with or without unlist()
@@ -178,9 +192,12 @@ class(m55$iso3)	# character (vector)
 ```{r}
 # barplot() the unlisted second row (neglecting the first col)
 
+
 # use ?barplot to know more argument of the function.
 
+
 # Add arguments ylim, space, border, and axat/yaxt one by one to barplot()
+
 
 
 
@@ -194,7 +211,9 @@ class(m55$iso3)	# character (vector)
 ```{r}
 # plot the 1st row
 
+
 # plot the 2nd to 6th rows
+
 
 ```
 
@@ -220,6 +239,7 @@ class(m55$iso3)	# character (vector)
 
 ```{r}
 # use ?par to get more plotting parameters
+
 
 # use par() to set-up the layout of subgraphs
 # use the parameter main=c(0.2, 0.2, 0.2, 0.2) to thrink the padding of figures.
@@ -295,14 +315,18 @@ df <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T)
 # select columns by index
 # matleave <- df[ , c(3, 6:24)]
 
+
 # select all NA cells and assign 0 to them
 # matleave[is.na(matleave)] <- 0
+
 
 # filter rows by condition
 # m5 <- matleave[matleave$'matleave_13' == 5, ]
 
+
 # filter rows by condition
 # m55<- m5[m5$'matleave_95' == 5,]
+
 
 # plot
 par(mfrow=c(4,6), mai= c(0.2, 0.2, 0.2, 0.2))
@@ -359,40 +383,51 @@ for (i in c(1:nrow(m55))){
 
 
 
-# (More): gather() to long-form
 
+
+# by dplyr
 ```{r}
+library(dplyr)
 library(tidyr)
-# Gather 2:20 column to a new variable "year"
-# Name level data as "degree"
-long_form <- gather(matleave, "year", "degree", 2:20)
+library(ggplot2)
+raw <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T)
+matleave <- select(raw, iso3, 6:24)
+m5 <- filter(matleave, matleave_13==5)
+m55 <- filter(m5, matleave_95==5)
+```
 
+
+# by dplyr + pipeline
+```{r}
+m55 <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T) %>%
+    select(iso3, 6:24) %>%
+    filter(matleave_13==5) %>%
+    filter(matleave_95==5)
 ```
 
 
 
-# (More) by dplyr II
+# by dplyr + pipeline + ggplot2
 
 ```{r}
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(readxl)
 
-long_form <- gather(matleave, "year", "degree", 2:20)
-
-matleave <- df %>%
+read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T) %>%
 	select(iso3, contains("matleave"), -contains("wrr")) %>%
-	filter(matleave_13==5, matleave_95==5) %>%
+	filter(matleave_13==5, matleave_95!=5) %>%
 	gather("year", "degree", 2:20) %>%
 	replace_na(list(degree=0)) %>%
 	mutate(year2=as.POSIXct(strptime(year, "matleave_%y"))) %>%
-	mutate(year3 = strftime(year2, "%Y"))
-
-matleave %>%
+	mutate(year3 = strftime(year2, "%Y")) %>%
 	ggplot() +
 	aes(year3, degree) +
-	facet_grid(iso3~.) +
-	geom_bar(stat = "identity", fill = "blue")
+    geom_col(color="royalblue", fill="royalblue") + 
+	facet_wrap(~ iso3) + 
+    theme_void()
+	
 
 ```
 

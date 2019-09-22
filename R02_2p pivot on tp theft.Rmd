@@ -29,10 +29,14 @@ url <- "http://data.taipei/opendata/datalist/datasetMeta/download?id=68785231-d6
 df <- read.csv(url, fileEncoding = "big5")
 ```
 
-## From local directory
+## Read CSV by read.csv() from local directory
+- reading `tp_theft_.csv` in the subfolder `data`
+- Remember to use the `fileEncoding` argument to `big5`
 ```{r}
 # read.csv() to read csv and convert it to a data.frame
-df <- read.csv("data/tp_theft.csv", fileEncoding = "big5")
+
+
+# Checking the strcutrue of it
 str(df)
 
 ```
@@ -40,10 +44,20 @@ str(df)
 ## Setting `stringAsFactors`
 ```{r}
 # Add stringsAsFactors argument  to avoid converting string to factor
-df <- read.csv("data/tptheft.csv", fileEncoding = "big5", stringsAsFactors = FALSE)
+
 # double-check the structure of it
 str(df)
 ```
+
+## Using `read_csv()` to read the csv
+- remember to specify the `locale` argument to `big5`. `locale = locale(encoding = "Big5")`
+```{r}
+
+
+```
+
+
+
 
 ## (Option) Geting a file back to local directory
 - 部分Mac電腦無法使用`read.csv()`從網路上取得資料又轉為`data.frame`，一個可行的辦法是先用`GET(url, write_disk("data/tptheft.csv"))`將其取回並命名為`data/tptheft.csv`，之後再用`df <- read.csv("data/tptheft.csv", fileEncoding = "big5", stringsAsFactors = FALSE)`直接讀取該檔案。
@@ -63,10 +77,7 @@ df <- read.csv("data/tptheft.csv", fileEncoding = "big5", stringsAsFactors = FAL
 
 ```{r}
 # View(df)
-head(df)	# get first part of the data.frame
-class(df)
-str(df)
-summary(df)
+
 # look up help
 help(summary)
 ?summary
@@ -76,27 +87,22 @@ help(summary)
 
 
 ## Dimension
-
+e.g., dim(), ncol(), nrow(),length()
 ```{r}
-dim(df)
-ncol(df)
-nrow(df)
-length(df)
+
+
 ```
 
 
 ## Variable names
-
 * `names(df)`  列出變數名稱
 * `df$發生.現.地點` 顯示該變數內容
 * `df$發生時段` 顯示該變數內容
 * `length(df$發生時段)` 顯示該變數的長度（相當於有幾個）
 
 ```{r}
-names(df)
-head(df$發生.現.地點)
-head(df$發生時段)
-length(df$發生時段)
+
+
 ```
 
 
@@ -107,10 +113,10 @@ length(df$發生時段)
 
 ```{r}
 # Get substring of var "發生時段" and assign to a new time var
-df$time <- substr(df$發生時段, 1, 2)
+
 
 # Get substring of var "發生.現.地點" and assign to a new region var
-df$region <- substr(df$發生.現.地點, 4, 5)
+
 ```
 
 
@@ -119,10 +125,13 @@ df$region <- substr(df$發生.現.地點, 4, 5)
 
 * 我們要回答的第一個數據問題通常是，那XXX的案例有幾個？例如大安區有多少竊盜案？買超過10000元訂單的客戶有多少人？男生和女生會修程式課的個別有多少人？這稱為計數。
 
-## Counting by table()
+## Counting single variable by table()
 ```{r}
-table(df$time)
-table(df$region)
+# counting the frequency of time variable
+
+
+# counting the frequency of region variable
+
 ```
 
 
@@ -131,17 +140,20 @@ table(df$region)
 * Using `length()` as counting method
 ```{r}
 # tapply() one arbitrary var by var time with length() function
-tapply(df$編號, df$time, length)
+
 
 # tapply() one arbitrary var by var region with length() function
-tapply(df$編號, df$region, length)
+
 ```
 
 
 # Filtering data
 ```{r}
-df <- df[!df$time %in% c("00", "02", "06", "08", "12", "14" ,"18", "20"), ]
-df <- df[!df$region %in% c("三重", "中和", "淡水", "板橋"), ]
+# filter out irrelevant timestamp
+
+
+# filter out irrelevant region(area)
+
 ```
 
 
@@ -150,7 +162,11 @@ df <- df[!df$region %in% c("三重", "中和", "淡水", "板橋"), ]
 
 ## by `table()` with 2 independent vars
 ```{r}
-res_table <- table(df$time, df$region)
+
+# Tabulating time and region variables
+
+
+# Checking it class and its content
 class(res_table)
 res_table
 ```
@@ -166,18 +182,16 @@ res_tapply
 # Pivot by dplyr::count()
 
 ```{r}
-res_count <- dplyr::count(df, time, region)
+# counting by dplyr::count()
+
 class(res_count)
 res_count
 
-res_count_spread <- tidyr::spread(res_count, region, n, fill = 0)
+# spreading the region into columns
+
 res_count_spread
 # ??dplyr::count
 ```
-
-
-<!-- ## Method 4: aggregate() -->
-
 
 
 # Plotting
@@ -262,6 +276,9 @@ df <- read_csv("data/tp_theft.csv", locale = locale(encoding = "Big5")) %>%
 par(family=('STKaiti'))
 row.names(df) <- df$time
 df$time <- NULL
+colors <- c('#D0104C', '#DB4D6D', '#E83015',  '#F75C2F',
+            '#E79460', '#E98B2A', '#9B6E23', '#F7C242',
+            '#BEC23F', '#90B44B', '#66BAB7', '#1E88A8')
 mosaicplot(df, color=colors, border=0, off = 3, main="Theft rate of Taipei city (region by hour)")
 
 ```
