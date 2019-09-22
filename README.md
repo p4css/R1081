@@ -23,10 +23,12 @@
 
 ## 20190923
 * Slide [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000)
-* Preview before next week [Cleanning data in R](https://www.datacamp.com/courses/cleaning-data-in-r)
-* Preview before next week [Joining Data with dplyr in R](https://www.datacamp.com/courses/joining-data-with-dplyr-in-r)
+* Preview Datacamp before 09/30 
+  - [Cleanning data in R](https://www.datacamp.com/courses/cleaning-data-in-r)
+  - [Joining Data with dplyr in R](https://www.datacamp.com/courses/joining-data-with-dplyr-in-r)
 
 
 ## 20190930
-* Preview before next week [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr)
-* Preview before next week [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
+* Preview Datacamp before 10/07 
+  - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr)
+  - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
