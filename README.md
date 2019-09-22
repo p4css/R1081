@@ -17,6 +17,16 @@
 * [Assignment#1 R Basic](AS01_R_Basic.html)([How to upload your first assignment](https://youtu.be/HHY5krhdWC4))
 * Preview Datacamp [Importing Data in R (Part 1)](https://www.datacamp.com/courses/importing-data-in-r-part-1) (before 09/23): `read.csv()`, `options(stringAsFactors = F)`, `read_csv()` with args: `skip` and `n_max`, and `library(readxl)`.
 * Preview Datacamp [Data Manipulation with dplyr in R](https://www.datacamp.com/courses/data-manipulation-with-dplyr-in-r) (before 09/23): `glimpse()`, `select()`, `filter()`, `arrange()`, `mutate()`, `count()`, `group_by()`, `summarize()`, `transmnute()`, 
+|Datacamp|Content|
+---
+|[Importing Data in R (Part 1)](https://www.datacamp.com/courses/importing-data-in-r-part-1)|`read.csv()`, `options(stringAsFactors = F)`, `read_csv()` with args: `skip` and `n_max`, and `library(readxl)`|
+
+Introduction to R
+Vectors, Materics, Factors, Data frames, Lists
+Intermediate R
+Conditionals and Control Flow, Loops, Functions, 
+The apply family (Optional), Utilities (Optional)
+
 
 ## 20190923
 * Slide [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000)
