@@ -41,3 +41,18 @@
 * **In-class slides and code**
 * **Assignment #4**: 
 * **Preview video before 10/14**
+
+## 20191014
+* **In-class slides and code**
+* **Assignment #5**: 
+* **Preview video before 10/21**
+
+## 20191021
+* **In-class slides and code**
+* **Assignment #6**: 
+* **Preview video before 10/21**
+
+## 20191028
+* **In-class slides and code**
+* **Assignment #7**: 
+* **Preview video before **
