@@ -381,21 +381,29 @@ for (i in c(1:nrow(m55))){
 
 ```
 
-
-
-# (More): gather() to long-form
-
+# by dplyr
 ```{r}
+library(dplyr)
 library(tidyr)
-# Gather 2:20 column to a new variable "year"
-# Name level data as "degree"
-long_form <- gather(matleave, "year", "degree", 2:20)
+library(ggplot2)
+raw <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T)
+matleave <- select(raw, iso3, 6:24)
+m5 <- filter(matleave, matleave_13==5)
+m55 <- filter(m5, matleave_95==5)
+```
 
+
+# by dplyr + pipeline
+```{r}
+m55 <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T) %>%
+    select(iso3, 6:24) %>%
+    filter(matleave_13==5) %>%
+    filter(matleave_95==5)
 ```
 
 
 
-# (More) by dplyr II
+# by dplyr + pipeline + ggplot2
 
 ```{r}
 library(dplyr)

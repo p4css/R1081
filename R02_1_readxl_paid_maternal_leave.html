@@ -270,8 +270,9 @@ $(document).ready(function () {
 <li><a href="#practice02_2_2-selecting-and-filtering-by-dplyr-i"><span class="toc-section-number">12</span> Practice02_2_2 selecting and filtering by dplyr I</a></li>
 <li><a href="#more-clean-version"><span class="toc-section-number">13</span> (More) Clean version</a></li>
 <li><a href="#more-the-fittest-version-to-compute-staysame"><span class="toc-section-number">14</span> (More) The fittest version to compute staySame</a></li>
-<li><a href="#more-gather-to-long-form"><span class="toc-section-number">15</span> (More): gather() to long-form</a></li>
-<li><a href="#more-by-dplyr-ii"><span class="toc-section-number">16</span> (More) by dplyr II</a></li>
+<li><a href="#by-dplyr"><span class="toc-section-number">15</span> by dplyr</a></li>
+<li><a href="#by-dplyr-pipeline"><span class="toc-section-number">16</span> by dplyr + pipeline</a></li>
+<li><a href="#by-dplyr-pipeline-ggplot2"><span class="toc-section-number">17</span> by dplyr + pipeline + ggplot2</a></li>
 </ul>
 </div>
 
@@ -750,15 +751,8 @@ m55&lt;-<span class="st"> </span>m5[m5<span class="op">$</span><span class="st">
 <span class="co"># m55 &lt;- m5[staySame, ]</span>
 <span class="co"># m50 &lt;- m5[!staySame, ]</span></code></pre></div>
 </div>
-<div id="more-gather-to-long-form" class="section level1">
-<h1><span class="header-section-number">15</span> (More): gather() to long-form</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
-<span class="co"># Gather 2:20 column to a new variable &quot;year&quot;</span>
-<span class="co"># Name level data as &quot;degree&quot;</span>
-long_form &lt;-<span class="st"> </span><span class="kw">gather</span>(matleave, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;degree&quot;</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">20</span>)</code></pre></div>
-</div>
-<div id="more-by-dplyr-ii" class="section level1">
-<h1><span class="header-section-number">16</span> (More) by dplyr II</h1>
+<div id="by-dplyr" class="section level1">
+<h1><span class="header-section-number">15</span> by dplyr</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
 <pre><code>## 
 ## Attaching package: 'dplyr'</code></pre>
@@ -769,6 +763,23 @@ long_form &lt;-<span class="st"> </span><span class="kw">gather</span>(matleave,
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
+<span class="kw">library</span>(ggplot2)
+raw &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/WORLD-MACHE_Gender_6.8.15.xls&quot;</span>, <span class="st">&quot;Sheet1&quot;</span>, <span class="dt">col_names=</span>T)
+matleave &lt;-<span class="st"> </span><span class="kw">select</span>(raw, iso3, <span class="dv">6</span><span class="op">:</span><span class="dv">24</span>)
+m5 &lt;-<span class="st"> </span><span class="kw">filter</span>(matleave, matleave_<span class="dv">13</span><span class="op">==</span><span class="dv">5</span>)
+m55 &lt;-<span class="st"> </span><span class="kw">filter</span>(m5, matleave_<span class="dv">95</span><span class="op">==</span><span class="dv">5</span>)</code></pre></div>
+</div>
+<div id="by-dplyr-pipeline" class="section level1">
+<h1><span class="header-section-number">16</span> by dplyr + pipeline</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m55 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data/WORLD-MACHE_Gender_6.8.15.xls&quot;</span>, <span class="st">&quot;Sheet1&quot;</span>, <span class="dt">col_names=</span>T) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">select</span>(iso3, <span class="dv">6</span><span class="op">:</span><span class="dv">24</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(matleave_<span class="dv">13</span><span class="op">==</span><span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">filter</span>(matleave_<span class="dv">95</span><span class="op">==</span><span class="dv">5</span>)</code></pre></div>
+</div>
+<div id="by-dplyr-pipeline-ggplot2" class="section level1">
+<h1><span class="header-section-number">17</span> by dplyr + pipeline + ggplot2</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(tidyr)
 <span class="kw">library</span>(ggplot2)
 
 <span class="kw">read_excel</span>(<span class="st">&quot;data/WORLD-MACHE_Gender_6.8.15.xls&quot;</span>, <span class="st">&quot;Sheet1&quot;</span>, <span class="dt">col_names=</span>T) <span class="op">%&gt;%</span>
