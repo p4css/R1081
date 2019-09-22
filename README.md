@@ -55,4 +55,4 @@
 ## 20191028
 * **In-class slides and code**
 * **Assignment #7**: 
-* **Preview video before **
+* **Preview video before**: 
