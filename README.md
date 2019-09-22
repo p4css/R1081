@@ -22,9 +22,9 @@
 ## 20190923
 * **In-class slides and code**
   - Reviewing slide [R01_2 R Basic](https://docs.google.com/presentation/d/e/2PACX-1vRjb_W1Vo9-zD9F4FmWOiB6K4ezkF6W64OKcX7bZD6ordKvOT-6LFoGi0le-HzT2ABKudDNhr_qKt2x/pub?start=false&loop=false&delayms=3000) for [Assignment#1](AS01_R_Basic.html). Code: [R01_2_vector.html](R01_2_vector.html), [R01_3_dataframe_import_export.html](R01_3_dataframe_import_export.html)
-  - Slide [R02_1 Using R to analyze maternal leave](https://docs.google.com/presentation/d/e/2PACX-1vRDGlYA4GPhbgreLaJUXBIWPz0xmfT4pG40s4h4LXD7Gq5k65as5sAf_6-o7-WFKyTY5jOcWI_f77Sn/pub?start=false&loop=false&delayms=3000). Code: [R02_1_readxl_paid_maternal_leave.html](R02_1_readxl_paid_maternal_leave.html)
-  - Slide [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000)
-* **Assignment#2** [R Basic](AS01_R_Basic.html)
+  - Comparing base and dplyr: Slide [R02_1 Using R to analyze maternal leave](https://docs.google.com/presentation/d/e/2PACX-1vRDGlYA4GPhbgreLaJUXBIWPz0xmfT4pG40s4h4LXD7Gq5k65as5sAf_6-o7-WFKyTY5jOcWI_f77Sn/pub?start=false&loop=false&delayms=3000). Code: [R02_1_readxl_paid_maternal_leave.html](R02_1_readxl_paid_maternal_leave.html)
+  - Comparing base and dplyr: Slide [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000), Code: [R02_2_pivot_on_tp_theft.html](R02_2_pivot_on_tp_theft.html)
+* **Assignment#2** [Join demographic data](): Before doing the assignment#2, you may need to preview the [Joining data with dplyr in R](https://www.datacamp.com/courses/joining-data-with-dplyr-in-r) which introduces how to join two tables.
 * **Preview Datacamp before 09/30** 
   - [Cleanning data in R](https://www.datacamp.com/courses/cleaning-data-in-r): `tidyr::gather()`, `tidyr::spread()`, `tidyr::separate()`, `Dealing with missing values`
   - [Joining Data with dplyr in R](https://www.datacamp.com/courses/joining-data-with-dplyr-in-r): `left_joing()`, `right_join()`, `full_join()`, `inner_join()`
