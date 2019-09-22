@@ -94,7 +94,7 @@ length(county)
 ```
 
 
-## (+) Subsetting, filtering
+## **Subsetting, filtering**
 It is important to know how to neglect first n or last n elements. For example, a[1:(length(a)-2)] will neglect the last two elements. Thinking why I need parentheses for `length(a)-2` here.
 ```{r}
 county
@@ -127,7 +127,7 @@ a
 
 ```
 
-## (+) Concatinating
+## **Concatinating**
 - Concatinating is quite useful for web crawling when you crawl article links page by page. You may be not sure the number of page you need to crawl. So you need to append entire new vector to old vector. It is concatinating. ("Appending" often means adding one new element at the end of data.)
 ```{r}
 a <- 1:10
@@ -163,7 +163,7 @@ a <- a %/% 2 	# Quotient
 
 
 
-## (+) Logic comparisons
+## **Logic comparisons**
 ```{r}
 a %% 2 == 0 	# deteting odd/even number
 a %% 2 != 0
@@ -199,7 +199,7 @@ which(a%%2==1)
 ```
 
 
-## (+) Sorting and ordering
+## **Sorting and ordering**
 
 * `sort(x)`的結果必須用`<-`覆蓋原本的`x`，此時的`x`才算被排序的結果。
 
