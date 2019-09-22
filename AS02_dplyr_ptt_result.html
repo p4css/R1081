@@ -249,44 +249,166 @@ $(document).ready(function () {
 <ul>
 <li><a href="#loading-pkgs-and-options"><span class="toc-section-number">1</span> Loading pkgs and options</a></li>
 <li><a href="#loading-rda-data"><span class="toc-section-number">2</span> Loading rda data</a></li>
-<li><a href="#counting-the-top-10-commentors"><span class="toc-section-number">3</span> Counting the top 10 commentors</a></li>
-<li><a href="#counting-the-top-10-posters"><span class="toc-section-number">4</span> Counting the top 10 posters</a></li>
+<li><a href="#counting-the-top-5-commentors"><span class="toc-section-number">3</span> Counting the top 5 commentors</a></li>
+<li><a href="#counting-the-top-5-posters"><span class="toc-section-number">4</span> Counting the top 5 posters</a></li>
 <li><a href="#enumerating-comment-order-for-each-posts"><span class="toc-section-number">5</span> Enumerating comment order for each posts</a></li>
-<li><a href="#calculating-the-average-response-order-for-each-commentors"><span class="toc-section-number">6</span> Calculating the average response order for each commentors</a></li>
+<li><a href="#calculating-the-average-response-order-for-each-commentor"><span class="toc-section-number">6</span> Calculating the average response order for each commentor</a></li>
+<li><a href="#challenge-counting-how-many-posts-each-commentor-has-responded-to"><span class="toc-section-number">7</span> Challenge: Counting how many posts each commentor has responded to</a></li>
+<li><a href="#call-for-idea"><span class="toc-section-number">8</span> Call for idea</a></li>
 </ul>
 </div>
 
 <div id="loading-pkgs-and-options" class="section level1">
 <h1><span class="header-section-number">1</span> Loading pkgs and options</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you code here</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add essential pkgs here</span>
+<span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## ── Attaching packages ──────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.8
+## ✔ tidyr   0.8.2     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
+<pre><code>## ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">stringsAsFactors =</span> F)</code></pre></div>
 </div>
 <div id="loading-rda-data" class="section level1">
 <h1><span class="header-section-number">2</span> Loading rda data</h1>
+<ul>
+<li>will creating two data frames, <code>posts</code> and <code>comments</code>.</li>
+</ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;data/HatePolitics_Hang_20190101_2019_06_01.rda&quot;</span>)</code></pre></div>
 </div>
-<div id="counting-the-top-10-commentors" class="section level1">
-<h1><span class="header-section-number">3</span> Counting the top 10 commentors</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you code here</span></code></pre></div>
+<div id="counting-the-top-5-commentors" class="section level1">
+<h1><span class="header-section-number">3</span> Counting the top 5 commentors</h1>
+<ul>
+<li>找出回文數最高的五個人</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="st">    </span><span class="co"># you cade should be here</span>
+<span class="st">    </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##   commentor        n
+##   &lt;chr&gt;        &lt;int&gt;
+## 1 gn02118620    7362
+## 2 zeumax        5908
+## 3 ninaman       5237
+## 4 bottger       5062
+## 5 bluesunflowe  4421</code></pre>
 </div>
-<div id="counting-the-top-10-posters" class="section level1">
-<h1><span class="header-section-number">4</span> Counting the top 10 posters</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you code here</span></code></pre></div>
+<div id="counting-the-top-5-posters" class="section level1">
+<h1><span class="header-section-number">4</span> Counting the top 5 posters</h1>
+<ul>
+<li>找出發文數最高的五個人</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="st">    </span><span class="co"># you cade should be here</span>
+<span class="st">    </span><span class="co"># you cade should be here</span>
+<span class="st">    </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##   poster        n
+##   &lt;chr&gt;     &lt;int&gt;
+## 1 mark2165    198
+## 2 kolod546    106
+## 3 sincsnow     86
+## 4 c1951        85
+## 5 fantasy14    82</code></pre>
 </div>
 <div id="enumerating-comment-order-for-each-posts" class="section level1">
 <h1><span class="header-section-number">5</span> Enumerating comment order for each posts</h1>
 <ul>
+<li>產生兩個新的變項，<code>cindex</code>指出該則回文為該篇貼文的第幾則回文，<code>ctotal</code>指出該則回文所在的貼文共有幾則回文。</li>
 <li>enumerating the order, the “floor”, of each comment</li>
 <li>Who are always reponse to Hang’s posts very soon?</li>
 <li>Practice goal: Using <code>group_by</code> and <code>mutate()</code></li>
+<li>comment order should be <code>cindex</code></li>
+<li>total comments of a post should be <code>ctotal</code></li>
+<li>You must use <code>row_number()</code> to get the order of each comment.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you code here</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="st">    </span><span class="co"># you cade should be here</span>
+<span class="st">    </span><span class="co"># you cade should be here</span>
+<span class="st">    </span><span class="kw">select</span>(tag, commentor, cindex, ctotal) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">head</span>(<span class="dt">n=</span><span class="dv">20</span>)</code></pre></div>
+<pre><code>## # A tibble: 20 x 4
+##    tag   commentor    cindex ctotal
+##    &lt;chr&gt; &lt;chr&gt;         &lt;int&gt;  &lt;int&gt;
+##  1 &quot;→ &quot;  tarcowang         1    103
+##  2 &quot;推 &quot; alex8725          2    103
+##  3 &quot;→ &quot;  lovebxcx          3    103
+##  4 &quot;推 &quot; want150           4    103
+##  5 &quot;→ &quot;  want150           5    103
+##  6 &quot;→ &quot;  lovebxcx          6    103
+##  7 &quot;→ &quot;  dai26             7    103
+##  8 &quot;→ &quot;  lovebxcx          8    103
+##  9 &quot;→ &quot;  lovebxcx          9    103
+## 10 &quot;→ &quot;  lovebxcx         10    103
+## 11 &quot;推 &quot; f124             11    103
+## 12 &quot;推 &quot; willy0526        12    103
+## 13 &quot;→ &quot;  lovebxcx         13    103
+## 14 &quot;→ &quot;  dodolong0310     14    103
+## 15 &quot;噓 &quot; poolplayer       15    103
+## 16 &quot;推 &quot; Stigmata         16    103
+## 17 &quot;推 &quot; YINCHAUN         17    103
+## 18 &quot;噓 &quot; simon78410       18    103
+## 19 &quot;→ &quot;  lovebxcx         19    103
+## 20 &quot;→ &quot;  lovebxcx         20    103</code></pre>
 </div>
-<div id="calculating-the-average-response-order-for-each-commentors" class="section level1">
-<h1><span class="header-section-number">6</span> Calculating the average response order for each commentors</h1>
+<div id="calculating-the-average-response-order-for-each-commentor" class="section level1">
+<h1><span class="header-section-number">6</span> Calculating the average response order for each commentor</h1>
 <ul>
-<li>Practice goal: Using <code>group_by()</code>, <code>mean()</code>, and <code>sd()</code></li>
+<li>延續上題，計算出每一個人回應的平均樓層（<code>avg_order</code> 比方說，某人共在三篇貼文的回應樓層為第3樓、第6、第9樓，其平均回應樓層為6）；另外順便計算標準差（<code>sd_order</code>）以及每個人的總回文數量<code>tot_comment</code>。</li>
+<li>Filter out those posts with fewer than 5 comments 不列計少於5則回文的貼文</li>
+<li>Filter out those commentors with fewer than 10 comments 不列計在資料中回文總數少於10則的回文者</li>
+<li>Only show top 10 commentors who always respond very fast</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you code here</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="st">    </span><span class="co"># you cade should be here</span>
+<span class="st">    </span><span class="co"># you cade should be here</span>
+<span class="st">    </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>## # A tibble: 10 x 4
+##    commentor    avg_order sd_order tot_comment
+##    &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt;
+##  1 jma306          0.0549   0.0753          13
+##  2 ckbdfrst        0.0898   0.0537          14
+##  3 popy8789        0.0961   0.0665          15
+##  4 flavorBZ        0.0969   0.0833          18
+##  5 wangyc          0.105    0.0621          14
+##  6 GalLe5566       0.127    0.0566          14
+##  7 WeiYinChen16    0.133    0.176           16
+##  8 hachime         0.142    0.0998          20
+##  9 Rrrxddd         0.156    0.202           32
+## 10 jk952840        0.159    0.100           14</code></pre>
+</div>
+<div id="challenge-counting-how-many-posts-each-commentor-has-responded-to" class="section level1">
+<h1><span class="header-section-number">7</span> Challenge: Counting how many posts each commentor has responded to</h1>
+<p>針對每一個回文者，計算出下列數值 1. 一共回過多少則post，一個post多個回文仍只算一次 2. 針對每篇post，最多曾回應一篇post幾次 3. 針對每篇post，最少曾回應一篇post幾次 4. 針對每篇post，平均回應過幾次 5. 針對每篇post，回應次數的標準差</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="st">    </span><span class="co"># you cade should be here</span>
+<span class="st">    </span><span class="co"># you cade should be here</span>
+<span class="st">    </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>)</code></pre></div>
+<pre><code>## # A tibble: 30 x 6
+##    commentor    num_post max_c2p min_c2p mean_c2p sd_c2p
+##    &lt;chr&gt;           &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+##  1 aylao            1775      29       1     4.27   5.45
+##  2 bottger          1569     148       1    15.0   27.2 
+##  3 ninaman          1497      87       1    16.3   18.1 
+##  4 zeumax           1286     110       1    17.4   22.1 
+##  5 gn02118620       1206     128       1    36.4   36.7 
+##  6 bluesunflowe     1197      86       1    18.3   21.3 
+##  7 pupu20317        1190     103       1    15.6   24.6 
+##  8 formatted        1114      77       1    15.6   18.6 
+##  9 alex8725          984      64       1    12.1   13.9 
+## 10 c1951             886      38       1     6.19   7.05
+## # ... with 20 more rows</code></pre>
+</div>
+<div id="call-for-idea" class="section level1">
+<h1><span class="header-section-number">8</span> Call for idea</h1>
+<ul>
+<li>Except the above methods, try to propose your idea to show questionable users, possible big fans, and high frequency enthusiasts.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># your idea here</span>
+<span class="co"># your code here</span></code></pre></div>
 </div>
 
 
