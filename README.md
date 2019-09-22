@@ -6,8 +6,9 @@
 
 
 ## 20190909
-* Preview Datacamp [Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r)
-* Preview Datacamp [Intermediate R](https://www.datacamp.com/courses/intermediate-r)
+* Preview Datacamp before 09/16
+  - [Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r)
+  - [Intermediate R](https://www.datacamp.com/courses/intermediate-r)
 
 
 ## 20190916
@@ -20,15 +21,14 @@
   - [Data Manipulation with dplyr in R](https://www.datacamp.com/courses/data-manipulation-with-dplyr-in-r): `glimpse()`, `select()`, `filter()`, `arrange()`, `mutate()`, `count()`, `group_by()`, `summarize()`, `transmnute()`
 
 
-
 ## 20190923
 * Slide [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000)
 * Preview Datacamp before 09/30 
-  - [Cleanning data in R](https://www.datacamp.com/courses/cleaning-data-in-r)
-  - [Joining Data with dplyr in R](https://www.datacamp.com/courses/joining-data-with-dplyr-in-r)
+  - [Cleanning data in R](https://www.datacamp.com/courses/cleaning-data-in-r): `tidyr::gather()`, `tidyr::spread()`, `tidyr::separate()`, `Dealing with missing values`
+  - [Joining Data with dplyr in R](https://www.datacamp.com/courses/joining-data-with-dplyr-in-r): `left_joing()`, `right_join()`, `full_join()`, `inner_join()`
 
 
 ## 20190930
 * Preview Datacamp before 10/07 
-  - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr)
-  - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
+  - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr): Detecting, matching, splitting, replacing string with Regular expression.
+  - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1): You can also learn by case with the 2nd unit of Exploratory Data Analysis in R: Case Study. 
