@@ -260,7 +260,7 @@ $(document).ready(function () {
 <li><a href="#getting-one-variable-from-a-data.frame"><span class="toc-section-number">4</span> Getting one variable from a data.frame</a></li>
 <li><a href="#mutate-"><span class="toc-section-number">5</span> <strong>mutate</strong> 透過運算產生新變數</a></li>
 <li><a href="#filter-select"><span class="toc-section-number">6</span> <strong>filter, select</strong>篩選資料、選取變數</a></li>
-<li><a href="#sort"><span class="toc-section-number">7</span> <strong>sort</strong>排序：按照某個變數排序</a></li>
+<li><a href="#sorting"><span class="toc-section-number">7</span> <strong>sorting</strong>排序：按照某個變數排序</a></li>
 <li><a href="#plotting"><span class="toc-section-number">8</span> Plotting</a></li>
 <li><a href="#more-using-dplyr"><span class="toc-section-number">9</span> More: using dplyr</a></li>
 </ul>
@@ -465,8 +465,8 @@ df[df<span class="op">$</span>import <span class="op">&gt;</span><span class="st
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="kw">unlist</span>(df[<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>])) <span class="co"># filter the 1st row and select all columns except 1</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 </div>
-<div id="sort" class="section level1">
-<h1><span class="header-section-number">7</span> <strong>sort</strong>排序：按照某個變數排序</h1>
+<div id="sorting" class="section level1">
+<h1><span class="header-section-number">7</span> <strong>sorting</strong>排序：按照某個變數排序</h1>
 <ul>
 <li><code>df.sorted &lt;- df[order(df$import),]</code>會使得整個df照<code>import</code>的大小排序重新做排列。因為<code>order(df$import)</code>會把資料照指定順序排列後的位置傳回來，所以把他丟給<code>df</code>的列的位置，便會使得<code>df</code>的資料照指定的順序排列。 預設是由小到大，加上<code>decreasing = T</code>這個參數後變成由大而小。</li>
 </ul>

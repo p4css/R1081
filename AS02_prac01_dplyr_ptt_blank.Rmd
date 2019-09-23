@@ -1,0 +1,138 @@
+---
+title: "R02_Prac01_dplyr_ptt"
+author: "Jilung Hsieh"
+date: "9/22/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loading pkgs and options
+```{r}
+# add essential pkgs here
+library(tidyverse)
+options(stringsAsFactors = F)
+```
+
+
+# Loading rda data
+- will creating two data frames, `posts` and `comments`.
+```{r}
+load("data/HatePolitics_Hang_20190101_2019_06_01.rda")
+```
+
+
+# Counting the top 5 commentors
+- 找出回文數最高的五個人
+```{r}
+comments %>%
+    # you cade should be here
+
+    
+    slice(1:5)
+```
+
+
+# Counting the top 5 posters
+- 找出發文數最高的五個人
+```{r}
+posts %>%
+    # you cade should be here
+
+    
+    # you cade should be here
+    slice(1:5)
+```
+
+
+# Enumerating comment order for each posts
+- 產生兩個新的變項，`cindex`指出該則回文為該篇貼文的第幾則回文，`ctotal`指出該則回文所在的貼文共有幾則回文。
+- enumerating the order, the "floor", of each comment
+- Who are always reponse to Hang's posts very soon?
+- Practice goal: Using `group_by` and `mutate()`
+- comment order should be `cindex`
+- total comments of a post should be `ctotal`
+- You must use `row_number()` to get the order of each comment.
+```{r}
+comments %>%
+    # you cade should be here
+
+    
+    
+    
+    # you cade should be here
+    select(tag, commentor, cindex, ctotal) %>%
+    head(n=20)
+```
+
+# Calculating the average response order for each commentor
+- 延續上題，計算出每一個人回應的平均樓層（`avg_order` 比方說，某人共在三篇貼文的回應樓層為第3樓、第6、第9樓，其平均回應樓層為6）；另外順便計算標準差（`sd_order`）以及每個人的總回文數量`tot_comment`。
+- Filter out those posts with fewer than 5 comments 不列計少於5則回文的貼文
+- Filter out those commentors with fewer than 10 comments 不列計在資料中回文總數少於10則的回文者
+- Only show top 10 commentors who always respond very fast
+
+```{r}
+comments %>%
+    # you cade should be here
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+    # you cade should be here
+    slice(1:10)
+
+    
+```
+
+# Challenge: Counting how many posts each commentor has responded to 
+針對每一個回文者，計算出下列數值
+1. 一共回過多少則post，一個post多個回文仍只算一次
+2. 針對每篇post，最多曾回應一篇post幾次
+3. 針對每篇post，最少曾回應一篇post幾次
+4. 針對每篇post，平均回應過幾次
+5. 針對每篇post，回應次數的標準差
+```{r}
+comments %>%
+    # you cade should be here
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    # you cade should be here
+    slice(1:30)
+```
+
+# Call for idea
+- Except the above methods, try to propose your idea to show questionable users, possible big fans, and high frequency enthusiasts.
+
+```{r}
+# your idea here
+# your code here
+```
+

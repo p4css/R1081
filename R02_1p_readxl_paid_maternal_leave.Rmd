@@ -1,0 +1,436 @@
+---
+title: "R02_1 Paid Maternity Leave"
+author: "Jilung Hsieh"
+date: "2019/9/2"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Case: Paid Maternal Leave
+
+* 本案例將利用R來重製華盛頓郵報在2016/08/13的一篇談論美國婦女產假支薪情形的報導。這個案例中將會應用到data.frame和基本的繪圖與資料摘要方法。The case adaped Washington Post's paid maternity leave as an exmaple to introduce basic skill of data.frame, plotting, and data mamipulation.
+
+* 原始新聞來源：https://www.washingtonpost.com/news/worldviews/wp/2016/08/13/the-world-is-getting-better-at-paid-maternity-leave-the-u-s-is-not/?tid=sm_tw&utm_term=.f8cd50280326#comments
+
+
+# Read .xlsx by readxl package
+
+* readxl也包含在tidyverse的套件集中，所以應該已經在前次安裝過，不用特別安裝。
+ 
+```{r}
+# Loading the pkg to read excel
+
+# Loading global option to avoid converting character vector to factor
+
+```
+
+
+
+
+# 0. Learner ver.
+
+* Use `?read_excel` to see function, inputs and ouput of `readxl::read_excel()` 
+* `read_excel()` can convert a sheet to a data.frame
+
+```{r}
+# use ?read_excel or help(read_exel) to check out the function
+
+# read_excel(path, sheet = NULL, range = NULL, col_names = TRUE, col_types = NULL, na = "", trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, n_max))
+```
+
+
+
+
+# 1. Read and inspect data
+
+```{r read excel}
+# Import readxl package
+
+# Use read_excel() to convert excel sheet to data.frame
+
+```
+
+# 2. Preview data by `View()`, `class()`, `dim()`, `str()`, `summary()` and `names()`
+
+```{r preview data}
+# View(df)
+
+
+
+# Show names of variables (vectors, columns) by names()
+
+```
+
+
+
+# 3. Select essential variables
+
+```{r}
+# Select the 3rd and 6th to 24th columns
+
+
+# Use class(), dim(), and str() to inspect the data
+
+
+
+```
+
+
+
+# 3. Replace NAs
+
+* `NA: Not Available`
+* `v[is.na(v)]` will select all NA cells
+* 以0取代NA的資料格。避免繪圖產生錯誤
+* `sum(is.na(matleave))`的目的是檢測還有沒有NA值。如果有的話`is.na()`就會是`TRUE`，那麼加總後，如果不是0，那就代表還有NA。
+
+```{r}
+# Use is.na() to detect NA element (TRUE/FALSE)
+
+
+# Assign 0 to those NA data
+
+
+# anyNA() to check if there are still NA cells.
+
+
+# sum(is.na()) to count the number of NA
+
+
+
+```
+
+
+
+# 4.1 Filter data by the last year value
+
+```{r}
+# Use logical comparison to see if the last year equals to 5
+# Assign matching row to var m5 when 2013 data(matleave_13 equals to 5
+
+
+# nrow() to count matching data
+
+
+# Is it possible to use length() to check the data length? If not, how to do it?
+# matleave$'matleave_13'
+# matleave$'matleave_13'==5
+# length(matleave$'matleave_13'==5)
+```
+
+
+
+
+# 4.2 Filter data by the first year value
+
+```{r}
+# filter rows whose 'matleave_95' is 5, and assign to var m55
+
+
+# filter rows whose 'matleave_95' is not 5, and assign to var m05
+
+
+```
+
+
+
+# 5. Plotting
+
+* Plotting the second rows and all columns except 1st column
+* **Question** 為何要`unlist()`？請試著執行`barplot(matleave[2, -1])`這個沒有`unlist()`的版本，看看會有什麼錯誤訊息。資料結構有何差異呢？
+* 嘗試用`class()`或`str()`嘗試觀察沒有`unlist()`版本的資料，看看資料型態和有`unlist()`的會有何不同？
+
+## 5.1 Plotting one line
+
+```{r}
+# barplot() the second row of m55
+# Observing the error msg carefully
+barplot(m55[2, ])       # raise error
+
+# barplot() the second row when neglecting the first column
+# Observing the error msg carefully
+barplot(m55[2, -1])     # raise error
+
+# Inspect the data type of matleave[2, ] by class() for data with or without unlist()
+# unlist() to convert a single row data.frame to a vector for barplot()
+class(matleave[2, -1])
+class(unlist(matleave[2, -1]))
+
+
+barplot(unlist(m55[2, -1]))
+```
+
+* Testing
+```{r}
+# View(matleave[1]) # select the 1st variable
+# View(matleave[ ,1]) # select the 1st column
+# View(matleave[1, ]) # select the 1st row
+
+class(m55[1])		# "tbl_df"     "tbl"        "data.frame"
+class(m55[ ,1])	# "tbl_df"     "tbl"        "data.frame"
+class(m55[1, ])	# "tbl_df"     "tbl"        "data.frame"
+class(m55$iso3)	# character (vector)
+
+```
+
+
+
+
+## 5.2 More arguments (args)
+```{r}
+# barplot() the unlisted second row (neglecting the first col)
+
+
+# use ?barplot to know more argument of the function.
+
+
+# Add arguments ylim, space, border, and axat/yaxt one by one to barplot()
+
+
+
+
+```
+
+
+## 5.3 Plotting multiple lines
+
+* 底下可以看見每一行非常相似且一致的特徵，僅有`matleave`內的索引由1被列出至6。因此，最好的方法是用迴圈（for-loop）的方式將相同的程式碼，從1~6之間做六次。
+
+```{r}
+# plot the 1st row
+
+
+# plot the 2nd to 6th rows
+
+
+```
+
+
+
+## 5.4 for-loop to plot multiple lines 
+
+```{r}
+# use for loop and use i as index to barplot multiple subgraphs
+
+
+```
+
+
+## 5.5 Sub-plots
+
+* Check `?par` to get paremeters of plotting
+
+* `**mai**`: A numerical vector of the form c(bottom, left, top, right) which gives the margin size specified in inches.
+
+* `**mfcol, mfrow**`:A vector of the form c(nr, nc). Subsequent figures will be drawn in an nr-by-nc array on the device by columns (mfcol), or rows (mfrow), respectively.
+
+
+```{r}
+# use ?par to get more plotting parameters
+
+
+# use par() to set-up the layout of subgraphs
+# use the parameter main=c(0.2, 0.2, 0.2, 0.2) to thrink the padding of figures.
+par(mfrow=c(3,2), mai= c(0.2, 0.2, 0.2, 0.2))
+for(i in 1:6){
+  barplot(unlist(m55[i, -1]), ylim=c(0, 5), space=0, border=NA, xaxt="n", yaxt="n")
+}
+
+```
+
+
+## 5.5 Testing
+
+```{r}
+# plot more rows to see what happens
+par(mfrow=c(3,2), mai= c(0.2, 0.2, 0.2, 0.2))
+for(i in 1:10){
+    barplot(unlist(m55[i, -1]), ylim=c(0, 5), space=0, border=NA, xaxt="n", yaxt="n")
+}
+
+# plot all subplots in a figure
+
+```
+
+
+
+
+
+## 5.6 Plotting m55
+```{r}
+# nrow() to check number of row of m55.
+nrow(m55)
+
+# use par() to set-up plotting parameters.
+par(mfrow=c(4, 6), mai= c(0.2, 0.2, 0.2, 0.2))
+
+# use for-loop to plot all graph as subgraph
+for (i in 1:nrow(m55)){
+  barplot(unlist(m55[i, -1]), border=NA, space=0, xaxt="n", yaxt="n", ylim = c(0,5))
+}
+
+```
+
+
+
+## 5.7 Adding title to each sub-plot
+```{r}
+par(mfrow=c(4,6), mai= c(0.2, 0.2, 0.2, 0.2))
+for (i in 1:nrow(m55)){
+    barplot(unlist(m55[i, -1]), border=NA, space=0,xaxt="n", yaxt="n", ylim = c(0,5))
+	title(m55[i,1], line = -4, cex.main=3)
+}
+```
+
+
+
+
+
+# Practice02_1_1 Plotting more
+```{r}
+# plotting matleave_95 != 5 but matleve_13 == 5
+
+# plotting for matleave_13 == 4
+
+```
+
+
+
+# Practice02_2_2 selecting and filtering by dplyr I
+```{r}
+df <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T)
+
+# select columns by index
+# matleave <- df[ , c(3, 6:24)]
+
+
+# select all NA cells and assign 0 to them
+# matleave[is.na(matleave)] <- 0
+
+
+# filter rows by condition
+# m5 <- matleave[matleave$'matleave_13' == 5, ]
+
+
+# filter rows by condition
+# m55<- m5[m5$'matleave_95' == 5,]
+
+
+# plot
+par(mfrow=c(4,6), mai= c(0.2, 0.2, 0.2, 0.2))
+for (i in c(1:nrow(m55))){
+	barplot(unlist(m55[i,-1]),
+			border=NA, space=0,xaxt="n", yaxt="n", ylim = c(0,5))
+	title(m55[i,1], line = -4, cex.main=3)
+}
+```
+
+
+
+
+
+# (More) Clean version
+```{r}
+# readxl::read_excel() to import the xls file
+df <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T)
+
+# select iso3, and matleave columns by index
+matleave <- df[ , c(3, 6:24)]
+
+# str() to inspect the data structure of 
+str(matleave)
+
+# select all NA cells and assign 0 to them
+matleave[is.na(matleave)] <- 0
+
+# filter rows by condition
+m5 <- matleave[matleave$'matleave_13' == 5, ]
+
+# filter rows by condition
+m55<- m5[m5$'matleave_95' == 5,]
+
+# plot
+par(mfrow=c(4,6), mai= c(0.2, 0.2, 0.2, 0.2))
+for (i in c(1:nrow(m55))){
+	barplot(unlist(m55[i,-1]),
+			border=NA, space=0,xaxt="n", yaxt="n", ylim = c(0,5))
+	title(m55[i,1], line = -4, cex.main=3)
+}
+```
+
+
+
+# (More) The fittest version to compute staySame
+```{r}
+# staySame version
+# staySame <- apply(m5[,2:20], 1, function(x) length(unique(x[!is.na(x)]))) 
+# m55 <- m5[staySame, ]
+# m50 <- m5[!staySame, ]
+
+```
+
+
+
+
+
+# by dplyr
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+raw <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T)
+matleave <- select(raw, iso3, 6:24)
+m5 <- filter(matleave, matleave_13==5)
+m55 <- filter(m5, matleave_95==5)
+```
+
+
+# by dplyr + pipeline
+```{r}
+m55 <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T) %>%
+    select(iso3, 6:24) %>%
+    filter(matleave_13==5) %>%
+    filter(matleave_95==5)
+```
+
+
+
+# by dplyr + pipeline + ggplot2
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readxl)
+
+read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T) %>%
+	select(iso3, contains("matleave"), -contains("wrr")) %>%
+	filter(matleave_13==5, matleave_95!=5) %>%
+	gather("year", "degree", 2:20) %>%
+	replace_na(list(degree=0)) %>%
+	mutate(year2=as.POSIXct(strptime(year, "matleave_%y"))) %>%
+	mutate(year3 = strftime(year2, "%Y")) %>%
+	ggplot() +
+	aes(year3, degree) +
+    geom_col(color="royalblue", fill="royalblue") + 
+	facet_wrap(~ iso3) + 
+    theme_void()
+	
+
+```
+
+
+
+

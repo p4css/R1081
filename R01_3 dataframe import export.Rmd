@@ -161,7 +161,7 @@ class(unlist(df[1, -1])) # filter the 1st row and select all columns except 1
 
 
 
-# **sort**排序：按照某個變數排序
+# **sorting**排序：按照某個變數排序
 
 * `df.sorted <- df[order(df$import),]`會使得整個df照`import`的大小排序重新做排列。因為`order(df$import)`會把資料照指定順序排列後的位置傳回來，所以把他丟給`df`的列的位置，便會使得`df`的資料照指定的順序排列。
 預設是由小到大，加上`decreasing = T`這個參數後變成由大而小。
