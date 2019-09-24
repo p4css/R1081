@@ -21,12 +21,13 @@
 
 ## 20190923
 * **In-class slides and code**
-  - Reviewing slide [R01_2 R Basic](https://docs.google.com/presentation/d/e/2PACX-1vRjb_W1Vo9-zD9F4FmWOiB6K4ezkF6W64OKcX7bZD6ordKvOT-6LFoGi0le-HzT2ABKudDNhr_qKt2x/pub?start=false&loop=false&delayms=3000) for [Assignment#1](https://p4css.github.io/R1081/AS01_R_Basic.html). Code: [R01_2_vector.html](https://p4css.github.io/R1081/R01_2_vector.html), [R01_3_dataframe_import_export.html](https://p4css.github.io/R1081/R01_3_dataframe_import_export.html)
-  - Practice: Comparing base and dplyr:\
+  - **Reviewing slide [R01_2 R Basic](https://docs.google.com/presentation/d/e/2PACX-1vRjb_W1Vo9-zD9F4FmWOiB6K4ezkF6W64OKcX7bZD6ordKvOT-6LFoGi0le-HzT2ABKudDNhr_qKt2x/pub?start=false&loop=false&delayms=3000)** for [Assignment#1](https://p4css.github.io/R1081/AS01_R_Basic.html).\
+  Code: [R01_2_vector.html](https://p4css.github.io/R1081/R01_2_vector.html), [R01_3_dataframe_import_export.html](https://p4css.github.io/R1081/R01_3_dataframe_import_export.html)
+  - **Practice: Comparing base and dplyr:**\
   Slide [R02_1 Using R to analyze maternal leave](https://docs.google.com/presentation/d/e/2PACX-1vRDGlYA4GPhbgreLaJUXBIWPz0xmfT4pG40s4h4LXD7Gq5k65as5sAf_6-o7-WFKyTY5jOcWI_f77Sn/pub?start=false&loop=false&delayms=3000).\
   Code: [R02_1p_readxl_paid_maternal_leave.Rmd](R02_1p_readxl_paid_maternal_leave.Rmd)\
   (HTML: [R02_1_readxl_paid_maternal_leave.html](https://p4css.github.io/R02_1_readxl_paid_maternal_leave.html))
-  - Practice: Comparing base and dplyr:\
+  - **Practice: Comparing base and dplyr:**\
   Slide [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000),\
   Code: [R02_2p_pivot_on_tp_theft.Rmd](R02_2p_pivot_on_tp_theft.Rmd)
 * **Assignment#2** [AS02_dplyr_ptt_result.html](https://p4css.github.io/R1081/AS02_dplyr_ptt_result.html): Following the assignment to detect questionable users or just big fans of the Kaohsiung Mayor Han. Answer the question directly in the AS#2 markdown file [AS02_prac01_dplyr_ptt_blank.Rmd](https://p4css.github.io/R1081/AS02_prac01_dplyr_ptt_blank.Rmd) in the repo. 
