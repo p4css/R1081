@@ -38,7 +38,9 @@
 
 ## 20190930
 * **In-class slides and code**
-* **Assignment #3**: 
+  - Reviewing data join by ptt data
+  - Main: Joining referendum results and age and marriage data
+* **Assignment #3**: Combining more data with referendum data
 * **Preview Datacamp before 10/07**
   - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr): Detecting, matching, splitting, replacing string with Regular expression.
   - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1): You can also learn by case with the 2nd unit of Exploratory Data Analysis in R: Case Study. 
@@ -47,6 +49,7 @@
 * **In-class slides and code**
 * **Assignment #4**: 
 * **Preview video before 10/14**
+- Crawler: 
 
 ## 20191014
 * **In-class slides and code**
