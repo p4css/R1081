@@ -29,6 +29,7 @@ options(stringsAsFactors = F)
 - will creating two data frames, `posts` and `comments`.
 ```{r}
 load("data/HatePolitics_Hang_20190101_2019_06_01.rda")
+
 ```
 
 
