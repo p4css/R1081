@@ -37,6 +37,7 @@
 
 
 ## 20190930
+* [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
 * **In-class slides and code**
   - Reviewing data join by ptt data
   - Main: Joining referendum results and age and marriage data
