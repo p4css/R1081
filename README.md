@@ -3,20 +3,17 @@
 
 # Rundown
 
-
-## 20190909
-* Preview Datacamp before 09/16
-  - [Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r)
-  - [Intermediate R](https://www.datacamp.com/courses/intermediate-r)
-
-
-## 20190916
+## 20190930
+* [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
 * **In-class slides and code**
-  - (Option) Slide [R01_1 Start R](https://docs.google.com/presentation/d/e/2PACX-1vR7PyAkfJBZq-LbZefnlbvlPhEbB2s1o5vQTabdEN5Fxa7PQwHv3eVgiQrpM1lkGsKrJ0xmya0l2ktj/pub?start=false&loop=false&delayms=3000): Installing R and RStudio, using RStudio, and editing R Markdown. Code: [R01_1_loading_data.html](R01_1_loading_data.html)
-* **Assignment#1** [R Basic](AS01_R_Basic.html)([How to upload your first assignment](https://youtu.be/HHY5krhdWC4))
-* **Preview Datacamp before 09/23**
-  - [Importing Data in R (Part 1)](https://www.datacamp.com/courses/importing-data-in-r-part-1): `read.csv()`, `options(stringAsFactors = F)`, `read_csv()` with args: `skip` and `n_max`, and `library(readxl)`.
-  - [Data Manipulation with dplyr in R](https://www.datacamp.com/courses/data-manipulation-with-dplyr-in-r): `glimpse()`, `select()`, `filter()`, `arrange()`, `mutate()`, `count()`, `group_by()`, `summarize()`, `transmnute()`
+  - Reviewing data join by ptt data
+  - Main: Joining referendum results and age and marriage data
+* **Assignment #3**: Combining more data with referendum data (Due: 10/07 WED 23:59. Closed:10/13 SUN 23:59)
+* **Preview Datacamp before 10/07**
+  - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr): Detecting, matching, splitting, replacing string with Regular expression.
+  - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1): You can also learn by case with the 2nd unit of Exploratory Data Analysis in R: Case Study. 
+
+
 
 
 ## 20190923
@@ -36,15 +33,22 @@
   - [Joining Data with dplyr in R](https://www.datacamp.com/courses/joining-data-with-dplyr-in-r): `left_joing()`, `right_join()`, `full_join()`, `inner_join()`
 
 
-## 20190930
-* [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
+
+## 20190916
 * **In-class slides and code**
-  - Reviewing data join by ptt data
-  - Main: Joining referendum results and age and marriage data
-* **Assignment #3**: Combining more data with referendum data
-* **Preview Datacamp before 10/07**
-  - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr): Detecting, matching, splitting, replacing string with Regular expression.
-  - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1): You can also learn by case with the 2nd unit of Exploratory Data Analysis in R: Case Study. 
+  - (Option) Slide [R01_1 Start R](https://docs.google.com/presentation/d/e/2PACX-1vR7PyAkfJBZq-LbZefnlbvlPhEbB2s1o5vQTabdEN5Fxa7PQwHv3eVgiQrpM1lkGsKrJ0xmya0l2ktj/pub?start=false&loop=false&delayms=3000): Installing R and RStudio, using RStudio, and editing R Markdown. Code: [R01_1_loading_data.html](R01_1_loading_data.html)
+* **Assignment#1** [R Basic](AS01_R_Basic.html)([How to upload your first assignment](https://youtu.be/HHY5krhdWC4))
+* **Preview Datacamp before 09/23**
+  - [Importing Data in R (Part 1)](https://www.datacamp.com/courses/importing-data-in-r-part-1): `read.csv()`, `options(stringAsFactors = F)`, `read_csv()` with args: `skip` and `n_max`, and `library(readxl)`.
+  - [Data Manipulation with dplyr in R](https://www.datacamp.com/courses/data-manipulation-with-dplyr-in-r): `glimpse()`, `select()`, `filter()`, `arrange()`, `mutate()`, `count()`, `group_by()`, `summarize()`, `transmnute()`
+
+
+## 20190909
+* Preview Datacamp before 09/16
+  - [Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r)
+  - [Intermediate R](https://www.datacamp.com/courses/intermediate-r)
+
+
 
 ## 20191007
 * **In-class slides and code**
