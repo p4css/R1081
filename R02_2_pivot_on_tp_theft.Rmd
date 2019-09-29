@@ -34,7 +34,7 @@ df <- read.csv(url, fileEncoding = "big5")
 - Remember to use the `fileEncoding` argument to `big5`
 ```{r}
 # read.csv() to read csv and convert it to a data.frame
-
+df <- read.csv("data/tp_theft.csv", fileEncoding = "big5")
 
 # Checking the strcutrue of it
 str(df)
@@ -44,7 +44,7 @@ str(df)
 ## Setting `stringAsFactors`
 ```{r}
 # Add stringsAsFactors argument  to avoid converting string to factor
-
+df <- read.csv("data/tptheft.csv", fileEncoding = "big5", stringsAsFactors = FALSE)
 # double-check the structure of it
 str(df)
 ```
@@ -77,7 +77,10 @@ df <- read.csv("data/tptheft.csv", fileEncoding = "big5", stringsAsFactors = FAL
 
 ```{r}
 # View(df)
-
+head(df)	# get first part of the data.frame
+class(df)
+str(df)
+summary(df)
 # look up help
 help(summary)
 ?summary
@@ -89,8 +92,10 @@ help(summary)
 ## Dimension
 e.g., dim(), ncol(), nrow(),length()
 ```{r}
-
-
+dim(df)
+ncol(df)
+nrow(df)
+length(df)
 ```
 
 
@@ -101,8 +106,10 @@ e.g., dim(), ncol(), nrow(),length()
 * `length(df$發生時段)` 顯示該變數的長度（相當於有幾個）
 
 ```{r}
-
-
+names(df)
+head(df$發生.現.地點)
+head(df$發生時段)
+length(df$發生時段)
 ```
 
 
@@ -113,10 +120,11 @@ e.g., dim(), ncol(), nrow(),length()
 
 ```{r}
 # Get substring of var "發生時段" and assign to a new time var
+df$time <- substr(df$發生時段, 1, 2)
 
 
 # Get substring of var "發生.現.地點" and assign to a new region var
-
+df$region <- substr(df$發生.現.地點, 4, 5)
 ```
 
 
@@ -128,10 +136,10 @@ e.g., dim(), ncol(), nrow(),length()
 ## Counting single variable by table()
 ```{r}
 # counting the frequency of time variable
-
+table(df$time)
 
 # counting the frequency of region variable
-
+table(df$region)
 ```
 
 
@@ -140,20 +148,20 @@ e.g., dim(), ncol(), nrow(),length()
 * Using `length()` as counting method
 ```{r}
 # tapply() one arbitrary var by var time with length() function
-
+tapply(df$編號, df$time, length)
 
 # tapply() one arbitrary var by var region with length() function
-
+tapply(df$編號, df$region, length)
 ```
 
 
 # Filtering data
 ```{r}
 # filter out irrelevant timestamp
-
+df <- df[!df$time %in% c("00", "02", "06", "08", "12", "14" ,"18", "20"), ]
 
 # filter out irrelevant region(area)
-
+df <- df[!df$region %in% c("三重", "中和", "淡水", "板橋"), ]
 ```
 
 
@@ -164,7 +172,7 @@ e.g., dim(), ncol(), nrow(),length()
 ```{r}
 
 # Tabulating time and region variables
-
+res_table <- table(df$time, df$region)
 
 # Checking it class and its content
 class(res_table)
@@ -183,12 +191,12 @@ res_tapply
 
 ```{r}
 # counting by dplyr::count()
-
+res_count <- dplyr::count(df, time, region)
 class(res_count)
 res_count
 
 # spreading the region into columns
-
+res_count_spread <- tidyr::spread(res_count, region, n, fill = 0)
 res_count_spread
 # ??dplyr::count
 ```

@@ -391,11 +391,13 @@ m55 <- read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T) %
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(readxl)
 
 read_excel("data/WORLD-MACHE_Gender_6.8.15.xls", "Sheet1", col_names=T) %>%
 	select(iso3, contains("matleave"), -contains("wrr")) %>%
 	filter(matleave_13==4, matleave_95!=4) %>%
 	gather("year", "degree", 2:20) %>%
+    spread(year, degree) %>%
 	replace_na(list(degree=0)) %>%
 	mutate(year2=as.POSIXct(strptime(year, "matleave_%y"))) %>%
 	mutate(year3 = strftime(year2, "%Y")) %>%
