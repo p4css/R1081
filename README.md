@@ -12,7 +12,7 @@
   - **Reviewing join data with PTT posts and comments** open `InClass04_join_ptt_blank.Rmd` \
   HTML [InClass04_join_ptt.html](https://p4css.github.io/R1081/InClass04_join_ptt.html)
   - Main: Joining referendum results and age and marriage data
-* **Assignment #3**: Combining more data with referendum data (Due: 10/07 WED 23:59. Closed:10/13 SUN 23:59)
+* **Assignment #3**: Combining more data with referendum data (Due: 10/09 WED 23:59. Closed:10/13 SUN 23:59)
   - Previewing AS#3 [AS03_join_edu_data.html](https://p4css.github.io/R1081/AS03_join_edu_data.html)
   - Download the repo and answer question in `AS03_join_edu_data.Rmd`
 * **Preview Datacamp before 10/07**
