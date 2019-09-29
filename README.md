@@ -8,13 +8,13 @@
 * **In-class slides and code**
   - **Reviewing the case paid maternal leave using dplyr** open `R02_1p_readxl_paid_maternal_leave.Rmd` \
   (HTML: [R02_1_readxl_paid_maternal_leave.html](https://p4css.github.io/R02_1_readxl_paid_maternal_leave.html))
-  - **Reviewing dplyr and pivot analysis** \
-  [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000)\
-  HTML: [R02_2_pivot_on_tp_theft.html](https://p4css.github.io/R1081/R02_2_pivot_on_tp_theft.html)
+  - **Reviewing dplyr and pivot analysis** Slide: [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000) (HTML: [R02_2_pivot_on_tp_theft.html](https://p4css.github.io/R1081/R02_2_pivot_on_tp_theft.html))
   - **Reviewing join data with PTT posts and comments** open `InClass04_join_ptt_blank.Rmd` \
   HTML [InClass04_join_ptt.html](https://p4css.github.io/R1081/InClass04_join_ptt.html)
   - Main: Joining referendum results and age and marriage data
-* **Assignment #3**: Combining more data with referendum data (Due: 10/07 WED 23:59. Closed:10/13 SUN 23:59)
+* **Assignment #3**: Combining more data with referendum data (Due: 10/09 WED 23:59. Closed:10/13 SUN 23:59)
+  - Previewing AS#3 [AS03_join_edu_data.html](https://p4css.github.io/R1081/AS03_join_edu_data.html)
+  - Download the repo and answer question in `AS03_join_edu_data.Rmd`
 * **Preview Datacamp before 10/07**
   - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr): Detecting, matching, splitting, replacing string with Regular expression.
   - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1): You can also learn by case with the 2nd unit of Exploratory Data Analysis in R: Case Study. 
