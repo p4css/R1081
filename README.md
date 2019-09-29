@@ -6,8 +6,12 @@
 ## 20190930
 * [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
 * **In-class slides and code**
-  - Slide [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000),\
+  - **Reviewing the case paid maternal leave using dplyr**\
+  Code: [R02_1p_readxl_paid_maternal_leave.Rmd](R02_1p_readxl_paid_maternal_leave.Rmd)
+  - **Reviewing dplyr and pivot analysis** \
+  [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000),\
   html: [R02_2_pivot_on_tp_theft.html](https://p4css.github.io/R1081/R02_2_pivot_on_tp_theft.html)
+  - **Reviewing join data with PTT posts and comments**\ open `InClass04_join_ptt_blank.Rmd`. knitted html [InClass04_join_ptt.html](https://p4css.github.io/R1081/InClass04_join_ptt.html)
   - Main: Joining referendum results and age and marriage data
 * **Assignment #3**: Combining more data with referendum data (Due: 10/07 WED 23:59. Closed:10/13 SUN 23:59)
 * **Preview Datacamp before 10/07**
