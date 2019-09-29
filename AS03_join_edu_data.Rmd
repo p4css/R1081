@@ -1,0 +1,125 @@
+---
+title: "AS03_join_edu_data"
+author: "Jilung Hsieh"
+date: "9/25/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: no
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+options(stringsAsFactors = F)
+```
+
+# Q1 Joining educational data
+- Reading education data from the following csv file.
+
+## Reading education data
+```{r}
+read_csv("data/opendata107Y020.csv") %>%
+    slice(-1) %>% 
+    glimpse()
+```
+
+## Town level educational data 
+- Following In-Class tutorial, using `group_by()` to create town level statistical data.
+
+
+```{r}
+
+```
+
+
+## Add code chunks as you need here. 
+
+
+
+## Joining data together
+- Joining education, age, marriage, and referendum 10th agreement together
+```{r}
+
+```
+
+## **Q1 Ans: Joined data dimension**
+- using `dim()` to display data dimension (should be 368). TAs will score Q1 according to the outcome.
+```{r}
+# dim(YOUR_DATA_FRAME_NAME)
+```
+
+
+## **Q1 Ans: glimpse()**
+- Using `glimpse()` to print out data you join below. TAs will score Q1 according to the `glimpse()` outcome.
+```{r}
+# glimpse(YOUR_DATA_FRAME_NAME)
+```
+
+# Q2 Open Question - Joining one more dimension
+- TASK: Collecting one more dimension from open data for town level and join it with the eucation, married, age, and referendum data.
+
+
+## Read the file
+```{r}
+
+```
+
+## Display the data dimension of the file
+```{r}
+
+```
+
+## Add code chunks as you need
+
+
+## **Q2 Ans: Answer following questions**
+- Data source link (the page you download the data): 
+- Describe the data source in your words: 
+
+
+## **Q2 Ans: Dim() of joined data frame**
+
+```{r}
+# dim(YOUR_DATA_FRAME_NAME)
+```
+
+
+## **Q2 Ans: glimpse() of joined data frame**
+```{r}
+# glimpse(YOUR_DATA_FRAME_NAME) 
+```
+
+# Q3 Open question - Linear regression
+ - Now, you have age, marriage, and education as indenpendent variables and referendum 10th agreement as the dependent variable.
+ - Go online and search how to run regression with R
+ - Report the regression result 
+
+## **Q3 Ans**
+```{r}
+
+# code for print out regression result 
+```
+
+
+
+# Q4 Challenge: The median of grouped data
+- Calculating age median of grouped data
+- Reference: https://www.themathdoctors.org/finding-the-median-of-grouped-data/
+- Solve it wit dplyr pkgs
+- If you can't answer the question correctly, keep your code (even wrong) to get partial scores.
+
+## **Q4 Ans: glimpse()**
+```{r}
+# glimpse(YOUR_DATA_FRAME_NAME)
+```
+
