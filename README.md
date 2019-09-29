@@ -15,6 +15,8 @@
   HTML [InClass04_join_ptt.html](https://p4css.github.io/R1081/InClass04_join_ptt.html)
   - Main: Joining referendum results and age and marriage data
 * **Assignment #3**: Combining more data with referendum data (Due: 10/07 WED 23:59. Closed:10/13 SUN 23:59)
+  - Previewing AS#3 [AS03_join_edu_data.html](https://p4css.github.io/R1081/AS03_join_edu_data.html)
+  - Download the repo and answer question in `AS03_join_edu_data.Rmd`
 * **Preview Datacamp before 10/07**
   - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr): Detecting, matching, splitting, replacing string with Regular expression.
   - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1): You can also learn by case with the 2nd unit of Exploratory Data Analysis in R: Case Study. 
