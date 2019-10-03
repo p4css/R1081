@@ -3,7 +3,7 @@
 
 # Rundown
 
-## 20190930
+## 20191007
 * [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
 * **In-class slides and code**
   - **Reviewing the case paid maternal leave using dplyr** open `R02_1p_readxl_paid_maternal_leave.Rmd` \
@@ -15,6 +15,14 @@
 * **Assignment #3**: Combining more data with referendum data (Due: 10/09 WED 23:59. Closed:10/13 SUN 23:59)
   - Previewing AS#3 [AS03_join_edu_data.html](https://p4css.github.io/R1081/AS03_join_edu_data.html)
   - Download the repo and answer question in `AS03_join_edu_data.Rmd`
+* **Preview Datacamp before 10/14**: (The links are shared to any participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
+  - [Introduction to JSON](https://youtu.be/NAwOobTPh8M)
+  - [Hand-by-hand: Reading JSON]()
+  - [Introduction to web crawler]()
+  - [Hand-by-hand: Crawling 104 data]()
+
+
+## 20190930
 * **Preview Datacamp before 10/07**
   - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr): Detecting, matching, splitting, replacing string with Regular expression.
   - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1): You can also learn by case with the 2nd unit of Exploratory Data Analysis in R: Case Study. 
