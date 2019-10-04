@@ -29,6 +29,7 @@ options(stringsAsFactors = F)
 - will creating two data frames, `posts` and `comments`.
 ```{r}
 load("data/HatePolitics_Hang_20190101_2019_06_01.rda")
+
 ```
 
 
@@ -76,7 +77,7 @@ comments %>%
 ```
 
 # Calculating the average response order for each commentor
-- 延續上題，計算出每一個人回應的平均樓層（`avg_order` 比方說，某人共在三篇貼文的回應樓層為第3樓、第6、第9樓，其平均回應樓層為6）；另外順便計算標準差（`sd_order`）以及每個人的總回文數量`tot_comment`。
+- 延續上題，計算出每一個人回應的平均樓層（`avg_order` 比方說，某人共在三篇貼文的回應樓層為第3樓、第6、第9樓，其平均回應樓層為6）；如果除以該則貼文的總回文樹的話，就會變成平均回文樓層比例（以下範例為有除以總回文數的結果）。另外順便計算標準差（`sd_order`）以及每個人的總回文數量`tot_comment`。
 - Filter out those posts with fewer than 5 comments 不列計少於5則回文的貼文
 - Filter out those commentors with fewer than 10 comments 不列計在資料中回文總數少於10則的回文者
 - Only show top 10 commentors who always respond very fast

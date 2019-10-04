@@ -1,0 +1,117 @@
+---
+title: "InClass04_join_ptt"
+author: "Jilung Hsieh"
+date: "9/22/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loading libraries
+```{r}
+library(tidyverse)
+options(stringsAsFactors = F)
+```
+
+# Loading data
+```{r}
+load("data/HatePolitics_Hang_20190101_2019_06_01.rda")
+```
+
+# Filtering posts by year >= 2019
+```{r}
+library(lubridate)
+posts2019 <- posts %>% filter(year(ptime) >= 2019)
+```
+
+
+# Filter comments by selected posts (year >= 2019)
+```{r}
+comments2019 <- comments %>% right_join(posts2019, by = "plink")
+```
+
+# Filter posts with title category [新聞]
+```{r}
+posts %>% filter(str_detect(ptitle, "^\\[新聞\\]")) %>% head %>% knitr::kable()
+```
+
+# Computing number of comments of selected posts
+- computing number of comments of posts with tilte starting with [新聞]
+```{r}
+comments %>%
+    count(plink) %>%
+    right_join(posts, by = "plink") %>%
+    filter(str_detect(ptitle, "^\\[新聞\\]")) %>% head %>% knitr::kable()
+```
+
+# Computing number of comments for each post
+```{r}
+comments %>%
+    count(plink) %>%
+    right_join(posts, by = "plink") %>%
+    filter(str_detect(ptitle, "^Re"))  %>% head %>% knitr::kable()
+```
+
+# Computing comment to poster relationship
+```{r}
+posts %>% select(plink, poster) %>%
+    left_join(comments, by = "plink") %>%
+    count(commentor, poster, sort = T) %>%  head %>% knitr::kable()
+```
+
+
+# Computer comment times to poster, each post counts one time.
+```{r}
+posts %>% select(plink, poster) %>%
+    left_join(comments, by = "plink") %>%
+    group_by(plink) %>%
+    filter(!duplicated(commentor)) %>%
+    ungroup() %>%
+    count(commentor, poster, sort = T) %>%
+    filter(!poster == "mark2165")  %>% head %>% knitr::kable()
+
+```
+
+
+```{r}
+library(igraph)
+library(ggraph)
+posts %>% select(plink, poster) %>%
+    left_join(comments, by = "plink") %>%
+    group_by(plink) %>%
+    filter(!duplicated(commentor)) %>%
+    ungroup() %>%
+    filter(!poster == "mark2165") %>%
+    count(commentor, poster, sort = T) %>%
+    slice(1:3000) %>%
+    group_by(commentor) %>%
+    filter(n() >= 20) %>%
+    ungroup() %>%
+    group_by(poster) %>%
+    filter(n() >= 20) %>%
+    ungroup() %>%
+    graph_from_data_frame(directed = T) %>%
+    ggraph(layout = "fr") +
+    geom_edge_link(aes(edge_alpha = n), color="dimgray") +
+    geom_node_point(color = "gold", size = 2, alpha=0.5) +
+    geom_node_text(aes(label = name), vjust = 1, hjust = 1, color = "royalblue", alpha = 0.8) + 
+    theme_void()
+
+```
+
+
+
+
+
+
+

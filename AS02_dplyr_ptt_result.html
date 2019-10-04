@@ -357,7 +357,7 @@ $(document).ready(function () {
 <div id="calculating-the-average-response-order-for-each-commentor" class="section level1">
 <h1><span class="header-section-number">6</span> Calculating the average response order for each commentor</h1>
 <ul>
-<li>延續上題，計算出每一個人回應的平均樓層（<code>avg_order</code> 比方說，某人共在三篇貼文的回應樓層為第3樓、第6、第9樓，其平均回應樓層為6）；另外順便計算標準差（<code>sd_order</code>）以及每個人的總回文數量<code>tot_comment</code>。</li>
+<li>延續上題，計算出每一個人回應的平均樓層（<code>avg_order</code> 比方說，某人共在三篇貼文的回應樓層為第3樓、第6、第9樓，其平均回應樓層為6）；如果除以該則貼文的總回文樹的話，就會變成平均回文樓層比例（以下範例為有除以總回文數的結果）。另外順便計算標準差（<code>sd_order</code>）以及每個人的總回文數量<code>tot_comment</code>。</li>
 <li>Filter out those posts with fewer than 5 comments 不列計少於5則回文的貼文</li>
 <li>Filter out those commentors with fewer than 10 comments 不列計在資料中回文總數少於10則的回文者</li>
 <li>Only show top 10 commentors who always respond very fast</li>
@@ -391,14 +391,14 @@ $(document).ready(function () {
 ##    commentor    num_post max_c2p min_c2p mean_c2p sd_c2p
 ##    &lt;chr&gt;           &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
 ##  1 aylao            1775      29       1     4.27   5.45
-##  2 bottger          1569     148       1    15.0   27.2 
-##  3 ninaman          1497      87       1    16.3   18.1 
-##  4 zeumax           1286     110       1    17.4   22.1 
-##  5 gn02118620       1206     128       1    36.4   36.7 
-##  6 bluesunflowe     1197      86       1    18.3   21.3 
-##  7 pupu20317        1190     103       1    15.6   24.6 
-##  8 formatted        1114      77       1    15.6   18.6 
-##  9 alex8725          984      64       1    12.1   13.9 
+##  2 bottger          1569     148       1    15.0   27.2
+##  3 ninaman          1497      87       1    16.3   18.1
+##  4 zeumax           1286     110       1    17.4   22.1
+##  5 gn02118620       1206     128       1    36.4   36.7
+##  6 bluesunflowe     1197      86       1    18.3   21.3
+##  7 pupu20317        1190     103       1    15.6   24.6
+##  8 formatted        1114      77       1    15.6   18.6
+##  9 alex8725          984      64       1    12.1   13.9
 ## 10 c1951             886      38       1     6.19   7.05
 ## # ... with 20 more rows</code></pre>
 </div>
