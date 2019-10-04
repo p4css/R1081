@@ -1,0 +1,152 @@
+---
+title: "R03_1 Crawling 104"
+author: "Jilung Hsieh"
+date: "2019/9/2"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Loading essential packages
+```{r}
+library(tidyverse)
+options(stringsAsFactors = F)
+
+
+
+```
+
+
+# Get the first pages
+
+## Must loading the second page
+```{r}
+# Assigning the 2nd page data url to url2
+
+
+# Assigning the 3rd page data url to url3
+
+
+# Getting back the url1 data, assigning to result1
+
+
+# Tracing variable result2 and finding the data.frame, assigning to df2
+
+
+```
+
+## Try to get the first page by modifying url
+```{r}
+# Guessing the 1st page data url to url1
+
+
+# Getting back the 1st page data
+
+
+
+
+```
+
+
+## Combine two data with the same variables
+
+```{r}
+# all.df <- bind_rows(df1, df2) # will raise error
+# Error in bind_rows_(x, .id) : 
+#   Argument 31 can't be a list containing data frames
+```
+
+## Drop out hierarchical variables
+Preserving numeric or character, dropping list of data.frame by assigning NULL to the variable
+```{r}
+# Drop list and data.frame inside the data.frame
+
+
+# Re-binding two data.frame df1 and df2
+
+```
+
+## Dropping hierarchical variables by dplyr way
+```{r}
+
+# Getting the 1st page data and dropping variable tags and link
+# Assigning to df1
+
+
+# Getting the 2nd page data and dropping variable tags and link
+# Assigning to df2
+
+
+# binding df1 and df2
+
+
+```
+
+
+# Finding out the last page number
+```{r}
+# Tracing the number of pages in result1
+
+
+# Checking the availability of the last page
+# Examining if the last page data available by re-composing URL with paste0()
+
+
+# Getting back and parsing the last page data
+
+
+
+```
+
+# Using for-loop to get all pages
+```{r}
+
+
+
+
+
+```
+
+# combine all data.frame
+```{r}
+
+#  The 1st url of the query
+
+
+# Getting back the 1st page data
+
+
+# Tracing and getting total number of page
+
+
+# Truncating hierarchical variables: link and tags
+
+
+
+# for-loop to getting back data and joining them
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
