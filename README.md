@@ -3,7 +3,7 @@
 
 # Rundown
 
-## 20191007
+## Week 5. 20191007
 * [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
 * **In-class slides and code**
   - **Reviewing the case paid maternal leave using dplyr** open `R02_1p_readxl_paid_maternal_leave.Rmd`
@@ -23,9 +23,9 @@
   - [2.4 Using Chrome DevTools to find out data URL](https://youtu.be/P7DCgX0YAvM)
   - [2.5 Hand-by-hand: Scraping 104 job search](https://youtu.be/Tu63pSFrmM4)
  * **Practice Week5 (At-Home) - Read JSON and Crawler Design**
- 1. Follow the instructions in the video and fill in the blank rmd files. `R02_4p_read_json.Rmd` and `R03_1p_crawl_104.Rmd`
- 2. Submitting these two .rmd files, and knitted .html files
- 3. Submitting before the start of the next week class (10/14 09:00). No delay.
+  1. Follow the instructions in the video and fill in the blank rmd files. `R02_4p_read_json.Rmd` and `R03_1p_crawl_104.Rmd`
+  2. Submitting these two .rmd files, and knitted .html files
+  3. Submitting before the start of the next week class (10/14 09:00). No delay.
 
 
 ## 20190930
