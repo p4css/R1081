@@ -24,7 +24,7 @@ options(stringsAsFactors = F)
 ```
 
 # Q1 Joining educational data
-- Reading education data from the following csv file.
+- Reading educational data from the following csv file.
 
 ## Reading education data
 ```{r}
@@ -33,9 +33,10 @@ read_csv("data/opendata107Y020.csv") %>%
     glimpse()
 ```
 
-## Town level educational data 
-- Following In-Class tutorial, using `group_by()` to create town level statistical data.
 
+## Town level educational data 
+- Original data is village-level data
+- Following In-Class tutorial, using `group_by()` to create town-level statistical data.
 
 ```{r}
 
@@ -45,9 +46,17 @@ read_csv("data/opendata107Y020.csv") %>%
 ## Add code chunks as you need here. 
 
 
+## Loading town-level age, marriage, and referendum data
+- Loading town-level data created in class
+
+```{r}
+
+```
+
+
 
 ## Joining data together
-- Joining education, age, marriage, and referendum 10th agreement together
+- Joining all town-leave data together (Including new educational dada, and age, marriage, referendum data introduced in class)
 ```{r}
 
 ```

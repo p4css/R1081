@@ -1,0 +1,141 @@
+---
+title: "R04_1_join_twdemo_referendum"
+author: "Jilung Hsieh"
+date: "9/25/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+* https://rfrd-tw.github.io/
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loading pkgs
+```{r}
+library(tidyverse)
+options(stringsAsFactors = F)
+```
+
+
+# Reading CSV
+```{r}
+raw <- read_csv("data/opendata107Y030.csv") %>%
+    slice(-1) %>%
+    mutate(vname  = paste0(site_id, village)) %>%
+    select(statistic_yyy, vname, everything())
+raw %>% glimpse()
+```
+
+# Tidying data
+```{r}
+tidy_data <- raw %>%
+    gather("key", "value", 6:ncol(.)) %>% 
+    mutate(key = str_replace(key, "15down", "0_14")) %>%
+    mutate(key = str_replace(key, "100up", "100_105")) %>%
+    mutate(key = str_replace(key, "single_age", "single")) %>%
+    separate(key, c("married", "ageLower", "ageUpper", "gender")) %>% 
+    mutate(ageLower = as.numeric(ageLower),
+           ageUpper = as.numeric(ageUpper),
+           value = as.numeric(value)
+           ) %>%
+    arrange(vname)
+
+?str_replace
+?separate
+```
+
+
+# Summarizing by villages
+```{r}
+village_stat <- tidy_data %>%
+    filter(ageLower >= 20) %>%
+    group_by(district_code) %>%
+    summarise(
+        people = sum(value),
+        elderSum = sum(value[ageLower >= 65]),
+        marriedSum = sum(value[!married %in% ("single")])
+        ) %>%
+    ungroup() %>%
+    mutate(elderPerc = elderSum / people,
+           marriedPerc = marriedSum / people)
+```
+
+
+# Merging original data fields
+```{r}
+village_stat <- village_stat %>%
+    left_join(raw %>% select(statistic_yyy, district_code, vname, site_id, village), 
+              by = "district_code")
+```
+
+
+# Stat by towns
+```{r}
+town_stat <- tidy_data %>%
+    filter(ageLower >= 20) %>%
+    mutate(site_id = str_replace(site_id, "三民一|三民二", "三民區")) %>%
+    mutate(site_id = str_replace(site_id, "鳳山一|鳳山二", "鳳山區")) %>%
+    group_by(site_id) %>%
+    summarise(
+        people = sum(value),
+        elderSum = sum(value[ageLower >= 65]),
+        marriedSum = sum(value[!married %in% ("single")])
+        ) %>%
+    ungroup() %>%
+    mutate(elderPerc = elderSum / people,
+           marriedPerc = marriedSum / people)
+
+```
+
+
+
+## (Option) Visualization
+```{r}
+town_stat %>%
+    ggplot() + 
+    aes(marriedPerc, elderPerc) + 
+    geom_jitter(alpha=0.5, color="blue")
+```
+
+
+# Loading referendum data
+```{r}
+ref10 <- read_csv("data/referendum_byTown/ref10.csv")
+
+names(ref10) <- c("refno", "county", "town", "n_agree", "n_disagree", "n_valid", "n_invalid", "n_ticket", "n_people", "perc_ticket", "perc_agree", "perc_disagree", "agree_disagree")
+```
+
+
+# Cleaning and summarizing
+```{r}
+
+town_ref10 <- ref10 %>%
+    filter(!is.na(town)) %>%
+    select(refno, county, town, n_agree, n_disagree, n_valid, n_invalid, n_ticket, n_people) %>%
+    mutate(townfull = paste0(county, town)) %>%
+    mutate(perc_ticket = n_ticket / n_people,
+           perc_agree = n_agree / n_ticket,
+           perc_disagree = 1 - perc_agree)
+
+```
+
+# Joining demo and referendum data
+```{r}
+town_stat %>%
+    mutate(site_id = str_replace_all(site_id, "　", "")) %>%
+    left_join(town_ref10, by=c("site_id"="townfull")) %>%
+    ggplot() + 
+    aes(marriedPerc, perc_agree) + 
+    geom_jitter(alpha = 0.5) + 
+    ylab("Agree%_Ref10") + 
+    theme_minimal()
+```
