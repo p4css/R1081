@@ -23,9 +23,9 @@
   - [2.4 Using Chrome DevTools to find out data URL](https://youtu.be/P7DCgX0YAvM)
   - [2.5 Hand-by-hand: Scraping 104 job search](https://youtu.be/Tu63pSFrmM4)
  * **Practice Week5 (At-Home) - Read JSON and Crawler Design**
-  1. Follow the instructions in the video and fill in the blank rmd files. `R02_4p_read_json.Rmd` and `R03_1p_crawl_104.Rmd`
-  2. Submitting these two .rmd files, and knitted .html files
-  3. Submitting before the start of the next week class (10/14 09:00). No delay.
+  - Follow the instructions in the video and fill in the blank rmd files. `R02_4p_read_json.Rmd` and `R03_1p_crawl_104.Rmd`
+  - Submitting these two .rmd files, and knitted .html files
+  - Submitting before the start of the next week class (10/14 09:00). No delay.
 
 
 ## 20190930
