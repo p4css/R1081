@@ -3,23 +3,28 @@
 
 # Rundown
 
-## 20191007
+## Week 5. 20191007
 * [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
 * **In-class slides and code**
-  - **Reviewing the case paid maternal leave using dplyr** open `R02_1p_readxl_paid_maternal_leave.Rmd` \
+  - **Reviewing the case paid maternal leave using dplyr** open `R02_1p_readxl_paid_maternal_leave.Rmd`
   (HTML: [R02_1_readxl_paid_maternal_leave.html](https://p4css.github.io/R02_1_readxl_paid_maternal_leave.html))
-  - **Reviewing dplyr and pivot analysis** Slide: [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000) (HTML: [R02_2_pivot_on_tp_theft.html](https://p4css.github.io/R1081/R02_2_pivot_on_tp_theft.html))
-  - **Reviewing join data with PTT posts and comments** open `InClass04_join_ptt_blank.Rmd` \
+  - **Review: dplyr and pivot analysis** Slide: [R02_2 Read tabulated csv and xlsx (https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000) (HTML: [R02_2_pivot_on_tp_theft.html](https://p4css.github.io/R1081/R02_2_pivot_on_tp_theft.html))
+  - **Review: joining data with PTT posts and comments** open `InClass04_join_ptt_blank.Rmd`
   HTML [InClass04_join_ptt.html](https://p4css.github.io/R1081/InClass04_join_ptt.html)
-  - Main: Joining referendum results and age and marriage data
-* **Assignment #3**: Combining more data with referendum data (Due: 10/09 WED 23:59. Closed:10/13 SUN 23:59)
+  - **Practice: Joining demographic and referendum data** (for AS#3) open
+* **Assignment #3**: Combining more data with referendum data (Due: 10/16 WED 23:59. Closed:10/20 SUN 23:59)
   - Previewing AS#3 [AS03_join_edu_data.html](https://p4css.github.io/R1081/AS03_join_edu_data.html)
   - Download the repo and answer question in `AS03_join_edu_data.Rmd`
-* **Preview Datacamp before 10/14**: (The links are shared to any participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
-  - [Introduction to JSON](https://youtu.be/NAwOobTPh8M)
-  - [Hand-by-hand: Reading JSON]()
-  - [Introduction to web crawler]()
-  - [Hand-by-hand: Crawling 104 data]()
+* **Preview video instruction before 10/14**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
+  - [2.1 Introduction to JSON](https://youtu.be/NAwOobTPh8M)
+  - [2.2 Hand-by-hand: Reading JSON](https://youtu.be/0RVvkveI_a8)
+  - [2.3 Hand-by-hand: Reading JSON, more complicated cases](https://youtu.be/rS-GlEYuFE0)
+  - [2.4 Using Chrome DevTools to find out data URL](https://youtu.be/P7DCgX0YAvM)
+  - [2.5 Hand-by-hand: Scraping 104 job search](https://youtu.be/Tu63pSFrmM4)
+* **Practice Week5 (At-Home) - Read JSON and Crawler Design**
+  - Follow the instructions in the video and fill in the blank rmd files. `R02_4p_read_json.Rmd` and `R03_1p_crawl_104.Rmd`
+  - Submitting these two .rmd files, and knitted .html files
+  - Submitting before the start of the next week class (10/14 09:00). No delay.
 
 
 ## 20190930
