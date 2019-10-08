@@ -1,0 +1,125 @@
+---
+title: "R03_5_GET_PARSE_HTML"
+author: "Jilung Hsieh"
+date: "2019/9/2"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+    
+    ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(httr)
+library(rvest) # for traversing html structure
+library(tidyverse)
+options(stringsAsFactors = F)
+```
+
+
+# Getting county
+
+## No pipeline
+
+```{r}
+# Assigning the page URL to var url
+
+
+# Using browseURL() to examine the url
+
+
+# STEP 1. Getting url, parsing it as html, 
+# using read_html() to get back url and assign to a var doc
+# read_html() will get back the url and parse it and convert it to a specific datatype, named html_document.
+
+
+# Checking the class od the doc (xml_doc)
+
+
+# STEP 2. with doc, Using CSS Selector or XPath to get the data nodes
+# html_node() for getting only the first eligible node
+# html_nodes() for getting all eligible nodes
+
+
+# Checking the length of nodes you parsed, using length()
+
+
+# STEP 3. Converting the selected node into text data
+# html_text() to get the content between a pair of openning and closing tags
+# html_attr() to get the attribute of a specific element
+
+# print out results
+
+
+```
+
+
+
+# Getting PTT
+```{r}
+# Assigning url
+url <- "https://www.ptt.cc/bbs/Boy-Girl/index4589.html"
+
+# Using read_html() to get back and convert to xml_document
+# Checking the clas()
+
+# Using html_node() or html_nodes() to get the nodes you want
+# Checking the length
+
+# Using html_text() or html_attr() to convert the node to data
+# Getting titles using html_text()
+titles <- html_text(nodes)
+
+# Getting links using html_attr()
+links <- html_attr(nodes, "href")
+
+# setting prefix of url
+pre <- "https://www.ptt.cc"
+
+# Combines titles and links to a data.frame and adding prefix url to links
+df <- data.frame(titles, links) %>%
+    mutate(links = str_c(pre, links))
+
+# Examining data
+browseURL(df$links[1])
+
+links[1]
+browseURL(links[1])
+```
+
+
+# Pipeline
+
+## None Pipeline
+```{r}
+url <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0"
+# Get and parse html -> XML document
+doc <- read_html(url)
+
+# Select nodes by CSS selector
+nodes <- html_nodes(doc, "#Class1 > option")
+
+# Retrieve text of nodes
+counties <- html_text(nodes)
+```
+
+
+
+## Pipeline
+```{r}
+
+counties <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0" %>%
+    read_html() %>%
+    html_nodes("#Class1 option") %>%
+    html_text()
+
+counties
+```
