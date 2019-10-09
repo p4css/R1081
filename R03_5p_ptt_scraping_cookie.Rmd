@@ -1,0 +1,149 @@
+---
+title: "R03_5_PTT_scraping_cookie"
+author: "Jilung Hsieh"
+date: "2019/9/2"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# loading packages
+```{r}
+library(rvest)
+library(httr)
+library(tidyverse)
+options(stringsAsFactors = F)
+```
+
+# GET() html with cookie
+
+## Testing: GET() directly
+```{r}
+# url
+
+
+# Using read_html(), write_html() and browseURL() to examine the link
+
+
+# Browsing the URL by browseURL()
+
+
+```
+
+
+
+## Testing: GET() with cookie
+```{r}
+# GET html with cookie
+
+
+# content() %>% read_html() to an xml_document
+
+
+
+
+
+# Examining the url
+
+
+```
+
+## Code: GET() html with cookie
+```{r}
+# the url
+
+# GET() with cookie and convert to xml_document by read_html()
+
+
+
+
+# write_html() again to final checking
+
+
+
+```
+
+
+# Parse html
+
+```{r}
+# GET() all nodes
+
+
+# For all nodes, retrieve number of recommendation to var nrec
+
+
+# For all nodes, retrieve title to variable title
+
+
+# For all nodes, retrieve link to variable link
+# Remember to paste the prefix link to the link
+# Try to browse it for verification
+
+
+
+
+
+
+# For all nodes, retrieve author to variable author
+
+
+
+
+# Combine all variable as data.frame
+
+
+```
+
+
+
+# Formatting the url
+```{r}
+# the query -> query
+
+# the prefixed url -> pre
+
+# the url by pasting the url, page number and the query
+
+# preview the url
+
+```
+
+
+# Using for-loop to get back all pages
+```{r}
+# the query
+query = "林昶佐"
+
+# Creating an empty data frame by data_frame()
+
+# for-loop
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+# NOTES and FURTHER
+Now we detect the last page number manually. You can try to write a function to crawl back all data given a board name and a query. One more thing you need to think by yourself is that you need to detect the last page number automatically. Try to do it!
+
+
