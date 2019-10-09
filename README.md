@@ -22,6 +22,7 @@
   - [3.2 parse html get 1](https://youtu.be/nev71vayfN8)
   - [3.2 parse html get 2 ptt](https://youtu.be/l2Hx4tuZULg)
   - [3.3 ibon crawler POST](https://youtu.be/UY_mT0LJW3w)
+  - [3.4 ptt_scraping_postlink_with_cookie](https://youtu.be/BdYE0lTSQQo)
 
 ## Week 5. 20191007
 * **In-class slides and code**
