@@ -1,0 +1,124 @@
+---
+title: "R03_6_POST_ibon"
+author: "Jilung Hsieh"
+date: "9/22/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(httr)
+library(rvest) 
+options(stringsAsFactors = F)
+```
+
+
+# Getting county
+
+## No pipeline
+
+```{r}
+url <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0"
+# Getting and Parsing url to xml document
+
+
+# Selecting nodes of county names
+
+
+# Retrieve content of county names
+
+```
+
+## Pipeline
+```{r}
+
+# Writing as pipeline version
+url <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0"
+# counties <- 
+
+# counties
+```
+
+# POST: Getting address of Taipei city
+- Is it possible to use `GET()` to get back Taipei city's ibon address?
+
+## Getting back html with `POST()`
+```{r}
+# Finding the url
+
+
+# Using POST to send parameters
+
+
+# httr::content() to convert response to textual data
+
+
+# cat() to save textual data to html file
+
+
+# browseURL() to re-open the html in your browser
+
+
+```
+
+## Retrieveing data in nodes
+```{r}
+# Converting response to text by content() and parsing to xml_document by read_html(), assign to var 'doc'
+
+
+# Selecting nodes
+
+
+# Retrieving text from nodes
+
+
+# Using html_table() function
+
+
+
+```
+
+
+
+# Getting and binding all counties' data
+
+```{r}
+
+
+
+
+
+
+```
+
+
+# Cleaning data
+
+# Retrieving town names 
+```{r}
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
