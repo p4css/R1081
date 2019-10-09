@@ -3,7 +3,12 @@
 
 # Rundown
 
-## Week 5. 20191007
+## Week 7. 20191021
+* **AS#5**
+  - (Focus on crawling html files)
+  - For referendum data, joining town-level number of 7-11 store to referendum data.
+
+## Week 6. 20191014 
 * [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
 * **In-class slides and code**
   - **Reviewing the case paid maternal leave using dplyr** open `R02_1p_readxl_paid_maternal_leave.Rmd`
@@ -11,8 +16,18 @@
   - **Review: dplyr and pivot analysis** Slide: [R02_2 Read tabulated csv and xlsx (https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000) (HTML: [R02_2_pivot_on_tp_theft.html](https://p4css.github.io/R1081/R02_2_pivot_on_tp_theft.html))
   - **Review: joining data with PTT posts and comments** open `InClass04_join_ptt_blank.Rmd`
   HTML [InClass04_join_ptt.html](https://p4css.github.io/R1081/InClass04_join_ptt.html)
+* **AS#4**:
+  - (Focus on crawling JSON file)
+* **Preview video instruction before 10/21**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
+  - [3.1 Introduction to JSON](https://youtu.be/x9QhP8v0G6U)
+  - [3.2 parse html get 1](https://youtu.be/nev71vayfN8)
+  - [3.2 parse html get 2 ptt](https://youtu.be/l2Hx4tuZULg)
+  - [3.3 ibon crawler POST](https://youtu.be/UY_mT0LJW3w)
+
+## Week 5. 20191007
+* **In-class slides and code**
   - **Practice: Joining demographic and referendum data** (for AS#3) open
-* **Assignment #3**: Combining more data with referendum data (Due: 10/16 WED 23:59. Closed:10/20 SUN 23:59)
+* **AS#3**: Combining more data with referendum data (Due: 10/16 WED 23:59. Closed:10/20 SUN 23:59)
   - Previewing AS#3 [AS03_join_edu_data.html](https://p4css.github.io/R1081/AS03_join_edu_data.html)
   - Download the repo and answer question in `AS03_join_edu_data.Rmd`
 * **Preview video instruction before 10/14**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
@@ -31,8 +46,6 @@
 * **Preview Datacamp before 10/07**
   - [String Manipulation in R with stringr](https://www.datacamp.com/courses/string-manipulation-in-r-with-stringr): Detecting, matching, splitting, replacing string with Regular expression.
   - [Data Visualization with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1): You can also learn by case with the 2nd unit of Exploratory Data Analysis in R: Case Study. 
-
-
 
 
 ## 20190923
