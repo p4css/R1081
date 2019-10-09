@@ -17,10 +17,16 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Crawler design
+1. Finding way to get the first page of data
+2. Finding way to get back all page
+
+
+
 ```{r}
 library(tidyverse)
-library(httr)
-library(rvest) 
+library(httr) # GET(), POST(), content()
+library(rvest) # read_html(), html_nodes(), html_text()
 options(stringsAsFactors = F)
 ```
 
@@ -30,14 +36,9 @@ options(stringsAsFactors = F)
 ## No pipeline
 
 ```{r}
+# The url
 url <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0"
-# Getting and Parsing url to xml document
-
-
-# Selecting nodes of county names
-
-
-# Retrieve content of county names
+browseURL(url)
 
 ```
 
@@ -46,9 +47,7 @@ url <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0"
 
 # Writing as pipeline version
 url <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0"
-# counties <- 
 
-# counties
 ```
 
 # POST: Getting address of Taipei city
@@ -59,7 +58,9 @@ url <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0"
 # Finding the url
 
 
+
 # Using POST to send parameters
+
 
 
 # httr::content() to convert response to textual data
@@ -99,8 +100,6 @@ url <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0"
 
 
 
-
-
 ```
 
 
@@ -108,16 +107,6 @@ url <- "http://www.ibon.com.tw/retail_inquiry.aspx#gsc.tab=0"
 
 # Retrieving town names 
 ```{r}
-
-
-
-
-
-
-
-
-
-
 
 
 ```
