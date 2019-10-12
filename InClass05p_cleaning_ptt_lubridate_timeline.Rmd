@@ -1,0 +1,203 @@
+---
+title: "InClass05_data_cleaning_ptt_lubridate"
+author: "Jilung Hsieh"
+date: "9/22/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Practice Notes
+- Goals: lubridate, stringr, ggplot2, plotting timeline
+- Related: 
+- Unknown: Crawler designs
+
+
+# Questions
+- How do you clean the raw data of Hang's related posts?
+- How to 
+
+# Loading packages
+```{r}
+library(lubridate)  # for processing time
+library(tidyverse)
+options(stringsAsFactors = F)
+```
+
+# Loading data
+```{r}
+load("data/HatePolitics_韓_201906010320_raw.rda")
+```
+
+
+# Related sources
+- [The lubridate packages document](https://rdrr.io/cran/lubridate/man/lubridate-package.html)
+- [Usage: [Stackoverflow] dplyr, lubridate : how to aggregate a dataframe by week?](https://stackoverflow.com/questions/40554231/dplyr-lubridate-how-to-aggregate-a-dataframe-by-week)
+- [lubridate cheatsheets](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_lubridate.pdf)
+
+
+# Parsing character to POSIXct R data time object
+
+## By base packages
+- Using `?strptime` to find formatter
+- %a: bbreviated weekday name
+- %b: Abbreviated month nam
+- %e: Day of the month as decimal number (1–31)
+- %X: Time. Locale-specific on output, "%H:%M:%S" on input.
+- %Y: Year with century
+
+```{r}
+# Given a character timestamp
+t <- "Fri Apr 12 09:12:40 2019"
+
+# Converting t to POSIXlt by strptime()
+
+
+
+# Converting t to POSIXlt to POSIXct by strptime() and as.POSIXct()
+
+
+
+```
+
+## By lubridate packages
+- a: Abbreviated weekday name in the current locale
+- b!: Abbreviated or full month name in the current locale.
+- d!: Day of the month as decimal number (01–31 or 0–31)
+- H: HOUR
+- M: MINUTE
+- S: SECOND
+- Y!: Year with century
+
+```{r}
+# Converting the character time to datetime by lubridate::parse_date_time()
+
+
+
+```
+
+## Time zone
+- CST - Central Standard Time (UTC+8)
+- UTC - Coordinated Universal Time
+- GMT
+
+
+```{r}
+# Parsing datetime with time zone
+parse_date_time("Fri Apr 12 09:12:40 2019", "ab!d!HMSY!", tz = "Asia/Taipei")
+parse_date_time("Fri Apr 12 09:12:40 2019", "ab!d!HMSY!", tz = "America/New_York")
+
+```
+
+
+
+# Cleaning posts
+- Using `parse_date_time()` to convert time character to POSIXct
+- Using `drop_na()` to drop rows having NA in specific columns
+- Using `filter()` to filter posts between 2019-01-001 and 2019-06-01
+- Using `str_extract()` to extract poster id, or using `str_replace()`
+
+
+```{r}
+
+
+
+
+
+
+
+
+```
+
+## Testing
+```{r}
+str_extract("sunyeah ( 湯元嗎)", "\\(.+\\)")
+str_extract
+```
+
+
+# Plotting
+
+## (Deprecated-old-style) by cut()
+- `cut()` will turn datetime to factor for the new variable week
+
+```
+posts %>%
+    mutate(week = cut(ptime, breaks = "week")) %>% glimpse()
+    count(week) %>% 
+    ggplot() + aes(week, n) +
+    geom_col() +
+    geom_vline(aes(xintercept = as_datetime("2019-02-02")), color="red", alpha=0.5)  
+```
+
+
+## as_datetime() level
+- `geom_vline()` axis must be equivalent with x-axis
+
+```{r}
+
+
+
+
+
+
+
+
+```
+
+## as_date() level
+```{r}
+
+
+
+
+
+
+
+```
+
+## Color specific weeks
+- `mutate()` one variable group as bar chart filling group
+- Using `if_else()` to create binary choice of colors
+- 
+```{r}
+
+
+
+
+
+
+
+
+
+```
+
+
+# Cleaning comments and joining with filtered posts
+```{r}
+
+
+
+
+```
+
+
+# Saving posts and comments to an rda with date time
+```{r}
+format(now(), "%Y%m%d_%H%M")
+
+```
+
+
+
+
