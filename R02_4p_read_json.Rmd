@@ -25,10 +25,9 @@ library(tidyverse)
 options(stringsAsFactors = F)
 
 # loading httr package to get back web data
-library(httr)
+
 
 # loading jsonlite package to parse a textual json file to an R object
-library(jsonlite)
 
 ```
 
@@ -57,10 +56,9 @@ df %>% glimpse()
 
 ```{r}
 # Getting url back by GET()
-response <- GET(url)
+
+
 # Inspecting returned data
-class(response)
-response
 
 
 ```
@@ -76,10 +74,9 @@ response
 
 ```{r}
 # Parsing to textual data by content()
-text <- content(response, "text")
-cat(text)
-class(text)
-length(text)
+
+
+
 ```
 
 (Tips) using `??httr::content` to inspect the function
@@ -93,10 +90,8 @@ length(text)
 
 ```{r}
 # fromJSON() to convert texual json to an R object
-df <- fromJSON(text)
-class(df)
-dim(df)
-head(df)
+
+
 
 
 ```
@@ -107,10 +102,8 @@ head(df)
 url <- "http://opendata.epa.gov.tw/ws/Data/REWIQA/?$orderby=SiteName&$skip=0&$top=1000&format=json"
 
 # Combining all functions
-df <- fromJSON(content(GET(url), "text"))
-df <- GET(url) %>%
-    content("text") %>%
-    fromJSON()
+
+
 ```
 
 
@@ -121,21 +114,12 @@ df <- GET(url) %>%
 
 ```{r}
 
-url_reHospital <- "http://data.nhi.gov.tw/Datasets/DatasetResource.ashx?rId=A21030000I-E30008-002&ndctype=JSON&ndcnid=18585"
 url_dcard <- "https://www.dcard.tw/_api/forums/girl/posts?popular=true"
 url_pchome <- "http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=X100F&page=1&sort=rnk/dc"
 url_104 <- "https://www.104.com.tw/jobs/search/list?ro=0&keyword=%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90&area=6001001000&order=1&asc=0&kwop=7&page=2&mode=s&jobsource=n104bank1"
 url_ubike <- "https://tcgbusfs.blob.core.windows.net/blobyoubike/YouBikeTP.json"
 
 ```
-
-
-```{r}
-res <- GET(url_dcard) %>%
-    content("text") %>%
-    fromJSON()
-```
-
 
 
 
@@ -148,9 +132,6 @@ res <- GET(url_dcard) %>%
 # An typical url of 104 job search
 url_104 <- "https://www.104.com.tw/jobs/search/list?ro=0&keyword=%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90&area=6001001000&order=1&asc=0&kwop=7&page=2&mode=s&jobsource=n104bank1"
 
-res <- GET(url_104) %>% content("text") %>% fromJSON()
-class(res)
-glimpse(res)
 
 # Using glimpse(), View(), str(), class() to preview data
 # View(res)
@@ -162,14 +143,12 @@ glimpse(res)
 ```{r}
 
 # Tracing the data.frame in the data
-res$data$list
+
 
 # Assigning to a variable
-df <- res$data$list
 
 
 # Previewing data
-glimpse(df)
 
 
 ```
@@ -201,8 +180,7 @@ class(safefood)
 class(safefood[[1]])
 dim(safefood[[1]])
 # View(safefood[[1]])
-View(safefood)
-as.data.frame(safefood) %>% View
+# View(safefood)
 # print(content(GET(url), "text"))
 ```
 
@@ -221,38 +199,34 @@ as.data.frame(safefood) %>% View
 
 ```{r}
 # unlist data structure to a list
-safefood.v <- unlist(safefood)
 
 
 # anyNA() to check if NAs still exist
-anyNA(safefood.v)
+
 
 # (option) check if NAs exist
 
 
 # remove NAs
 safefood.v <- safefood.v[!is.na(safefood.v)]
-length(safefood.v)
+# length(safefood.v)
 
 # double-check NAs
-anyNA(safefood.v)
-safefood.v %>% head(20)
+
 
 
 # convert vector to matrix
-safefood.m <- matrix(safefood.v, byrow = TRUE, ncol = 5)
-safefood.m
 
 # ?matrix
 
 # convert matrix to dataframe
-safefood.df <- as.data.frame(safefood.m)
+=
 
 # delete the 4th column
-safefood.df <- safefood.df %>% select(-4)
+
 
 # naming the data.frame
-names(safefood.df) <- c("category", "question", "answer", "timestamp")
+
 
 ```
 
@@ -263,7 +237,7 @@ names(safefood.df) <- c("category", "question", "answer", "timestamp")
 
 ## Type I: Well-formatted JSON: UVI, AQI, Hospital_revisits
 
-* 這類的資料以典型的`[{}, {}, {}]`形式儲存，以以下方式就可直接轉為data.frame
+* 這類的資料以典型的[{}, {}, {}]形式儲存，以以下方式就可直接轉為data.frame
 `df <- fromJSON(content(GET(url), "text"))`
 
 ## Type II: hierarchical JSON: rent591, facebook graph api, google map
