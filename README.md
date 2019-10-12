@@ -18,7 +18,7 @@
 * **AS#4**:
   1. Scraping [鉅亨網新聞](https://news.cnyes.com/news/cat/headline?exp=a) with R in an `.Rmd` file. Getting 5~10 pages data for verifying your code. Using `dim()` to display gotten data dimension. Converting character timestamp to R POSIX time obejct.
 * **Preview video instruction before 10/21**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
-  - [3.1 Introduction to JSON](https://youtu.be/x9QhP8v0G6U)
+  - [3.1 HTML Essentials](https://youtu.be/x9QhP8v0G6U)
   - [3.2 parse html get 1](https://youtu.be/nev71vayfN8)
   - [3.2 parse html get 2 ptt](https://youtu.be/l2Hx4tuZULg)
   - [3.3 ibon crawler POST](https://youtu.be/UY_mT0LJW3w)
