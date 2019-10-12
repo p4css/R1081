@@ -15,8 +15,9 @@
   - **Review: dplyr and pivot analysis** Slide: [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000) (HTML: [R02_2_pivot_on_tp_theft.html](https://p4css.github.io/R1081/R02_2_pivot_on_tp_theft.html))
   - **Review: joining data with PTT posts and comments** open `InClass04_join_ptt_blank.Rmd`
   HTML [InClass04_join_ptt.html](https://p4css.github.io/R1081/InClass04_join_ptt.html)
-* **AS#4**:
-  1. Scraping [鉅亨網新聞](https://news.cnyes.com/news/cat/headline?exp=a) with R in an `.Rmd` file. Getting 5~10 pages data for verifying your code. Using `dim()` to display gotten data dimension. Converting character timestamp to R POSIX time obejct.
+* **AS#4**: Scraping ubike data and combining them for discovering usage trends of ubike site
+  - Previewing AS#4 [AS04_scraping_json.html](https://p4css.github.io/R1081/AS04_scraping_json.html)
+  - Download the repo and answer questions in `AS04_scraping_json.Rmd`
 * **Preview video instruction before 10/21**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
   - [3.1 HTML Essentials](https://youtu.be/x9QhP8v0G6U)
   - [3.2 parse html get 1](https://youtu.be/nev71vayfN8)
@@ -29,7 +30,7 @@
   - **Practice: Joining demographic and referendum data** (for AS#3) open
 * **AS#3**: Combining more data with referendum data (Due: 10/16 WED 23:59. Closed:10/20 SUN 23:59)
   - Previewing AS#3 [AS03_join_edu_data.html](https://p4css.github.io/R1081/AS03_join_edu_data.html)
-  - Download the repo and answer question in `AS03_join_edu_data.Rmd`
+  - Download the repo and answer questions in `AS03_join_edu_data.Rmd`
 * **Preview video instruction before 10/14**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
   - [2.1 Introduction to JSON](https://youtu.be/NAwOobTPh8M)
   - [2.2 Hand-by-hand: Reading JSON](https://youtu.be/0RVvkveI_a8)
