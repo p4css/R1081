@@ -1,6 +1,7 @@
 # [https://p4css.github.io/R1081/](https://p4css.github.io/R1081/)
 - Syllabus (Google docs): [R1081](https://docs.google.com/document/d/1LfVUgcPkX1IMTm-o19dm7X_eUKn2HPGZiXlyIpcKQP4/edit?usp=sharing)
 - [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
+- 徵求影片上字幕人員，請在今日聯絡行資中心助理許郁盈（yuyinghsu@ntu.edu.tw）或者從facebook私訊她。
 
 
 # Rundown
