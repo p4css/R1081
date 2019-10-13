@@ -1,15 +1,11 @@
 # [https://p4css.github.io/R1081/](https://p4css.github.io/R1081/)
 - Syllabus (Google docs): [R1081](https://docs.google.com/document/d/1LfVUgcPkX1IMTm-o19dm7X_eUKn2HPGZiXlyIpcKQP4/edit?usp=sharing)
+- [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
+
 
 # Rundown
 
-## Week 7. 20191021
-* **AS#5**
-  - (Focus on crawling html files)
-  - For referendum data, joining town-level number of 7-11 store to referendum data.
-
 ## Week 6. 20191014 
-* [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
 * **In-class slides and code**
   - **Reviewing the case paid maternal leave using dplyr** open `R02_1p_readxl_paid_maternal_leave.Rmd`
   - **Review: dplyr and pivot analysis** (HTML: [R02_2_pivot_on_tp_theft.html](https://p4css.github.io/R1081/R02_2_pivot_on_tp_theft.html))
@@ -78,23 +74,10 @@
   - [Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r)
   - [Intermediate R](https://www.datacamp.com/courses/intermediate-r)
 
-
-
-## 20191007
-* **In-class slides and code**
-* **Assignment #4**: 
-* **Preview video before 10/14**
-- Crawler: 
-
-## 20191014
-* **In-class slides and code**
-* **Assignment #5**: 
-* **Preview video before 10/21**
-
-## 20191021
-* **In-class slides and code**
-* **Assignment #6**: 
-* **Preview video before 10/21**
+## Week 7. 20191021
+* **AS#5**
+  - (Focus on crawling html files)
+  - For referendum data, joining town-level number of 7-11 store to referendum data.
 
 ## 20191028
 * **In-class slides and code**
