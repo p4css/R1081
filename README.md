@@ -1,9 +1,6 @@
 # [https://p4css.github.io/R1081/](https://p4css.github.io/R1081/)
 - Syllabus (Google docs): [R1081](https://docs.google.com/document/d/1LfVUgcPkX1IMTm-o19dm7X_eUKn2HPGZiXlyIpcKQP4/edit?usp=sharing)
 
-# Past tutorials
-- Slide: [R02_2 Read tabulated csv and xlsx](https://docs.google.com/presentation/d/e/2PACX-1vTFRVkwdscR3QNdVD6Q8JEKshlORtgdP_DUq19HPjbO6_8nN3ADTEtxuOr_Z28t3HKGdf9_m3icULpO/pub?start=false&loop=false&delayms=3000) 
-
 # Rundown
 
 ## Week 7. 20191021
