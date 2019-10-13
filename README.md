@@ -7,10 +7,9 @@
 
 ## Week 6. 20191014 
 * **In-class slides and code**
-  - **Reviewing the case paid maternal leave using dplyr** open `R02_1p_readxl_paid_maternal_leave.Rmd`
-  - **Review: dplyr and pivot analysis** (HTML: [R02_2_pivot_on_tp_theft.html](https://p4css.github.io/R1081/R02_2_pivot_on_tp_theft.html))
-  - **Review: joining data with PTT posts and comments** open `InClass04_join_ptt_blank.Rmd`
-  HTML [InClass04_join_ptt.html](https://p4css.github.io/R1081/InClass04_join_ptt.html)
+  - Reviewing the case paid maternal leave using dplyr by `R02_1p_readxl_paid_maternal_leave.Rmd`
+  - Reviewing dplyr and pivot analysis by `R02_2p_pivot_on_tp_theft_dplyr.Rmd`
+  - Reviewing joining data with PTT posts and comments by `InClass04_join_ptt_blank.Rmd`
 * **AS#4**: Scraping ubike data and combining them for discovering usage trends of ubike site
   - Previewing AS#4 [AS04_scraping_json.html](https://p4css.github.io/R1081/AS04_scraping_json.html)
   - Download the repo and answer questions in `AS04_scraping_json.Rmd`
