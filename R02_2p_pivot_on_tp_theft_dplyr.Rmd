@@ -1,0 +1,116 @@
+---
+title: "R02_2 Pivot analysis on tp theft with dplyr"
+author: "Jilung Hsieh"
+date: "2019/9/2"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# loading packages
+```{r}
+library(tidyverse)
+options(stringsAsFactors = F)
+```
+
+# Reading data
+```{r}
+# Read by read_csv()
+# Will raise error
+# Error in make.names(x) : invalid multibyte string at '<bd>s<b8><b9>'
+# df <- read_csv("data/tp_theft.csv")
+
+# read_csv() with locale encoding = "Big5" -> df
+
+```
+
+
+# Cleaning data I
+- Renaming variables by `select()`
+```
+    select(id = 編號, 
+           cat = 案類, 
+           date = `發生(現)日期`, 
+           time = `發生時段`, 
+           location = `發生(現)地點`) %>%
+```
+- Generating variable year
+- Generating variable month
+- Retrieving area
+```{r}
+
+
+
+
+
+
+
+
+```
+
+# Cleaning data II
+- Filtering out irrelevant data records
+
+```{r}
+# readr::guess_encoding("data/tp_theft.csv")
+
+
+
+
+
+
+```
+
+
+# Long to wide form
+- `count()` two variables
+- `spread()` spread one variable as columns to wide form
+
+```{r}
+# count() then spread() df -> df.wide
+
+
+
+
+```
+
+
+# Setting time as row.name for mosaicplot
+- Setting rowname by `row.names()`
+- Assigning NULL to variable in data.frame to delete it
+```{r}
+
+
+
+```
+
+
+
+
+```{r warning=FALSE}
+
+# Specify fonts for Chinese
+# par(family=('STKaiti')) 
+par(family=('Heiti TC Light')) # for mac
+
+# Specify colors
+colors <- c('#D0104C', '#DB4D6D', '#E83015',  '#F75C2F',
+            '#E79460', '#E98B2A', '#9B6E23', '#F7C242',
+            '#BEC23F', '#90B44B', '#66BAB7', '#1E88A8')
+
+# mosaicplot()
+mosaicplot(df.wide, color=colors, border=0, off = 3,
+           main="Theft rate of Taipei city (region by hour)")
+
+```
