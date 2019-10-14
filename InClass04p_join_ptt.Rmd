@@ -17,7 +17,13 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Loading libraries
+# Practice Notes
+- Practice goals: Joining data
+- Related: ggplot2, stirngr
+- Unknown: lubridate, crawler
+
+
+# Loading packages
 ```{r}
 library(tidyverse)
 options(stringsAsFactors = F)
