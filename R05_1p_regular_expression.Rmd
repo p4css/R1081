@@ -69,16 +69,18 @@ str_replace_all(s, "\\s", "")
 
 ## by `str_extract()`
 ```{r}
-pname <- c("pttid111(kekefan)", "pttid222(hangfan)")
+pname <- c("pttid111(kefan)", "pid2(hangfan)")
 
 
 
 # extracting at least one words until not word
-
+str_extract(pname, "\\w")
 str_extract(pname, "\\w+")
 str_extract(pname, "[A-Za-z0-9]+")
 str_extract(pname, "[A-Za-z0-9]*")
-str_extract(pname, "[A-Za-z0-9]{1,3}")
+str_extract(pname, "[A-Za-z0-9]{8}")
+str_extract(pname, "[A-Za-z0-9]{1,8}")
+
 
 # extracting word between ()
 # () is controlled vocabulary in regular expression, needing \\( and \\) to specify the character themself
@@ -188,7 +190,7 @@ ANS: `"推 ya870801: 推  218.166.12.10 10/16 15:56"`
 
 ```{r}
 comment <- '<div class="push"><span class="hl push-tag">推 </span><span class="f3 hl push-userid">ya870801</span><span class="f3 push-content">: 推</span><span class="push-ipdatetime">  218.166.12.10 10/16 15:56</span></div>'
-str_replace_all(comment, "<.+?>", "")
+
 ```
 
 ## Removing space
@@ -197,22 +199,10 @@ str_replace_all(comment, "<.+?>", "")
 sentence <- c(' 噓 wwHui: 這批安好純   \n  辛苦了  \n 噓 ', '噓 wwHui: 這批安好純   ', '辛苦了  ')
 
 # Removing all space characters
-str_replace_all(sentence, "\\s", "")
 
 # Removing leading and ending space by str_replace_all()
 # You cannot use trimws()
-str_replace_all(sentence, "^\\s+|\\s+$", "")
+
 ```
 
-
-
-# Testing
-```{r}
-teststr1 <- c("我最近過的挺爽", "最近我過的不是很好。", "我最近過得不太好。")
-re1 <- "(^我.+)"
-re2 <- "(.*。)"
-
-str_detect(teststr1, str_c(re1,re2, sep = ""))
-str_detect(teststr1, str_c(re1,re2, sep = "|"))
-```
 
