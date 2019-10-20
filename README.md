@@ -1,7 +1,6 @@
 # [https://p4css.github.io/R1081/](https://p4css.github.io/R1081/)
 - Syllabus (Google docs): [R1081](https://docs.google.com/document/d/1LfVUgcPkX1IMTm-o19dm7X_eUKn2HPGZiXlyIpcKQP4/edit?usp=sharing)
 - [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
-- 徵求影片上字幕人員，請在今日聯絡行資中心助理許郁盈（yuyinghsu@ntu.edu.tw）或者從facebook私訊她。
 
 
 # Rundown
@@ -9,7 +8,7 @@
 ## Week 6. 20191021
 * **In-class slides and code**
 * **AS#5**: Crawling online news
-* **Preview video before 10/28**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
+* **Preview video before 10/28**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
   - [4.1 Tweet analysis on trump tweets: Case Introduction](https://youtu.be/C4XU37Cbprk)
   - [4.2.1 Regular Expression Basic](https://youtu.be/exJF8AMyyzo)
   - [4.2.2 RE extract](https://youtu.be/eBESxOUNjRg)
