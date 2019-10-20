@@ -1,10 +1,25 @@
 # [https://p4css.github.io/R1081/](https://p4css.github.io/R1081/)
 - Syllabus (Google docs): [R1081](https://docs.google.com/document/d/1LfVUgcPkX1IMTm-o19dm7X_eUKn2HPGZiXlyIpcKQP4/edit?usp=sharing)
 - [Weekly rundown slide link](https://docs.google.com/presentation/d/e/2PACX-1vRHPfKRHr_KckfO0blD-GrTOxj7Y3L3HiZQJUKFqm2ftWiI02949LVTJfS1uXgRxQMyy7rYr1-xDNlr/pub?start=false&loop=false&delayms=3000)
-- 徵求影片上字幕人員，請在今日聯絡行資中心助理許郁盈（yuyinghsu@ntu.edu.tw）或者從facebook私訊她。
 
 
 # Rundown
+## Week 8. 20191028
+* **Midterm**
+* **AS#6** Scraping ltn.com.tw
+* **Preview video before 11/11**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
+  - [4.4 Tweet anaysis word level]
+  - [4.5 Text analysis for Chinese text]
+
+## Week 7. 20191021
+* **In-class slides and code**
+* **AS#5**: Crawling PTT posts and comments, OR, online news of cnyes.com (See more detail on NTU COOL). 
+* **Preview video before 10/28**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
+  - [4.1 Tweet analysis on trump tweets: Case Introduction](https://youtu.be/C4XU37Cbprk)
+  - [4.2.1 Regular Expression Basic](https://youtu.be/exJF8AMyyzo)
+  - [4.2.2 RE extract](https://youtu.be/eBESxOUNjRg)
+  - [4.2.3 RE Applications](https://youtu.be/EAl-wzU3miE)
+  - [4.3 Tweet analysis doc level (for RE & ggplot)](https://youtu.be/1FEdK5di0AQ)
 
 ## Week 6. 20191014 
 * **In-class slides and code**
@@ -14,7 +29,7 @@
 * **AS#4**: Scraping ubike data and combining them for discovering usage trends of ubike site
   - Previewing AS#4 [AS04_scraping_json.html](https://p4css.github.io/R1081/AS04_scraping_json.html)
   - Download the repo and answer questions in `AS04_scraping_json.Rmd`
-* **Preview video instruction before 10/21**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
+* **Preview video instruction before 10/21**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
   - [3.1 HTML Essentials](https://youtu.be/x9QhP8v0G6U)
   - [3.2 parse html get 1](https://youtu.be/nev71vayfN8)
   - [3.2 parse html get 2 ptt](https://youtu.be/l2Hx4tuZULg)
