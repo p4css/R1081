@@ -8,8 +8,8 @@
 * **Midterm**
 * **AS#6** Scraping ltn.com.tw
 * **Preview video before 11/11**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
-- [4.4 Tweet anaysis word level]
-- [4.5 Text analysis for Chinese text]
+  - [4.4 Tweet anaysis word level]
+  - [4.5 Text analysis for Chinese text]
 
 ## Week 7. 20191021
 * **In-class slides and code**
