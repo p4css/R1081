@@ -4,10 +4,16 @@
 
 
 # Rundown
+## Week 8. 20191028
+* **Midterm**
+* **AS#6** Scraping ltn.com.tw
+* * **Preview video before 11/11**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
+- [4.4 Tweet anaysis word level]
+- [4.5 Text analysis for Chinese text]
 
-## Week 6. 20191021
+## Week 7. 20191021
 * **In-class slides and code**
-* **AS#5**: Crawling online news
+* **AS#5**: Crawling PTT posts and comments, OR, online news of cnyes.com (See more detail on NTU COOL). 
 * **Preview video before 10/28**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
   - [4.1 Tweet analysis on trump tweets: Case Introduction](https://youtu.be/C4XU37Cbprk)
   - [4.2.1 Regular Expression Basic](https://youtu.be/exJF8AMyyzo)
