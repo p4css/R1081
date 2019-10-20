@@ -1,0 +1,116 @@
+---
+title: "R03_7 Parse POST PTT"
+author: "Jilung Hsieh"
+date: "10/9/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+# loading packages
+```{r}
+library(tidyverse)
+library(httr)
+library(rvest)
+options(stringsAsFactors = F)
+```
+
+
+
+# Loading post list with links
+```{r}
+# Reading post link rds -> posts
+posts <- read_rds("data/post_HatePolitics_lin.rds")
+posts %>% glimpse()
+```
+
+
+# Getting one post for examining html structure
+```{r}
+# WLOG, getting the first post link as an example
+url <- posts$link[1]
+browseURL(url)
+
+browseURL(url)
+# Getting back the article and parsing as html
+# Remember to send cookie
+doc <- GET(url, config = set_cookies("over18"="1")) %>%
+    content("text") %>%
+    read_html()
+
+# Verifying the doc
+write_html(doc, "temp/test.html")
+browseURL("temp/test.html")
+```
+
+
+# Parse one POST
+```{r}
+# Getting content by CSS selector
+html_node(doc, "#main-content") %>%
+    html_text()
+
+# BETTER for the case, Getting content by XPath
+pcontent <- html_nodes(doc, xpath = '//*[@id="main-content"]/text()') %>%
+    html_text() %>%
+    paste(collapse = "") %>%
+    str_replace_all("\n", "")
+
+# Getting metadata
+metadata <- html_text(html_nodes(doc, "#main-content > div.article-metaline .article-meta-value"))
+metadata
+ptime <- metadata[3]
+pauthor <- metadata[1]
+ptitle <- metadata[2]
+
+# Combining data to a data frame
+post.temp <- data_frame(url, pcontent, ptitle, pauthor, ptime)
+```
+
+
+# Using for-loop to get all posts
+```{r}
+
+# Create an empty data frame -> all_posts
+all_posts <- data_frame()
+
+# for-loop
+for(i in 1:nrow(posts)){
+    url <- posts$link[i]
+    
+    doc <- GET(url, config = set_cookies("over18"="1")) %>%
+        content("text") %>%
+        read_html()
+    
+    pcontent <- html_nodes(doc, xpath = '//*[@id="main-content"]/text()') %>%
+        html_text() %>%
+        paste(collapse = "") %>%
+        str_replace_all("\n", "")
+    metadata <- html_text(html_nodes(doc, "#main-content > div.article-metaline .article-meta-value"))
+    ptime <- metadata[3]
+    pauthor <- metadata[1]
+    ptitle <- metadata[2]
+    post.temp <- data_frame(plink=url, pcontent, ptitle, pauthor, ptime)
+    all_posts <- bind_rows(all_posts, post.temp)
+    message(sprintf("[%d] %d", i, nrow(all_posts)))
+}
+```
+
+# Save posts
+```{r}
+# Getting current time for file name
+current_time <- format(Sys.time(), "%Y%m%d%H%M")
+
+# Converting data type and writing rds
+all_posts %>%
+    mutate(ptime = as.POSIXct(strptime(ptime, "%a %b %e %X %Y"))) %>%
+    mutate(pauthor = str_replace(pauthor, "(.+?) \\(.*\\)", "\\1")) %>%
+    left_join(posts %>% select(plink=link, nrec), by = "plink") %>%
+    write_rds(sprintf("data/allpost_HatePolitics_lin_%s.rds", current_time))
+```
