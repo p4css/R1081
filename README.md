@@ -6,6 +6,16 @@
 
 # Rundown
 
+## Week 6. 20191021
+* **In-class slides and code**
+* **AS#5**: Crawling online news
+* **Preview video before 10/28**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
+  - [4.1 Tweet analysis on trump tweets: Case Introduction](https://youtu.be/C4XU37Cbprk)
+  - [4.2.1 Regular Expression Basic](https://youtu.be/exJF8AMyyzo)
+  - [4.2.2 RE extract](https://youtu.be/eBESxOUNjRg)
+  - [4.2.3 RE Applications](https://youtu.be/EAl-wzU3miE)
+  - [4.3 Tweet analysis doc level (for RE & ggplot)](https://youtu.be/1FEdK5di0AQ)
+
 ## Week 6. 20191014 
 * **In-class slides and code**
   - Reviewing the case paid maternal leave using dplyr by `R02_1p_readxl_paid_maternal_leave.Rmd`
@@ -14,7 +24,7 @@
 * **AS#4**: Scraping ubike data and combining them for discovering usage trends of ubike site
   - Previewing AS#4 [AS04_scraping_json.html](https://p4css.github.io/R1081/AS04_scraping_json.html)
   - Download the repo and answer questions in `AS04_scraping_json.Rmd`
-* **Preview video instruction before 10/21**: (The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos)
+* **Preview video instruction before 10/21**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
   - [3.1 HTML Essentials](https://youtu.be/x9QhP8v0G6U)
   - [3.2 parse html get 1](https://youtu.be/nev71vayfN8)
   - [3.2 parse html get 2 ptt](https://youtu.be/l2Hx4tuZULg)
