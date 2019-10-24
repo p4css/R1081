@@ -91,7 +91,28 @@ options(stringsAsFactors = F)
 
 ```
 
-# Save posts
+
+# Practice I. Crawling comments in the for-loop
+Modifying the for-loop content to scraping comments for each post. Each iteration of for-loop will scrape and parse multiple comments. Try to bind them together and store all comments in another data frame names "comments."
+
+```{r}
+
+```
+
+
+
+# Practice II. Cleaning variables
+- Converting posts timestamp to R datetime
+- Extracting id and nickname from the author field.
+```{r}
+
+```
+
+
+
+# Practice III. Writing to rds with timestamp
+- Saving posts by `write_rds()`
+- Using current time as part of file name.
 ```{r}
 # Getting current time for file name -> current_time
 
@@ -99,7 +120,7 @@ options(stringsAsFactors = F)
 # Converting data type and writing rds
 
 
-
-
-
 ```
+
+
+
