@@ -1,0 +1,145 @@
+---
+title: "TM02_news_typhoon"
+author: "Jilung Hsieh"
+date: "2018/7/3"
+output: 
+  html_document: 
+    number_sections: true
+    highlight: textmate
+    theme: spacelab
+    toc: yes
+editor_options: 
+  chunk_output_type: inline
+---
+
+# 載入套件
+
+1. tidyverse內涵繪圖和操作資料所需要的ggplot2和dplyr
+2. stringr雖然隨著tidyverse被安裝了，但不會隨著tidyverse被載入，要另外載入。
+3. 在中文斷詞的時候要用到tidytext和jiebaR。
+4. 處理時間時要用到lubridate。
+
+```{r}
+library(tidyverse)
+# library(stringr)
+library(tidytext) # unnest() unnest_tokens()
+library(jiebaR)
+# library(lubridate)
+```
+
+
+
+
+
+
+
+
+
+# 為文件編id
+
+* 為了便於後續建立Document-Term-Matrix，這時候若Document自身沒有編號的話，就得把整個Document內容當成該篇文章的id，但也有（極小）可能有兩篇Document內容相同，那就會被視為同一篇文章或發生錯誤。所以必須要編id。
+* `row_number()`產生每列的編號，所以這邊就直接把每列的編號視為每篇文章的id，可以保持該id的唯一性。
+
+```{r}
+
+# Read rds by readRDS("data/typhoon.rds")
+# mutate doc_id by row_number()
+# Assign to news.df
+news.df <- readRDS("data/typhoon.rds") %>%
+    mutate(doc_id = row_number())
+
+# View(news.df)
+```
+
+
+# 斷詞
+
+## 初始化斷詞器`cutter <- worker()`
+
+1. 斷詞的時候不見能把我們要的字詞斷出來，比方說你可能希望台北市不會被斷開，偏偏被斷成台北+市。請參見謝舒凱老師的講義。https://legacy.gitbook.com/book/loperntu/ladsbook/details。最簡單的方法就是窮舉，例如下面的`segment_not`即是。
+2. 初始化斷詞器後，
+
+
+```{r}
+# segment_not to avoid to be segmented by jeiba cutter
+segment_not <- c("第卅六條", "第卅八條", "蘇南成", "災前", "災後", "莫拉克", "颱風", "應變中心", "停班停課", "停課", "停班", "停駛", "路樹", "里長", "賀伯", "採收", "菜價", "蘇迪", "受災戶", "颱風警報", "韋恩", "台東縣", "馬總統", "豪大雨", "梅姬", "台東", "台北市政府", "工務段", "漂流木", "陳菊", "台南縣", "卡玫基", "魚塭", "救助金", "陳情", "全省", "強颱", "中颱", "輕颱", "小林村", "野溪", "蚵民", "農委會", "來襲", "中油公司", "蔣總統經國", "颱風天", "土石流", "蘇迪勒", "水利署", "陳說", "颱風假", "颱風地區", "台灣", "臺灣", "柯羅莎", "八八風災", "紓困","傅崑萁", "傅崐萁","台中", "文旦柚", "鄉鎮市公所", "鄉鎮市", "房屋稅", "高雄", "未達", "台灣省", "台北市", "蔡英文")
+
+# Initialize jieba cutter
+cutter <- worker()
+tagger <- worker("tag")
+
+# Add segment_not into user defined dictionary to avoid being cutted
+new_user_word(cutter, segment_not)
+new_user_word(tagger, segment_not)
+
+# loading Chinese stop words
+stopWords <- readRDS("data/stopWords.rds")
+# View(stopWords)
+# load("../segment_not.R")
+```
+
+
+# Tokenization
+
+```{r}
+
+# Mutate timestamp to filter by timestamp range
+# segment by jieba cutter
+
+
+# unnest() to spread character into a new word variable
+# filter out stop words
+# filter out alphabetical and numeric characters
+unnested.df <- news.df %>%
+    # mutate(timestamp=ymd(time)) %>% 
+    # filter(timestamp > as.Date("2009-01-01")) %>%
+    # select(-time) %>%
+    # select(title, text, cat, everything()) %>%
+    mutate(word = purrr::map(text, function(x)segment(x, tagger))) %>%
+    select(doc_id, word) %>%
+    mutate(word = purrr::map(word, function(x)str_c(names(x), "_", x))) %>%
+    unnest(word) %>%
+    separate(word, c("pos", "word"), sep = "_") %>%
+    filter(!(word %in% stopWords$word)) %>%
+    filter(!str_detect(word, "[a-zA-Z0-9]+"))
+?unnest
+
+
+
+```
+
+
+## Word frequency distribution
+
+```{r}
+unnested.df %>%
+    filter(nchar(word) > 1) %>%
+    filter(!str_detect(word, "[a-zA-Z0-9]+")) %>%
+    count(word, sort = T) %>%
+    slice(1:50) %>%
+    mutate(word = reorder(word, n)) %>%
+    ggplot() + 
+    aes(word, n) + 
+    geom_col() + 
+    coord_flip() + 
+    theme(axis.text.y = element_text(family="Heiti TC Light"))
+
+
+word.count %>%
+    count(n, sort=T) %>%
+    ggplot(aes(n, nn)) + 
+    geom_point(alpha=0.5, size = 1, color="#333333")
+
+word.count %>%
+    count(n, sort=T) %>%
+    ggplot(aes(n, nn)) + 
+    geom_point(alpha=0.5, size = 1, color="#333333")  + 
+    scale_x_log10() + 
+    scale_y_log10() 
+```
+
+# Practice: Comparing word frequenc by early/recent variable
+```{r}
+
+```
+

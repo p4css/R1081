@@ -1,0 +1,203 @@
+---
+title: "Trump tweet analysis by dplyr"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+# Source
+* Author: The case is written by David Robinson, author of the book "R for text mining", author of library tidytext, data scientist at StackOverFlow.
+* Link of github: https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_R/2016-08-09-trump-tweets.Rmd
+* Link of the article: http://varianceexplained.org/r/trump-tweets/
+
+
+# Load and clean data
+
+```{r}
+library(tidyverse)
+options(stringsAsFactors = F)
+```
+
+# Loading data
+```{r}
+load(url("http://varianceexplained.org/files/trump_tweets_df.rda"))
+dim(trump_tweets_df)
+names(trump_tweets_df)
+```
+
+
+# Cleaning data
+```{r}
+trump_tweets_df$statusSource[1]
+
+tweets <- trump_tweets_df %>%
+    select(id, created, text, statusSource) %>% 
+    extract(statusSource, "source", "Twitter for (\\w+?)<") %>%
+    filter(source %in% c("iPhone", "Android"))
+
+tweets %>% count(source)
+```
+
+
+# Vis: Hour by tweet percentage
+- Converting timezone
+- Plotting number of tweets by hour
+
+```{r}
+library(lubridate)
+tweets %>%
+    mutate(hour = hour(with_tz(created, "EST"))) %>%
+    count(source, hour) %>%
+    group_by(source) %>%
+    mutate(percent = n / sum(n)) %>%
+    ungroup() %>%
+    ggplot() + aes(hour, percent, color = source) + 
+    scale_color_manual(labels = c("Adroid", "iPhone"), 
+                       values = c("royalblue", "gold")) + 
+    
+    geom_line(size = 1) + 
+    labs(x = "Hour of day (EST)") + 
+    theme_minimal()
+
+```
+
+
+# With Pictures or Not
+- Filtering out tweets starting with "
+- Mutating new variable `picture` to indicate whether text has picture or not?
+- Counting `source` by `picture`
+- Plotting bar chart to compare difference between sources.
+
+```{r}
+library(stringr)
+tweets %>%
+    filter(!str_detect(text, '^"')) %>%
+    mutate(picture = if_else(str_detect(text, "t.co"), "Picture/link", "No Picture/link")) %>%
+    count(source, picture) %>%
+    ggplot() + 
+    aes(source, n, fill = picture)  +
+    geom_col(position = "dodge") + 
+    scale_fill_manual(labels = c("Picture/link", "No pictrue/link"),
+                      values = c("royalblue", "gold"))
+
+
+```
+
+
+
+# Comparison of words
+```{r}
+library(tidytext)	# unnest_tokens()
+library(stringr)	# str_detect(), str_replace_all()
+tidytext::stop_words
+# View(test)
+tweets %>%
+    filter(!str_detect(text, '^"')) %>%
+    mutate(text = str_replace_all(text, "https://t.co/[A-Za-z\\d]+|&amp;", "")) %>%
+    unnest_tokens(word, text, drop = F) %>%
+    filter(str_detect(word, "[a-z]")) %>% 
+    # filter(!word %in% stop_words$word) %>%
+    anti_join(stop_words) %>%
+    count(word, sort = T) %>%
+    slice(1:30) %>%
+    mutate(word = reorder(word, n)) %>%
+    ggplot() + aes(word, n) + 
+    geom_col() + 
+    coord_flip()
+
+# stop_words$word
+
+tweet_words <- tweets %>%
+    filter(!str_detect(text, '^"')) %>%
+    mutate(text = str_replace_all(text, "https://t.co/[A-Za-z\\d]+|&amp;", "")) %>%
+    # unnest_tokens(word, text) %>%
+    unnest_tokens(word, text, token = "regex", pattern = "[^A-Za-z\\d#@']") %>%
+    filter(!word %in% stop_words$word,
+           str_detect(word, "[a-z]"))
+```
+
+# Visualization
+```{r}
+
+tweet_words %>%
+    anti_join(stop_words) %>%
+    count(word, sort = T) %>%
+    slice(1:30) %>%
+    mutate(word = reorder(word, n)) %>%
+    ggplot() + aes(word, n) + 
+    geom_col() + 
+    coord_flip()    
+
+```
+
+# Word-level analysis
+- Comparing word frequency
+
+```{r}
+tweet_words %>% 
+    count(word, source) %>%
+    spread(source, n, fill = 0) %>%
+    mutate(iPhone = (iPhone+1) / (sum(iPhone)+1),
+           Android = (Android+1) / (sum(Android)+1)) %>%
+    mutate(diff = log2(Android / iPhone)) %>%
+    group_by(diff > 0) %>%
+    top_n(20, abs(diff)) %>%
+    ungroup() %>%
+    mutate(word = reorder(word, diff)) %>%
+    ggplot() + aes(word, diff, fill = diff > 0) + 
+    geom_col() + 
+    coord_flip() + 
+    scale_fill_manual(name = "", labels = c("iPhone", "Android"), 
+                      values = c("royalblue", "gold"))
+```
+
+
+
+
+# words frequency by different devices
+```{r}
+
+word_by_source <- tweet_words %>%
+    count(word, source) %>%
+    filter(n >= 5) %>%
+    spread(source, n, fill = 0) %>%
+    ungroup()
+
+sum(word_by_source$iPhone)
+sum(word_by_source$Android)
+
+android_iphone_ratios <- word_by_source %>%
+    mutate(iPhone = (iPhone+1)/sum(iPhone+1)) %>%
+    mutate(Android = (Android+1)/sum(Android+1)) %>%
+    mutate(logratio = log2(Android / iPhone)) %>%
+    arrange(desc(logratio))
+```
+
+## visualizing ratio
+```{r}
+
+
+
+
+
+
+
+android_iphone_ratios %>%
+    group_by(logratio > 0) %>%
+    top_n(10, abs(logratio)) %>%
+    ungroup() %>%
+    mutate(word = reorder(word, logratio)) %>%
+    ggplot(aes(word, logratio, fill = logratio < 0)) +
+    geom_col() +
+    coord_flip() +
+    ylab("Android / iPhone log ratio") +
+    scale_fill_manual(name = "", labels = c("Android", "iPhone"),
+                      values = c("royalblue", "gold"))
+```
+
