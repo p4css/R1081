@@ -4,9 +4,14 @@
 
 
 # Rundown
+## Week 10. 
+* **AS#6 ** Feature extraction of news headline for clickbait detection
+
+## Week 9. 20191104 Midterm break
+
 ## Week 8. 20191028
 * **Midterm**
-* **AS#6** Feature extraction of news headline for clickbait detection
+* **AS#6 (Postponed to Week 10 20191111)** Feature extraction of news headline for clickbait detection
 * **Preview video before 11/11**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
   - [3.5 Scraping ptt post](https://youtu.be/ncH9dhJi_-c)
   - [4.4.1 Tweet anaysis word level I](https://youtu.be/VzxzUVOkPf8)
