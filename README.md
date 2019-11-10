@@ -5,7 +5,7 @@
 
 # Rundown
 ## Week 10. 
-* **AS#6** Feature extraction of news headline for clickbait detection
+* **AS#6** [Feature extraction of news headline for clickbait detection](https://drive.google.com/open?id=1vQ04p8Ylb9_hkRNRHIib7oj_ou-BPtj-Rb3GtK-27TQ)
 
 ## Week 9. 20191104 Midterm break
 
