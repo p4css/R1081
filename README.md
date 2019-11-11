@@ -5,7 +5,7 @@
 
 # Rundown
 ## Week 10. 
-* **[Group up](https://docs.google.com/spreadsheets/d/1va9Knp793g0l0GidZbThvaGt12U0oZCmxFCqadQJC1Q/edit?usp=sharing)**
+* **[Group up](https://docs.google.com/spreadsheets/d/1va9Knp793g0l0GidZbThvaGt12U0oZCmxFCqadQJC1Q/edit?usp=sharing)** !!!!!
 * **AS#6** [Feature extraction of news headline for clickbait detection](https://drive.google.com/open?id=1vQ04p8Ylb9_hkRNRHIib7oj_ou-BPtj-Rb3GtK-27TQ)(Due: 11/20 23:59. Final Submission: 11/24 23:59)
 * **Preview video before 11/18**: The links are shared to all participants. If you're enrolled students, you **MUST** go to NTU COOL to watch videos. Also, remember to submit your practice to NTU COOL.
   - [4.6 Part-of-Speech]()
