@@ -101,10 +101,13 @@ unnested.df <- news.df %>%
     unnest(word) %>%
     separate(word, c("pos", "word"), sep = "_") %>%
     filter(!(word %in% stopWords$word)) %>%
-    filter(!str_detect(word, "[a-zA-Z0-9]+"))
+    filter(!str_detect(word, "[a-zA-Z0-9]+")) %>%
+    group_by(doc_id) %>%
+    mutate(sentence_id = row_number()) %>%
+    mutate(nSentence = n()) %>%
+    ungroup()
+    
 ?unnest
-
-
 
 ```
 

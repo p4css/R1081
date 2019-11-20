@@ -1,0 +1,263 @@
+---
+title: "PCA_IRIS"
+author: "Ji-Lung Hsieh"
+date: "10/26/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+
+
+# 01. Previewing data 
+
+
+## 1.1 Introduction + iris dataset
+* Tutorial:[Principal component methods in r practical guide](http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/118-principal-component-analysis-in-r-prcomp-vs-princomp/#theory-behind-pca-results)
+
+```{r}
+library(tidyverse)
+options(stringsAsFactors = F)
+options(scipen = 999) 
+```
+
+## 1.2 Loading and previewing data
+
+```{r}
+data(iris)
+head(iris)
+names(iris)
+unique(iris$Species)
+```
+
+
+## 1.3 Counting dependent variables
+
+```{r}
+iris %>%
+    count(Species)
+```
+
+
+
+## 1.4 Previewing distributions of independent variables
+```{r}
+iris[,-5] %>% 
+    gather(index, value, 1:4) %>%
+	ggplot() + aes(value, color = index) + 
+	geom_density()
+```
+
+
+
+# 02. PCA
+- PCA
+- SVD
+- t-SNE
+
+
+## 2.1 Introduction to prcomp
+* 由於偏度或變數的尺度會影響主成份分析的結果，因此最好要先進行偏度轉換。以這個例子而言，他先做了一個**log transformation**，好讓數值能夠接近常態分佈。Since skewness and the magnitude of the variables influence the resulting PCs, it is good practice to apply skewness transformation, center and scale the variables prior to the application of PCA.
+	* 論文[1]建議要做**log transformation**。Apply a log transformation to the continuous variables as suggested by [1] and set center and `scale.` equal to `TRUE` in the call to prcomp to standardize the variables.
+	* 也可以使用**Box and Cox transformation**[2]。we could have been more general and applied a **Box and Cox transformation [2]**.
+
+
+## 2.2 Rescaling
+```{r}
+iris.log <- iris[, -5] %>%
+    mutate_all(.funs = log)
+species <- iris[5]
+
+
+iris.log %>%
+    gather(index, value, 1:4) %>%
+	ggplot() + aes(value, color = index) + 
+	geom_density()
+```
+
+
+## 2.3 Dividing to train and test set
+```{r}
+
+train <- sample(nrow(iris), ceiling(nrow(iris) * .80))
+train
+test <- (1:nrow(iris))[-train]
+test
+```
+
+
+
+## 2.4 Running PCA
+
+* `scale`與`center`參數
+	* `scale. = TRUE`為一T/F值，建議要設為`TRUE`（預設為`FALSE`）。用來將`variance`做scaling。is highly advisable (Default is FALSE). a logical value indicating whether the variables should be scaled to have unit variance before the analysis takes place. The default is FALSE for consistency with S, but in general scaling is advisable. Alternatively, a vector of length equal the number of columns of x can be supplied. The value is passed to scale.
+	* `center` 為一T/F值，用以決定是否將分佈轉至以0為中心。is a logical value indicating whether the variables should be shifted to be zero centered. Alternately, a vector of length equal the number of columns of x can be supplied. The value is passed to scale.
+
+
+```{r}
+
+train.pca <- prcomp(iris.log[train, ], center = TRUE, scale. = TRUE)
+```
+
+
+
+## 2.2 Print out results
+* `print()`會回傳四個主成分的標準差，以及他們的rotation（或者稱為loadings），為線性組合的係數。相當於`PC1 = 0.504 * Sepal.Length + (-0.302) * Sepal.Width + 0.577 * Petal.Length + 0.567 * Petal.Width`。 
+> The `print()` returns the standard deviation of each of the four PCs, and their rotation (or loadings), which are the coefficients of the linear combinations of the continuous variables.
+
+```{r}
+print(train.pca)
+```
+
+
+## 2.3 scree plot
+* Using scree plot to decide the number of pricipal compoenents
+* Scree plot是把上述的PC1到PC4的Variance（為標準差的二次方）給繪製成表，讓研究者得以選擇究竟要幾個主成份。實用上多用兩個主成份好繪製成X/Y散佈圖。The plot method returns a plot of the variances (y-axis) associated with the pricipal components (x-axis). 
+* The Figure below is useful to decide how many principal compoenents to retain for further analysis. In this simple case with only 4 PCs this is not a hard task and we can see that the first two PCs explain most of the variability in the data.
+
+```{r Evaluating by scree plot}
+plot(train.pca, type = "l")
+```
+
+
+## 2.4 summrizing pca results
+* The summary method describe the importance of the PCs. The first row describe again the standard deviation associated with each PC. 
+* 第二個為可解釋變異量，假設總變異性為1，那麼這個主成份可以解釋多少的變異。因此為每個主成份的變異數和除以總變異數。就以下結果而言，PC1可以解釋所有變異亮的73%。最後一個累計變異量（Cumulative Proportion）則是從PC1至PC4，因此總和為1。The second row shows the proportion of the variance in the data explained by each component while the third row describe the cumulative proportion of explained variance. We can see there that the first two PCs accounts for more than {95\%} of the variance of the data.
+
+```{r}
+summary(train.pca)
+# Proportion of Variance
+# iris.pca$sdev**2 / sum(iris.pca$sdev**2)
+# [1] 0.73312837 0.22675677 0.03325206 0.00686280
+```
+
+
+
+# 03. Projection of original data
+* `iris.pca$x`為原本的每一筆資料投射到PC1~PC4這個新的座標系後，座標值為多少。
+* 因此可以直接拿PC1和PC2直接繪製`density()`來觀察一下分佈。
+
+## 3.1 Getting PC1~PC4 for each observation
+
+```{r data projection to PCs}
+train.pca$x %>% head()
+```
+
+
+## 3.2 Visualizing PC1 and PC2 distribution
+* 從第二張圖中可以發現觀察PC1可以直接將這些資料分為兩大群，這是做主成份分析最好的狀況，也就是從原本的資料中你不確定要選哪一個變數來做分群，原本有一個偏左、一個偏右、一個兩極、一個有中心趨勢。但現在你可以說，我經過矩陣線性轉換後，得到幾個主成份，其中第一個主成份能夠解釋70%以上的變異量，那就可以大方地就第一個主成份分成兩群。且就`PC1 = 0.504 * Sepal.Length + (-0.302) * Sepal.Width + 0.577 * Petal.Length + 0.567 * Petal.Width`的結果，我知道該分群方式是Sepal.Width少看一點，其他三個各看一半（可以看原本的圖來想像一下）。
+
+```{r}
+train.pca$x %>% # data projected in pca space
+	as_tibble() %>%
+	ggplot(aes(PC1, PC2)) + geom_point()
+
+train.pca$x %>%
+	as_tibble() %>%
+	ggplot(aes(PC1)) + geom_density()
+
+
+train.pca$x %>%
+	as_tibble() %>%
+	ggplot(aes(PC2)) + geom_density()
+
+train.pca$x %>%
+	as_tibble() %>%
+	ggplot(aes(PC1, PC2)) + geom_density2d()
+```
+
+
+## 3.3 Visualization dependent variable via PC1 x PC2
+```{r}
+train.pca$x %>%
+    as_tibble() %>%
+    bind_cols(species %>% select(Species) %>% slice(train)) %>% 
+    ggplot() + 
+    aes(PC1, PC2, color = Species) +
+    geom_jitter(alpha = 0.5)
+```
+
+
+# 04. Prediction
+
+## 4.1 Projecting new data to PC1 and 2
+* We can use the predict function if we observe new data and want to predict their PCs values. Just for illustration pretend the last two rows of the iris data has just arrived and we want to see what is their PCs values:
+
+```{r}
+test.pca.x <- predict(train.pca, 
+        newdata = iris.log[test,])
+
+train.pca$x %>% View
+test.pca.x %>% View
+```
+
+
+## 4.1 Predicting with KNN
+```{r}
+library(class)
+knn.pred <- knn(train.pca$x[,1:2], test.pca.x[,1:2], species$Species[train], k = 10)
+knn.pred
+```
+
+
+
+## 4.2 Accuracy
+```{r}
+conf.mat <- table("Predictions" = knn.pred, Actual = species$Species[test])
+conf.mat %>% as_tibble %>% spread(Actual, n) %>% View
+diag(conf.mat)
+?diag
+(accuracy <- sum(diag(conf.mat))/length(test) * 100)
+```
+
+
+
+
+
+
+
+
+
+
+
+# (Truncated) plot by ggbiplot
+
+* The Figure below is a biplot generated by the function ggbiplot of the ggbiplot package available on github.
+
+```
+# install.packages("ggbiplot")
+# install_github("ggbiplot", "vqv")
+ 
+# library(ggbiplot)
+# g <- ggbiplot(iris.pca, obs.scale = 1, var.scale = 1, 
+#               groups = iris.species, ellipse = TRUE, 
+#               circle = TRUE)
+# g <- g + scale_color_discrete(name = '')
+# g <- g + theme(legend.direction = 'horizontal', 
+#                legend.position = 'top')
+# print(g)
+```
+
+```
+require(ggplot2)
+
+theta <- seq(0,2*pi,length.out = 100)
+circle <- data.frame(x = cos(theta), y = sin(theta))
+p <- ggplot(circle,aes(x,y)) + geom_path()
+
+loadings <- data.frame(iris.pca$rotation, 
+                       .names = row.names(iris.pca$rotation))
+p + geom_text(data=loadings, 
+              mapping=aes(x = PC1, y = PC2, label = .names, colour = .names)) +
+  coord_fixed(ratio=1) +
+  labs(x = "PC1", y = "PC2")
+```
+
+
+

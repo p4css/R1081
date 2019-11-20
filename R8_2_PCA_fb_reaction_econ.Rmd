@@ -1,0 +1,119 @@
+---
+title: "R08_2_PCA_fb_reaction_econ"
+author: "Jilung Hsieh"
+date: "10/25/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loading packages
+```{r}
+library(tidyverse)
+options(stringsAsFactors = FALSE)
+```
+
+
+# Loading data
+```{r}
+fbdata <- read_rds("data/fbpage_us1000.rds")
+fields <- read_csv("data/fbpage_us1000_info.csv") %>%
+    mutate(page_id = as.character(page_id))
+fbdata %>%
+    select(1:30) %>%
+    slice(1:30) %>% View
+fields %>% class()
+fields %>% glimpse()
+
+```
+
+# PCA
+```{r}
+fb2 <- fbdata %>%
+    gather("page", "like", 2:ncol(.)) %>%
+    group_by(page_id) %>%
+    mutate(like = like/max(like)) %>%
+    ungroup() %>%
+    spread(page, like, fill = 0)
+
+# fb2 <- fbdata[-1]/apply(fbdata[-1], 1, max)
+# ?apply
+# fb2 <- log1p(fbdata[-1])
+    
+fb.pca <- prcomp(fb2[-1], center = T, scale. = T)
+
+```
+
+# Plotting
+```{r}
+plot(fb.pca, type = "l")
+# summary(fb.pca)
+fb.pca$x %>% as_tibble() %>% select(PC1, PC2, PC3, PC4) %>% head()
+```
+
+
+
+# Visualization PC1 and PC2
+```{r}
+fb.pca$x %>%
+	as_tibble() %>%
+	ggplot(aes(PC1)) + geom_density()
+
+fb.pca$x %>%
+	as_tibble() %>%
+	ggplot(aes(PC1)) + geom_density()
+
+
+
+selected <- fb.pca$x %>%
+    as_tibble() %>%
+    select(1:4) %>%
+    bind_cols(fb2 %>% select(page_id)) %>%
+    left_join(fields %>% select(page_id, page_name, type, type_sub, party))
+fb.pca$x %>%
+    as_tibble() %>%
+    select(1:4) %>%
+    ggplot() + aes(PC1)  + 
+    geom_density() + 
+    geom_vline(xintercept = selected[selected$party == "Democratic", ]$PC1, color="blue", alpha = 0.02) + 
+    geom_vline(xintercept = selected[selected$party == "Republican", ]$PC1, color="red", alpha = 0.02) +
+    geom_vline(xintercept = selected[selected$type_sub == "newspaper", ]$PC1, color = "black") + 
+    geom_text(data = selected[selected$type_sub == "newspaper", ], 
+              aes(x = PC1, y = 0.01, label = page_id), color="black", size = .25)
+    
+selected[selected$type_sub == "newspaper", ]
+
+```
+Visualization of 2D
+```{r}
+fb.pca$x %>% # data projected in pca space
+	as_tibble() %>%
+	ggplot(aes(PC1, PC2)) + 
+    geom_point()
+
+
+
+fb.pca$x %>% # data projected in pca space
+	as_tibble() %>%
+	ggplot(aes(PC1, PC2)) + 
+    geom_density2d()
+
+```
+
+
+
+```{r}
+load("../ptt_scraping/pttdata/gossiping_2019-09-30.rda")
+
+```
+
