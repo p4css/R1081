@@ -1,0 +1,317 @@
+---
+title: "ML_flow"
+author: "Jilung Hsieh"
+date: "10/26/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(tidytext)
+options(stringsAsFactors = F)
+```
+
+
+
+# 01 Loading data
+- Mutate sentence_id
+- Segmenting text to sentence
+
+```{r}
+raw <- read_csv("data/hackathon/task1_trainset.csv") %>%
+    slice(1:2000) %>%
+    mutate(sentence  = str_split(Abstract, "\\$+"),
+           sentence_type = str_split(`Task 1`, " ")) %>%
+    unnest(c(sentence, sentence_type)) %>%
+    mutate(sentence_type = str_split(sentence_type, "/")) %>%
+    unnest(sentence_type) %>%
+    select(doc_id = Id, everything()) %>%
+    group_by(doc_id) %>%
+    mutate(sentence_id = str_c(doc_id, "_", row_number())) %>%
+    ungroup() %>%
+    select(-`Task 1`, -Abstract) %>%
+    filter(!sentence_type %in% c("OTHERS")) %>%
+    mutate(sentence_type = as.factor(sentence_type))
+
+raw %>% count(sentence_type)
+raw %>% glimpse()
+
+?unnest
+```
+
+
+# 02 Feature selections manually
+
+
+## 2.1 # of stop words
+
+```
+# stop_words %>% View
+features <- raw %>%
+    select(sentence_id, sentence) %>%
+    unnest_tokens(word, sentence, token = "regex", pattern = "[^A-Za-z\\d#@']") %>%
+    mutate(stopword = if_else(word %in% stop_words$word, "stopW", "stopWNot")) %>%
+    count(sentence_id, stopword) %>% 
+    spread(stopword, n, fill = 0) %>%
+    left_join(raw %>% select(sentence_id, sentence_type))
+mat.df <- features %>% select(-sentence_id)
+```
+
+
+
+# 03 Word Feature selections
+
+
+## 3.1 stop_words as features
+
+```{r}
+doc_word_count <- raw %>%
+    select(sentence_id, sentence) %>%
+    unnest_tokens(word, sentence, token = "regex", pattern = "[^A-Za-z\\d#@']") %>%
+    filter(word %in% stop_words$word) %>%
+    group_by(word) %>%
+    filter(n() > 20 & n() < 2000) %>%
+    ungroup() %>%
+    filter(!word %in% c("in", "a", "to", "and", "for", "that", "is", "on", "with", "are", "by", "an", "be")) %>%
+    count(sentence_id, word)
+
+message("Number of words: ", unique(doc_word_count$word) %>% length)
+```
+
+
+## 3.2 Middle freq words as features
+
+```{r}
+doc_word_count <- raw %>%
+    select(sentence_id, sentence) %>%
+    unnest_tokens(word, sentence, token = "regex", pattern = "[^A-Za-z\\d#@']") %>%
+    group_by(word) %>%
+    filter(n() >= 30 ) %>%
+    ungroup() %>%
+    anti_join(stop_words) %>%
+    count(sentence_id, word)
+
+message("Number of words: ", unique(doc_word_count$word) %>% length)
+```
+
+
+## 3.3 Entrope feature selector
+```{r}
+# install.packages("entropy")
+library(entropy)
+word.entropy <- raw %>%
+    select(sentence, sentence_type) %>%
+    unnest_tokens(word, sentence, token = "regex", pattern = "[^A-Za-z\\d#@']") %>%
+    filter(!str_detect(word, "\\d"),
+           nchar(word) > 1) %>%
+    group_by(word) %>%
+    filter(n() >= 30) %>%
+    ungroup() %>%
+    count(word, sentence_type) %>%
+    group_by(word) %>%
+    summarize(entropy = entropy::entropy(n)) %>%
+    ungroup() %>% 
+    filter(entropy > median(entropy))
+
+doc_word_count <- raw %>%
+    select(sentence_id, sentence) %>%
+    unnest_tokens(word, sentence, token = "regex", pattern = "[^A-Za-z\\d#@']") %>%
+    filter(!word %in% stop_words$word) %>%
+    left_join(word.entropy) %>%
+    drop_na() %>%
+    count(sentence_id, word)
+
+message("Number of words: ", unique(doc_word_count$word) %>% length)
+```
+
+
+## 3.4 Chi-square feature selection
+- Difficult to compute for multiple classes
+
+```{r eval=FALSE, include=FALSE}
+```
+
+## 3.5 Word embedding as features
+```{r}
+
+```
+
+## 3.6 2-gram word combination as features
+```{r}
+
+```
+
+
+# 04 Building dtm
+```{r}
+
+dtm <- doc_word_count %>% 
+    cast_dtm(document = sentence_id, term = word, value = n)
+dtm %>% dim
+
+mat.df <- as.matrix(dtm) %>% as_tibble() %>% 
+    bind_cols(sentence_id = dtm$dimnames$Docs) %>%
+    left_join(raw %>%
+                  select(sentence_id, sentence_type) 
+              # %>% filter(!duplicated(sentence_id, sentence_type))
+              ) 
+colnames(mat.df) <- make.names(colnames(mat.df))
+```
+
+
+
+
+# 05 Dividing to test and training set
+```{r}
+index <- sample(1:nrow(mat.df), ceiling(nrow(mat.df) * .70))
+
+train.df <- mat.df[index, ]
+test.df <- mat.df[-index, ]
+
+dim(train.df)
+dim(test.df)
+```
+
+
+# 06 Dividing with Dimensional reduction
+
+## 6.1 by PCA
+```{r}
+index <- sample(1:nrow(mat.df), ceiling(nrow(mat.df) * .70))
+
+x.pca <- prcomp(mat.df[index, ] %>% select(-sentence_type, -sentence_id), center = T, scale. = F)
+
+train.df <- x.pca$x[, 1:20] %>% as_tibble() %>% 
+    bind_cols(mat.df[index, ] %>% select(sentence_type, sentence_id))
+
+plot(x.pca, type = "l", n=30)
+
+x.test.pca <- predict(x.pca, newdata = mat.df[-index,] %>% select(-sentence_type, -sentence_id))
+
+test.df <- x.test.pca[, 1:20] %>% as_tibble() %>%
+    bind_cols(mat.df[-index, ] %>% select(sentence_type, sentence_id))
+
+```
+
+
+## 6.2 by t-SNE - Be careful! time-consumed
+```
+library(Rtsne)
+stime <- Sys.time()
+tsne <- Rtsne(mat.df %>% select(-sentence_type, -sentence_id), 
+              perplexity = 35, dims = 2, check_duplicates = F)
+Sys.time() - stime
+new.df <- tsne$Y %>% as_tibble() %>% 
+    bind_cols(mat.df %>% select(sentence_type, sentence_id))
+
+index <- sample(1:nrow(new.df), ceiling(nrow(new.df) * .70))
+
+train.df <- new.df[index, ]
+test.df <- new.df[-index, ]
+```
+
+
+
+
+# 07 Modeling
+
+
+## 7.1 knn
+
+```{r}
+library(caret)
+
+predicted <- test.df %>%
+    select(sentence_id, sentence_type)
+
+stime <- Sys.time()
+fit_knn<- knn3(sentence_type ~ ., data = train.df %>% select(-sentence_id), k=5, prob = T) # knn
+ttime <- Sys.time(); str_c("t(training): ", ttime - stime)
+predicted$knn <- predict(fit_knn, newdata = test.df %>% select(-sentence_id), "class")
+str_c("t(predicting): ", Sys.time() - ttime)
+
+(conf.mat <- table(predicted$knn, predicted$sentence_type))
+(accuracy <- sum(diag(conf.mat))/sum(conf.mat) * 100)
+```
+
+
+## 7.2 multinomial regression
+
+```{r}
+library(nnet)
+
+stime <- Sys.time()
+fit_mnl <- multinom(sentence_type ~ ., data = train.df %>% select(-sentence_id), MaxNWts = 5000)
+ttime <- Sys.time(); str_c("t(training): ", ttime - stime)
+predicted$mnl <- predict(fit_mnl, newdata = test.df %>% select(-sentence_id), "class")
+str_c("t(predicting): ", Sys.time() - ttime)
+
+(conf.mat <- table(predicted$mnl, predicted$sentence_type))
+(accuracy <- sum(diag(conf.mat))/sum(conf.mat) * 100)
+```
+
+
+## 7.3 Random forest
+
+```{r}
+# install.packages("randomForest")
+library(randomForest)
+
+stime <- Sys.time()
+fit_rf <- randomForest(sentence_type ~ ., data = train.df %>% select(-sentence_id))
+ttime <- Sys.time(); str_c("t(training): ", ttime - stime)
+predicted$rf <- predict(fit_rf, newdata = test.df %>% select(-sentence_id), "class")
+str_c("t(predicting): ", Sys.time() - ttime)
+
+(conf.mat <- table(predicted$rf, predicted$sentence_type))
+(accuracy <- sum(diag(conf.mat))/sum(conf.mat) * 100)
+```
+
+
+## 7.4 naiveBayes
+
+```{r}
+library(e1071)
+
+stime <- Sys.time()
+fit_nb <- naiveBayes(sentence_type ~ ., data = train.df %>% select(-sentence_id))
+ttime <- Sys.time(); str_c("t(training): ", ttime - stime)
+predicted$nb <- predict(fit_nb, newdata = test.df %>% select(-sentence_id), "class")
+str_c("t(predicting): ", Sys.time() - ttime)
+
+(conf.mat <- table(predicted$nb, predicted$sentence_type))
+(accuracy <- sum(diag(conf.mat))/sum(conf.mat) * 100)
+```
+## 7.5 SVM
+```{r}
+library(e1071)
+
+stime <- Sys.time()
+fit_svm <- svm(sentence_type ~ ., 
+               data = train.df %>% select(-sentence_id), 
+               method="C-classification", 
+               kernal="radial", 
+               gamma=0.1, cost=10)
+ttime <- Sys.time(); str_c("t(training): ", ttime - stime)
+predicted$svm <- predict(fit_svm, newdata = test.df %>% select(-sentence_id))
+str_c("t(predicting): ", Sys.time() - ttime)
+
+(conf.mat <- table(predicted$svm, predicted$sentence_type))
+(accuracy <- sum(diag(conf.mat))/sum(conf.mat) * 100)
+
+```
+
+
+
