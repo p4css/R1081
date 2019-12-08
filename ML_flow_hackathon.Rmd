@@ -1,0 +1,278 @@
+---
+title: "ML for Hackathon"
+author: "Jilung Hsieh"
+date: "10/26/2019"
+output:
+  html_document:
+    highlight: zenburn
+    number_sections: yes
+    theme: cerulean
+    toc: yes
+    css: style.css
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(tidytext)
+options(stringsAsFactors = F)
+```
+
+
+
+# 01 Loading data
+- Mutate sentence_id
+- Segmenting text to sentence
+
+## Taking a  look at sample sheet
+- Submission sample contains 40000 docs, but test set 20000 only
+
+```{r}
+sample_sheet <- read_csv("data/hackathon/task1_sample_submission.csv")
+sample_sheet %>% head %>% View
+```
+
+
+
+## Cleaning test set
+- Sentence_id must be given separated from training set. Because sentences of docs in training set may have multiple labels but with the sample sentence_id.
+
+```{r}
+# 20000 abstract in testing data
+raw.test <- read_csv("data/hackathon/task1_public_testset.csv") %>% 
+    mutate(sentence  = str_split(Abstract, "\\$+")) %>%
+    unnest(sentence) %>%
+    mutate(index = FALSE) %>% 
+    select(-Abstract) %>%
+    select(doc_id = Id, everything()) %>%
+    group_by(doc_id) %>%
+    mutate(sentence_id = str_c(doc_id, "_S", str_pad(row_number(), 3, pad="0"))) %>%
+    mutate(sentence_perc = row_number()/n()) %>%
+    ungroup()
+    
+```
+
+
+## Cleaning training set
+- Unnest sentence and sentence types
+- Labeling sentences with sentence_id
+
+```{r}
+raw_1 <- read_csv("data/hackathon/task1_trainset.csv") %>%
+    mutate(sentence  = str_split(Abstract, "\\$+"),
+           sentence_type = str_split(`Task 1`, " ")) %>%
+    unnest(sentence, sentence_type) %>%
+    mutate(index = TRUE) %>%
+    select(doc_id = Id, everything()) %>%
+    group_by(doc_id) %>%
+    mutate(sentence_id = str_c(doc_id, "_S", str_pad(row_number(), 3, pad="0"))) %>%
+    mutate(sentence_perc = row_number()/n()) %>%
+    ungroup() %>%
+    select(-`Task 1`, -Abstract)
+```
+
+## Combining training and test sets
+- Unnesting sentences with multiple labels
+- Merging all training sentences data
+- Creating dependent variables to multiple columns
+- Merging test set
+
+```{r}
+raw <- raw_1 %>%
+    filter(str_detect(sentence_type, "/")) %>%
+    mutate(sentence_type = str_split(sentence_type, "/"))%>%
+    unnest(sentence_type) %>%
+    bind_rows(raw_1 %>% filter(!str_detect(sentence_type, "/"))) %>%
+    mutate(value = 1) %>%
+    spread(sentence_type, value, fill = 0) %>%
+    bind_rows(raw.test)
+```
+
+
+
+
+# 03 Word Feature selections
+
+## 3.1 stop_words as features
+
+```{r}
+doc_word_count <- raw %>%
+    select(sentence_id, sentence) %>%
+    unnest_tokens(word, sentence, token = "regex", pattern = "[^A-Za-z\\d#@']") %>%
+    filter(word %in% stop_words$word) %>%
+    group_by(word) %>%
+    filter(n() > 20) %>%
+    ungroup() %>%
+    filter(!word %in% c("in", "a", "to", "and", "for", "that", "is", "on", "with", "are", "by", "an", "be")) %>%
+    count(sentence_id, word) %>%
+    bind_tf_idf(word, sentence_id, n)
+
+
+message("Number of words: ", unique(doc_word_count$word) %>% length)
+```
+
+
+
+
+
+# 04 Building dtm
+```{r}
+
+dtm <- doc_word_count %>% 
+    cast_dtm(document = sentence_id, term = word, value = tf)
+
+# dtm %>% dim
+# dtm %>% as.matrix() %>% as_data_frame() %>% head(20) %>% View
+
+
+mat.df <- dtm %>% as.matrix() %>% as_tibble() %>%
+    bind_cols(sentence_id = dtm$dimnames$Docs) %>%
+    right_join(raw %>% select(sentence_id,  index, sentence_perc, sentence_type = BACKGROUND))
+colnames(mat.df) <- make.names(colnames(mat.df))
+```
+
+
+
+
+# 05 Dividing to test and training set
+```{r}
+train.df <- mat.df[mat.df$index, ] %>%
+    drop_na()
+test.df <- mat.df[!mat.df$index, ]
+test.df[is.na(test.df)] <- 0
+
+
+dim(train.df)
+dim(test.df)
+```
+
+
+# 07 Modeling
+
+
+## 7.2 multinomial regression
+- filter n > 50, Chi square > 10, Accuracy = 51%
+
+```{r}
+library(glmnet)
+
+stime <- Sys.time()
+glm.fit <- glmnet(train.df %>% select(-sentence_type, -sentence_id) %>% as.matrix(), 
+                  as.factor(train.df$sentence_type), 
+                  family = 'binomial')
+Sys.time() - stime
+
+
+predicted.df <- predict(glm.fit, 
+                       test.df %>% select(-sentence_id, -sentence_type) %>% as.matrix(), 
+                       s = 0.0025, type = "class") %>%  
+    as.data.frame() %>%
+    bind_cols(test.df %>% 
+                  select(sentence_id)) %>%
+    select(sentence_id,
+           BACKGROUND=`1`)
+
+predicted.df 
+
+```
+
+
+
+
+```{r}
+library(nnet)
+
+?multinom
+
+stime <- Sys.time()
+fit_mnl <- multinom(sentence_type ~ ., data = train.df %>% select(-sentence_id), MaxNWts = 10000, maxit=100)
+ttime <- Sys.time(); str_c("t(training): ", ttime - stime)
+predicted$mnl <- predict(fit_mnl, newdata = test.df %>% select(-sentence_id), "class")
+str_c("t(predicting): ", Sys.time() - ttime)
+
+predicted %>%
+    extract(sentence_id, c("doc_id"), "(.*)_", remove = F) %>%
+    group_by(doc_id) %>%
+    arrange(sentence_id) %>%
+    summarize(answer = str_c(mnl, collapse = "/")) %>%
+    ungroup() %>% 
+    select(answer) %>%
+    write_csv("test.csv")
+
+(conf.mat <- table(predicted$mnl, predicted$sentence_type))
+(accuracy <- sum(diag(conf.mat))/sum(conf.mat) * 100)
+```
+
+
+## 7.3 Random forest
+
+```{r}
+# install.packages("randomForest")
+library(randomForest)
+
+stime <- Sys.time()
+fit_rf <- randomForest(sentence_type ~ ., data = train.df %>% select(-sentence_id))
+ttime <- Sys.time(); str_c("t(training): ", ttime - stime)
+predicted$rf <- predict(fit_rf, newdata = test.df %>% select(-sentence_id), "class")
+str_c("t(predicting): ", Sys.time() - ttime)
+
+(conf.mat <- table(predicted$rf, predicted$sentence_type))
+(accuracy <- sum(diag(conf.mat))/sum(conf.mat) * 100)
+```
+
+
+## 7.4 naiveBayes
+
+```{r}
+library(e1071)
+
+stime <- Sys.time()
+fit_nb <- naiveBayes(sentence_type ~ ., data = train.df %>% select(-sentence_id))
+ttime <- Sys.time(); str_c("t(training): ", ttime - stime)
+predicted$nb <- predict(fit_nb, newdata = test.df %>% select(-sentence_id), "class")
+str_c("t(predicting): ", Sys.time() - ttime)
+
+(conf.mat <- table(predicted$nb, predicted$sentence_type))
+(accuracy <- sum(diag(conf.mat))/sum(conf.mat) * 100)
+
+# x <- 
+#     left_join()
+# 
+# y <- tibble(sentence_id = dtm$dimnames$Docs) %>%
+#     left_join(raw %>% 
+#                   select(sentence_id, sentence_type) %>%
+#                   filter(!duplicated(sentence_id, sentence_type)))
+
+# mat.df <- as_tibble(x) %>%
+#     bind_cols(tibble(sentence_id = dtm$dimnames$Docs)) %>%
+#     left_join(raw %>% 
+#                   select(sentence_id, sentence_type) %>%
+#                   filter(!duplicated(sentence_id, sentence_type))) %>%
+#     select(-sentence_id)
+```
+## 7.5 SVM
+```{r}
+library(e1071)
+
+stime <- Sys.time()
+fit_svm <- svm(sentence_type ~ ., 
+               data = train.df %>% select(-sentence_id), 
+               method="C-classification", 
+               kernal="radial", 
+               gamma=0.1, cost=10)
+ttime <- Sys.time(); str_c("t(training): ", ttime - stime)
+predicted$svm <- predict(fit_svm, newdata = test.df %>% select(-sentence_id))
+str_c("t(predicting): ", Sys.time() - ttime)
+
+(conf.mat <- table(predicted$svm, predicted$sentence_type))
+(accuracy <- sum(diag(conf.mat))/sum(conf.mat) * 100)
+
+```
+
+
+

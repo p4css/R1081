@@ -1,0 +1,219 @@
+---
+title: "TM05_word2vec"
+output:
+  xaringan::moon_reader:
+    self_contained: True
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      ratio: "16:9"
+---
+
+
+---
+# Word2vec
+* https://github.com/bmschmidt/wordVectors
+* We will use a `wordVector` package, installing by  `devtools::install_github("bmschmidt/wordVectors")`
+* `rword2vec` is another packages for building word2vec model
+
+
+
+
+```{r loading libraries, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+library(stringr)
+library(tidytext)
+library(jiebaR)
+library(lubridate)
+# devtools::install_github("bmschmidt/wordVectors")
+library(wordVectors)
+options(stringsAsFactors = F)
+```
+
+
+
+
+```{r}
+segment_not <- c("第卅六條", "第卅八條", "蘇南成")
+cutter <- worker()
+new_user_word(cutter, segment_not)
+stopWords <- readRDS("data/stopWords.rds")
+```
+
+
+
+
+```{r loading data}
+news.df <- readRDS("data/typhoon.rds") %>%
+    filter(!is.na(text)) %>%
+    mutate(doc_id = row_number()) %>%
+    select(doc_id, everything())
+```
+
+
+
+
+```{r tokenization}
+tokenized.df <- news.df %>%
+    mutate(timestamp=ymd(time)) %>%
+    select(-time) %>%
+    select(title, text, cat, timestamp, everything()) %>%
+    mutate(word = purrr::map(text, function(x)segment(x, cutter)))
+
+unnested.df <- tokenized.df %>%
+    select(doc_id, text, word) %>%
+    unnest(word) %>%
+    filter(!(word %in% stopWords$word)) %>%
+    filter(!str_detect(word, "[a-zA-Z0-9]+"))
+```
+
+
+
+
+
+
+
+```{r tokenized and save to text}
+unnested.df %>% 
+    # select(doc_id = sentence_id, word) %>%
+	group_by(doc_id) %>%
+	summarise(w_w = paste(word, collapse = " ")) %>%
+	ungroup() %>%
+    .$w_w %>%
+	write("text_data.txt")
+```
+
+
+* (deprecated) Alan's code
+```
+cc$word <- sapply(cc$article, function(x){tryCatch({cutter[x]}, error=function(err){})})
+cc$word <- sapply(cc$word,function(x){x[!x %in% stopwords]})
+cc$word2 <- sapply(cc$word, function(x){paste(x, collapse = " ")})
+#change for word2vec
+finaltext <- subset(cc,select="word2")
+write.table(finaltext,"text_data.txt")
+
+```
+
+
+
+
+
+## Training Model
+* Once you trained a model, the model can be saved to a `vec.bin` binary file. If you need to use the model again, you needn't rebuild a model, just load the model by `read.vectors(file_name)`.
+
+```{r}
+model = train_word2vec("text_data.txt", output="vec.bin",
+                       threads = 4, vectors = 300,
+                       window =5, min_count = 12,
+                       iter=10, force=TRUE)
+
+
+# model = read.vectors("vec.bin")
+
+```
+
+
+
+
+## plotting model
+* `plot(model)` needs `tsne` package (`install.packages("tsne")`).
+* Now we still has 300 variables, if we want to plot words on a 2-d plane, we need to reduce the dimension of it to 2-dimension. We use **t-sne** here for dimension reduction.
+* Results are scaled down to 2 dimension by t-SNE.
+* https://www.codeproject.com/Tips/788739/Visualization-of-High-Dimensional-Data-using-t-SNE
+* (option) plotting to a png file: Adding `png('2.png',width = 1500,height = 1500,res=150)` before `plot()`, then adding `dev.off()` after `plot()` to close the plotting target. 
+
+```{r}
+
+# install.packages("tsne")
+# library(Rtsne)
+# library(tsne)
+
+par(family="STKaiti")
+par(family="Heiti TC Light")
+plot(model, method = "tsne")
+```
+
+
+## Selecting top 2 dimension as word features
+```{r}
+model@.Data[,c(1,2)] %>% as.tibble() %>%
+    bind_cols(rownames(model@.Data)) %>% 
+model[[c("compared", "traditional")]] 
+
+```
+
+
+
+
+
+# Using the model
+* https://github.com/bmschmidt/wordVectors/blob/master/vignettes/introduction.Rmd
+* https://github.com/bmschmidt/wordVectors/blob/master/vignettes/exploration.Rmd
+
+```{r}
+
+nearest_to(model,model[["災民"]])
+nearest_to(model,model[["政府"]])
+nearest_to(model,model[["老天"]])
+
+
+
+model %>% closest_to(~ "颱風" - "老天" ,5)
+```
+
+
+
+
+## Word clustering
+* `model1tex.text`須手動刪除第一列和最後一列的空白
+* `rword2vec::bin_to_text()` is used to convert binary file to text file for `read.table()`.
+* `rword2vec` is another package for word2vec model
+* Install `rword2vec` to convert binary bin to text file for clustering by `devtools::install_github("mukul13/rword2vec")`
+
+
+
+```{r}
+# library(rword2vec)
+rword2vec::bin_to_txt("vec.bin","vec.text")
+
+?readBin
+# data <- readBin("vec.bin", character(), endian = "little")
+word_vec <- read.table("vec.text",header = F, skip = 1, 
+                       quote = "", row.names = NULL,
+                       stringsAsFactors = F)
+# ?read.table
+# head(word_vec)
+
+word_vec[!is.na(word_vec)] <- 0
+# word_vec[is.nan(word_vec)] <- 0
+
+#further?---k means clustering
+cluster.res <- kmeans(word_vec[,2:301], 50) # time-consuming
+word_vec$cluster <- cluster.res$cluster
+for(i in 20:30){
+  print(paste0("---------------------clueter: ", i))
+  print(word_vec$V1[word_vec$cluster==i])
+}
+```
+
+
+
+## unnested to cosine similarity
+* Test for computing cosine similarity
+
+```
+TCM <- unnested.df %>%
+    select(doc_id, w1 = word) %>%
+    group_by(doc_id) %>%
+    mutate(w2 = lead(w1, 1)) %>%
+    ungroup() %>%
+    filter(complete.cases(.)) %>% 
+    bind_rows(data.frame(doc_id = .$doc_id, w1 = .$w2, w2 = .$w1)) %>%
+    count(w1, w2) %>%
+    spread(w2, n, fill = 0)
+
+    
+```
+
+
